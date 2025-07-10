@@ -24,19 +24,23 @@
     </nav>
     <section class="feedback fade-in">
         <h1>倾听心声</h1>
-        <h2>匿名留言</h2>
-        <form action="https://formspree.io/your@email.com" method="POST">
-            <textarea name="comment" rows="5" placeholder="请输入您的留言或题目建议"></textarea>
-            <button type="submit">提交</button>
-        </form>
-        <h2>已审核留言</h2>
-        <div class="comments">
-            <p>留言1</p>
-            <p>留言2</p>
-            <!-- 在此添加更多已审核留言 -->
-        </div>
-        <h2>联系我们</h2>
-        <p>如有问题或题目建议，请发送邮件至 <a href="mailto:your@email.com">your@email.com</a></p>
+        <h2>公开/匿名评论</h2>
+        <section id="giscus-comments"></section>
+        <script src="https://giscus.app/client.js"
+                data-repo="wjjpku/comment-repo"
+                data-repo-id="你的 comment-repo 仓库 ID"
+                data-category="General"
+                data-category-id="分类 ID"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-theme="light"
+                data-lang="zh-CN"
+                crossorigin="anonymous"
+                async>
+        </script>
     </section>
     <button id="backToTop" title="返回顶部">↑</button>
     <script src="main.js"></script>
