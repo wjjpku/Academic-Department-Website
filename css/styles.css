@@ -372,20 +372,75 @@ nav a::after {
     text-align: center;
   margin-top: 24px;
 }
-.join-contact {
-    list-style: none;
-    padding: 0;
-  margin: 0 0 18px 0;
-}
-.join-contact li {
-  margin: 8px 0;
-  font-size: 1.08em;
-}
-.contact-highlight {
-  color: #5f6f94;
-  font-weight: bold;
-  font-size: 1.08em;
-}
+ /* ===== 联系方式图标美化 ===== */
+ .contact-methods {
+   display: flex;
+   flex-direction: row;
+   gap: 24px;
+   margin: 32px 0 24px 0;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+ }
+ .contact-item {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   background: linear-gradient(135deg, #f7f9fb 0%, #eaf2fb 100%);
+   border-radius: 16px;
+   padding: 24px 32px;
+   box-shadow: 0 4px 16px rgba(74,144,226,0.08);
+   transition: transform 0.3s, box-shadow 0.3s;
+   min-width: 320px;
+   max-width: 400px;
+ }
+ .contact-item:hover {
+   transform: translateY(-4px);
+   box-shadow: 0 8px 24px rgba(74,144,226,0.15);
+ }
+ .contact-icon {
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   background: linear-gradient(135deg, #4a90e2 0%, #357ab8 100%);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: 0 4px 12px rgba(74,144,226,0.2);
+   transition: transform 0.3s;
+ }
+ .contact-icon:hover {
+   transform: scale(1.1);
+ }
+ .contact-icon i {
+   font-size: 28px;
+   color: white;
+ }
+ .contact-info {
+   flex: 1;
+ }
+ .contact-info h3 {
+   margin: 0 0 8px 0;
+   font-size: 1.1em;
+   font-weight: 600;
+   color: #394867;
+ }
+ .contact-value {
+   margin: 0;
+   font-size: 1.05em;
+   font-weight: 500;
+   color: #5f6f94;
+   word-break: break-all;
+ }
+ .contact-value a {
+   color: #4a90e2;
+   text-decoration: none;
+   transition: color 0.2s;
+ }
+ .contact-value a:hover {
+   color: #357ab8;
+   text-decoration: underline;
+ }
 .join-welcome {
   margin-top: 18px;
   font-size: 1.1em;
@@ -441,6 +496,21 @@ nav a::after {
         width: 90% !important;
         max-width: 400px;
     }
+    .contact-methods {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .contact-item {
+        min-width: 280px;
+        padding: 20px 24px;
+    }
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+    }
+    .contact-icon i {
+        font-size: 24px;
+    }
 }
 @media (max-width: 768px) {
     nav ul {
@@ -465,6 +535,26 @@ nav a::after {
     }
     .feedback, .join-us {
         padding: 8px 0 8px 0;
+    }
+    .contact-item {
+        min-width: 240px;
+        padding: 16px 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    .contact-icon {
+        width: 45px;
+        height: 45px;
+    }
+    .contact-icon i {
+        font-size: 20px;
+    }
+    .contact-info h3 {
+        font-size: 1em;
+    }
+    .contact-value {
+        font-size: 0.95em;
     }
 }
 
