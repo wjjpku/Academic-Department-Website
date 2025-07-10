@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九章征解 - 题目与解答</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      .challenge-detail { max-width: 900px; margin: 80px auto 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(74,144,226,0.10); padding: 32px 5vw; }
+      .challenge-detail h1 { text-align: center; margin-bottom: 18px; }
+      .challenge-md { background: #f7f9fb; border-radius: 12px; padding: 18px 18px 12px 18px; margin-bottom: 24px; }
+      .pdf-list { margin: 0; padding: 0; list-style: none; }
+      .pdf-list li { margin-bottom: 10px; }
+      .pdf-link { color: #357ab8; text-decoration: underline; font-weight: 600; }
+      .pdf-link:hover { color: #d2691e; }
+    </style>
+</head>
+<body style="visibility:hidden;">
+    <div id="page-loader" style="display:none;">
+      <div class="loader-center">
+        <img class="loader-img" src="images/loading.jpg" alt="加载中">
+      </div>
+    </div>
+    <nav class="fade-in">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="activities.html">活动掠影</a></li>
+            <li><a href="feedback.html">倾听心声</a></li>
+            <li><a href="team.html">团队风采</a></li>
+            <li><a href="join.html">加入我们</a></li>
+        </ul>
+    </nav>
+    <div class="challenge-detail fade-in">
+        <h1 id="challenge-title">九章征解 第1期</h1>
+        <div class="challenge-md" id="challenge-md">加载题目中...</div>
+        <h2>优秀解答</h2>
+        <ul class="pdf-list" id="excellent-list">
+            <li><a class="pdf-link" href="pdfs/issue1-excellent.pdf" target="_blank">优秀解答1（PDF）</a></li>
+        </ul>
+        <h2>其他解答</h2>
+        <ul class="pdf-list" id="other-list">
+            <li><a class="pdf-link" href="pdfs/issue1-other1.pdf" target="_blank">其他解答1（PDF）</a></li>
+            <li><a class="pdf-link" href="pdfs/issue1-other2.pdf" target="_blank">其他解答2（PDF）</a></li>
+        </ul>
+    </div>
+    <button id="backToTop" title="返回顶部">↑</button>
+    <script src="js/marked.min.js"></script>
+    <script>
+    // 解析期数
+    function getIssue() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('issue') || '1';
+    }
+    // 设置标题
+    const issue = getIssue();
+    document.getElementById('challenge-title').textContent = `九章征解 第${issue}期`;
+    // 加载md题目
+    fetch(`challenges/issue${issue}.md`).then(r => r.text()).then(md => {
+      document.getElementById('challenge-md').innerHTML = marked.parse(md);
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    }).catch(() => {
+      document.getElementById('challenge-md').textContent = '题目加载失败，请稍后重试。';
+    });
+    // 加载优秀解答和其他解答（可根据实际需求动态生成）
+    // 这里只是静态示例，如需动态可用js生成pdf链接
+    </script>
+    <script src="main.js"></script>
+    <!-- 先配置MathJax，再引入MathJax主库 -->
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <div id="global-toast"></div>
+</body>
+</html> 

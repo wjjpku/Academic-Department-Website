@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京大学数学科学学院学生会学术组</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body style="visibility:hidden;">
+    <div id="typing-mask">
+      <span class="typing-text"></span>
+    </div>
+    <nav class="fade-in">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="activities.html">活动掠影</a></li>
+            <li><a href="feedback.html">倾听心声</a></li>
+            <li><a href="team.html">团队风采</a></li>
+            <li><a href="join.html">加入我们</a></li>
+        </ul>
+    </nav>
+    <!-- 轮播大图 -->
+    <div class="hero-carousel fade-in">
+        <div class="carousel-images">
+            <div class="carousel-item active" style="background-image: url('images/homepage.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity2.jpg');"></div>
+        </div>
+        <button class="carousel-btn prev" aria-label="上一张">&#10094;</button>
+        <button class="carousel-btn next" aria-label="下一张">&#10095;</button>
+        <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+    <!-- 首页互动区块 -->
+    <section class="recent-section fade-in">
+        <h2>最新发布</h2>
+        <ul class="recent-list">
+            <li><a href="#">2024年学术讲座报名开启</a> <span class="date">2024-05-01</span></li>
+            <li><a href="#">数学建模竞赛圆满结束</a> <span class="date">2024-04-20</span></li>
+            <li><a href="#">新学期第一次组会通知</a> <span class="date">2024-03-15</span></li>
+        </ul>
+    </section>
+    <!-- 九章征解区块 -->
+    <section class="challenge-section fade-in">
+        <h2>九章征解</h2>
+        <div class="challenge-list">
+            <div class="challenge-item">
+                <span class="challenge-label">第1期</span>
+                <a href="challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
+            </div>
+        </div>
+    </section>
+    <section class="thanks-section fade-in">
+        <h2>致谢教授</h2>
+        <div class="thanks-list">
+            <div class="thanks-item">
+                <img src="images/professor.jpg" alt="张教授">
+                <div>
+                    <p><strong>张三 教授</strong></p>
+                    <p>感谢张教授长期以来对学术组的悉心指导与支持！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <button id="backToTop" title="返回顶部">↑</button>
+    <script src="main.js"></script>
+    <div id="global-toast"></div>
+</body>
+</html>
