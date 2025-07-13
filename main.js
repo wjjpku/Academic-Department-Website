@@ -83,7 +83,7 @@ if (carouselItems.length) {
   document.querySelector('.hero-carousel').addEventListener('mouseleave', startCarousel);
 }
 
-// ===== 打字动画与加载动画 =====
+// ===== 打字动画 =====
 function showTypingAnimation(text, callback) {
   const mask = document.getElementById('typing-mask');
   const typingText = mask ? mask.querySelector('.typing-text') : null;
@@ -108,64 +108,7 @@ function showTypingAnimation(text, callback) {
   mask.style.opacity = 1;
   type();
 }
-let loaderStartTime = 0;
-let loaderProgress = 0;
-let loaderAnimating = false;
-function animateLoaderBar(target, duration, onComplete) {
-  const bar = document.querySelector('#page-loader .loader-bar');
-  if (!bar) return;
-  loaderAnimating = true;
-  const start = loaderProgress;
-  const startTime = performance.now();
-  function animate(now) {
-    const elapsed = now - startTime;
-    let percent = start + (target - start) * Math.min(elapsed / duration, 1);
-    bar.style.width = (percent * 100) + '%';
-    loaderProgress = percent;
-    if (elapsed < duration) {
-      requestAnimationFrame(animate);
-    } else {
-      bar.style.width = (target * 100) + '%';
-      loaderProgress = target;
-      loaderAnimating = false;
-      onComplete && onComplete();
-    }
-  }
-  requestAnimationFrame(animate);
-}
-function showPageLoader() {
-  const loader = document.getElementById('page-loader');
-  if (!loader) return;
-  loader.style.display = 'flex';
-  loader.style.opacity = 1;
-  document.body.style.overflow = 'hidden';
-  loaderStartTime = Date.now();
-}
-function hidePageLoader() {
-  const loader = document.getElementById('page-loader');
-  if (!loader) return;
-  const elapsed = Date.now() - loaderStartTime;
-  const minDuration = 1000; // 至少1秒
-  const delay = Math.max(0, minDuration - elapsed);
-  setTimeout(() => {
-    loader.style.opacity = 0;
-    setTimeout(() => { loader.style.display = 'none'; document.body.style.overflow = ''; }, 500);
-  }, delay);
-}
-function preloadImages(imgs, onProgress, onComplete) {
-  let loaded = 0;
-  const total = imgs.length;
-  if (total === 0) { onComplete && onComplete(); return; }
-  imgs.forEach(src => {
-    const img = new window.Image();
-    img.onload = img.onerror = () => {
-      loaded++;
-      onProgress && onProgress(loaded / total);
-      if (loaded === total) onComplete && onComplete();
-    };
-    img.src = src;
-  });
-}
+
 function showToast(msg) {
   const toast = document.getElementById('global-toast');
   if (!toast) return;
@@ -175,13 +118,13 @@ function showToast(msg) {
     toast.classList.remove('show');
   }, 2000);
 }
+
 // 首页打字动画
 window.addEventListener('DOMContentLoaded', function() {
   const mask = document.getElementById('typing-mask');
   // 判断是否首页（有打字动画）
   if (mask) {
     // 只显示打字动画，其它内容隐藏
-    document.body.style.visibility = 'visible';
     Array.from(document.body.children).forEach(child => {
       if (child !== mask) child.style.display = 'none';
     });
@@ -192,42 +135,23 @@ window.addEventListener('DOMContentLoaded', function() {
       Array.from(document.body.children).forEach(child => {
         if (child !== mask) child.style.display = '';
       });
-      // 首页不再显示任何加载动画
     });
-  } else {
-    // 非首页页面加载动画（只保留闪烁图片，无进度条）
-    document.body.style.visibility = 'hidden';
-    const loader = document.getElementById('page-loader');
-    if (loader) {
-      showPageLoader();
-      const imgs = Array.from(document.images).map(img => img.src);
-      let finished = false;
-      let timeout = setTimeout(() => {
-        finished = true;
-        hidePageLoader();
-        showToast('加载失败');
-      }, 3000);
-      preloadImages(imgs, null, function() {
-        if (timeout) clearTimeout(timeout);
-        finished = true;
-        hidePageLoader();
-      });
-      setTimeout(() => { document.body.style.visibility = ''; }, 100);
-    } else {
-      document.body.style.visibility = '';
-    }
   }
 });
+
 // 页面跳转加载动画
 function interceptLinks() {
   document.querySelectorAll('a').forEach(a => {
-    if (a.target === '_blank' || a.href.startsWith('mailto:')) return;
+    if (a.target === '_blank' || a.href.startsWith('mailto:') || a.href.includes('#')) return;
     a.addEventListener('click', function(e) {
       if (a.href && a.href !== window.location.href) {
         e.preventDefault();
-        showPageLoader();
-        // 预加载目标页面图片（简单处理，实际可用ajax预取或直接延时）
-        setTimeout(() => { window.location = a.href; }, 800);
+        const targetPage = a.href.split('/').pop() || 'index.html';
+        // 只有不是loading.html时才清除fromLoading，防止重复加载
+        if (!window.location.pathname.endsWith('loading.html')) {
+          sessionStorage.removeItem('fromLoading');
+        }
+        window.location.href = `loading.html?page=${targetPage}`;
       }
     });
   });

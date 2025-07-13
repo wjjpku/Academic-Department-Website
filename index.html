@@ -6,8 +6,16 @@
     <title>北京大学数学科学学院学生会学术组</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        // 检查是否是从loading.html跳转过来的
+        if (!sessionStorage.getItem('fromLoading')) {
+            // 如果不是从loading.html来的，跳转到loading页面
+            sessionStorage.setItem('fromLoading', 'true');
+            window.location.href = 'loading.html?page=index.html';
+        }
+    </script>
 </head>
-<body style="visibility:hidden;">
+<body>
     <div id="typing-mask">
       <span class="typing-text"></span>
     </div>

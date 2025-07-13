@@ -6,13 +6,16 @@
     <title>倾听心声 - 学术组</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        // 检查是否是从loading.html跳转过来的
+        if (!sessionStorage.getItem('fromLoading')) {
+            // 如果不是从loading.html来的，跳转到loading页面
+            sessionStorage.setItem('fromLoading', 'true');
+            window.location.href = 'loading.html?page=feedback.html';
+        }
+    </script>
 </head>
-<body style="visibility:hidden;">
-    <div id="page-loader" style="display:none;">
-      <div class="loader-center">
-        <img class="loader-img" src="images/loading.jpg" alt="加载中">
-      </div>
-    </div>
+<body>
     <nav class="fade-in">
         <ul>
             <li><a href="index.html">首页</a></li>

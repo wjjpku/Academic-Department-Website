@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载中 - 学术组</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== 全局样式 ===== */
+        body {
+            font-family: 'Noto Sans SC', 'Roboto', 'Helvetica Neue', Arial, '思源黑体', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f7f9fb;
+            color: #222;
+            overflow: hidden;
+        }
+
+        /* ===== 北大红主题色 ===== */
+        :root {
+            --main-gradient: linear-gradient(90deg, #232946 0%, #394867 100%);
+            --main-color: #232946;
+            --main-color-dark: #1a1f2b;
+            --main-color-light: #5f6f94;
+            --main-accent: #a7bbc7;
+        }
+
+        /* ===== 加载页面样式 ===== */
+        #loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--main-gradient);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-center {
+            text-align: center;
+            color: white;
+        }
+
+        .loading-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .loading-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+
+
+        .loading-messages {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            max-width: 400px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* ===== 响应式设计 ===== */
+        @media (max-width: 768px) {
+            .loading-img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .loading-text {
+                font-size: 1em;
+            }
+            
+            .loading-messages {
+                max-width: 300px;
+                font-size: 0.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-container">
+        <div class="loading-center">
+            <img class="loading-img" src="images/loading.jpg" alt="加载中">
+            <div class="loading-messages" id="loading-messages">
+                数学之美，在于它的简洁与深刻
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== 加载页面逻辑 =====
+        class LoadingManager {
+            constructor() {
+                this.messages = [
+                    "数学之美，在于它的简洁与深刻",
+                    "欢迎来到北京大学数学科学学院",
+                    "学术组期待与您的相遇",
+                    "让我们一起探索数学的奥秘",
+                    "加载即将完成..."
+                ];
+                this.currentMessageIndex = 0;
+                this.targetPage = this.getTargetPage();
+                this.init();
+            }
+
+            getTargetPage() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const page = urlParams.get('page');
+                // 如果URL参数为空，默认跳转到首页
+                return page || 'index.html';
+            }
+
+            init() {
+                this.startProgress();
+                this.startMessageRotation();
+                this.preloadTargetPage();
+            }
+
+            startProgress() {
+                const bar = document.getElementById('loading-bar');
+                const text = document.getElementById('loading-text');
+                
+                // 开始预加载目标页面内容
+                this.preloadPageContent();
+                
+                const animate = () => {
+                    // 结合真实进度和动画进度
+                    const targetProgress = Math.min(this.realProgress, 0.9);
+                    
+                    if (this.progress < targetProgress) {
+                        this.progress += Math.random() * 0.4;
+                        this.progress = Math.min(this.progress, targetProgress);
+                        bar.style.width = (this.progress * 100) + '%';
+                        text.textContent = `正在加载... ${Math.round(this.progress * 100)}%`;
+                        setTimeout(animate, 200 + Math.random() * 300);
+                    } else if (this.realProgress >= 1) {
+                        // 真实加载完成，快速完成动画
+                        this.progress = 1;
+                        bar.style.width = '100%';
+                        text.textContent = '加载完成！';
+                        setTimeout(() => {
+                            this.redirectToTarget();
+                        }, 300);
+                    } else {
+                        // 继续等待真实进度
+                        setTimeout(animate, 100);
+                    }
+                };
+                
+                animate();
+            }
+            
+            preloadPageContent() {
+                // 使用fetch预加载目标页面内容
+                fetch(this.targetPage)
+                    .then(response => {
+                        this.realProgress = 0.3; // HTML加载完成
+                        return response.text();
+                    })
+                    .then(html => {
+                        // 解析HTML并预加载其中的图片
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        // 预加载页面中的图片
+                        const images = doc.querySelectorAll('img');
+                        if (images.length === 0) {
+                            this.realProgress = 1;
+                            return;
+                        }
+                        
+                        let loadedImages = 0;
+                        const imagePromises = Array.from(images).map(img => {
+                            return new Promise((resolve) => {
+                                const image = new Image();
+                                image.onload = image.onerror = () => {
+                                    loadedImages++;
+                                    this.realProgress = 0.3 + (loadedImages / images.length) * 0.7;
+                                    resolve();
+                                };
+                                image.src = img.src;
+                            });
+                        });
+                        
+                        // 等待所有图片加载完成
+                        Promise.all(imagePromises).then(() => {
+                            this.realProgress = 1;
+                            console.log('目标页面内容预加载完成');
+                        });
+                    })
+                    .catch(error => {
+                        console.log('预加载失败，但不影响跳转:', error);
+                        this.realProgress = 1;
+                    });
+            }
+
+            startMessageRotation() {
+                const messagesElement = document.getElementById('loading-messages');
+                let index = 0;
+                
+                const rotateMessage = () => {
+                    messagesElement.style.opacity = '0';
+                    setTimeout(() => {
+                        messagesElement.textContent = this.messages[index];
+                        messagesElement.style.opacity = '0.8';
+                        index = (index + 1) % this.messages.length;
+                    }, 300);
+                };
+                
+                setInterval(rotateMessage, 3000);
+            }
+
+            preloadTargetPage() {
+                // 预加载目标页面的关键资源
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = this.targetPage;
+                document.head.appendChild(link);
+                
+                // 预加载CSS和JS文件
+                const cssLink = document.createElement('link');
+                cssLink.rel = 'prefetch';
+                cssLink.href = 'css/styles.css';
+                document.head.appendChild(cssLink);
+                
+                // 预加载字体
+                const fontLink = document.createElement('link');
+                fontLink.rel = 'prefetch';
+                fontLink.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap';
+                document.head.appendChild(fontLink);
+            }
+
+            redirectToTarget() {
+                // 添加淡出动画
+                const container = document.getElementById('loading-container');
+                container.style.opacity = '0';
+                container.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    // 设置标记，防止目标页面再次跳转到loading
+                    sessionStorage.setItem('fromLoading', 'true');
+                    
+                    // 使用更顺滑的跳转方式
+                    if (window.history && window.history.replaceState) {
+                        // 尝试使用replaceState，避免在历史记录中留下loading页面
+                        window.history.replaceState(null, '', this.targetPage);
+                        window.location.reload();
+                    } else {
+                        window.location.href = this.targetPage;
+                    }
+                }, 100);
+            }
+        }
+
+        // 页面加载完成后启动加载管理器
+        document.addEventListener('DOMContentLoaded', () => {
+            new LoadingManager();
+        });
+    </script>
+</body>
+</html> 

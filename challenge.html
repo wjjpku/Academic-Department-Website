@@ -6,6 +6,14 @@
     <title>九章征解 - 题目与解答</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        // 检查是否是从loading.html跳转过来的
+        if (!sessionStorage.getItem('fromLoading')) {
+            // 如果不是从loading.html来的，跳转到loading页面
+            sessionStorage.setItem('fromLoading', 'true');
+            window.location.href = 'loading.html?page=challenge.html';
+        }
+    </script>
     <style>
       .challenge-detail { max-width: 900px; margin: 80px auto 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(74,144,226,0.10); padding: 32px 5vw; }
       .challenge-detail h1 { text-align: center; margin-bottom: 18px; }
@@ -14,14 +22,109 @@
       .pdf-list li { margin-bottom: 10px; }
       .pdf-link { color: #357ab8; text-decoration: underline; font-weight: 600; }
       .pdf-link:hover { color: #d2691e; }
+      
+      /* 数学公式样式 */
+      .math-inline {
+        display: inline;
+        font-family: 'Times New Roman', serif;
+      }
+      
+      .math-block {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+        font-family: 'Times New Roman', serif;
+      }
+      
+      /* MathJax样式优化 */
+      .MathJax {
+        font-size: 1.1em;
+      }
+      
+      .MathJax_Display {
+        margin: 1em 0;
+        text-align: center;
+      }
+      
+      /* 数学公式容器样式 */
+      .challenge-md .MathJax_Display {
+        margin: 1.5em 0;
+        padding: 0.5em 0;
+        text-align: center;
+      }
+      
+      /* 行内数学公式样式 */
+      .challenge-md .MathJax {
+        margin: 0 0.2em;
+      }
+      
+      /* 确保标题不居中 */
+      .challenge-md h1, .challenge-md h2, .challenge-md h3, 
+      .challenge-md h4, .challenge-md h5, .challenge-md h6 {
+        text-align: left !important;
+      }
+      
+      /* Markdown内容样式 */
+      .challenge-md h1, .challenge-md h2, .challenge-md h3, 
+      .challenge-md h4, .challenge-md h5, .challenge-md h6 {
+        color: #333;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        font-weight: 600;
+        text-align: left;
+      }
+      
+      .challenge-md h1 { font-size: 1.8em; }
+      .challenge-md h2 { font-size: 1.5em; }
+      .challenge-md h3 { font-size: 1.3em; }
+      
+      .challenge-md p {
+        line-height: 1.6;
+        margin-bottom: 1em;
+        color: #444;
+      }
+      
+      .challenge-md ul, .challenge-md ol {
+        margin: 1em 0;
+        padding-left: 2em;
+      }
+      
+      .challenge-md li {
+        margin-bottom: 0.5em;
+        line-height: 1.6;
+      }
+      
+      .challenge-md code {
+        background: #f0f0f0;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+      }
+      
+      .challenge-md pre {
+        background: #f5f5f5;
+        padding: 1em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 1em 0;
+      }
+      
+      .challenge-md pre code {
+        background: none;
+        padding: 0;
+      }
+      
+      .challenge-md blockquote {
+        border-left: 4px solid #6B728E;
+        padding-left: 1em;
+        margin: 1em 0;
+        color: #666;
+        font-style: italic;
+      }
     </style>
 </head>
-<body style="visibility:hidden;">
-    <div id="page-loader" style="display:none;">
-      <div class="loader-center">
-        <img class="loader-img" src="images/loading.jpg" alt="加载中">
-      </div>
-    </div>
+<body>
     <nav class="fade-in">
         <ul>
             <li><a href="index.html">首页</a></li>
@@ -45,8 +148,28 @@
         </ul>
     </div>
     <button id="backToTop" title="返回顶部">↑</button>
-    <script src="js/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
     <script>
+    // 配置marked.js支持数学公式
+    marked.setOptions({
+      breaks: true,
+      gfm: true
+    });
+    
+    // 使用默认渲染器，让MathJax处理数学公式
+    console.log('marked.js配置完成');
+    
+    // 确保MathJax能正确处理数学公式
+    function renderMathJax() {
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        console.log('开始渲染MathJax数学公式');
+        return MathJax.typesetPromise().catch((err) => {
+          console.log('MathJax渲染错误:', err);
+        });
+      }
+      return Promise.resolve();
+    }
+    
     // 解析期数
     function getIssue() {
       const params = new URLSearchParams(window.location.search);
@@ -56,14 +179,41 @@
     const issue = getIssue();
     document.getElementById('challenge-title').textContent = `九章征解 第${issue}期`;
     // 加载md题目
-    fetch(`challenges/issue${issue}.md`).then(r => r.text()).then(md => {
-      document.getElementById('challenge-md').innerHTML = marked.parse(md);
-      if (window.MathJax) {
-        MathJax.typesetPromise();
-      }
-    }).catch(() => {
-      document.getElementById('challenge-md').textContent = '题目加载失败，请稍后重试。';
-    });
+    console.log('开始加载题目，期数:', issue);
+    fetch(`challenges/issue${issue}.md`)
+      .then(response => {
+        console.log('fetch响应状态:', response.status);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(md => {
+        console.log('获取到markdown内容，长度:', md.length);
+        console.log('markdown内容前100字符:', md.substring(0, 100));
+        
+        try {
+          const html = marked.parse(md);
+          console.log('markdown解析成功，HTML长度:', html.length);
+          document.getElementById('challenge-md').innerHTML = html;
+          
+          // 等待MathJax加载完成后再渲染数学公式
+          setTimeout(() => {
+            renderMathJax().then(() => {
+              console.log('MathJax渲染完成');
+            }).catch((err) => {
+              console.log('MathJax渲染失败:', err);
+            });
+          }, 100);
+        } catch (parseError) {
+          console.error('markdown解析错误:', parseError);
+          document.getElementById('challenge-md').textContent = '题目解析失败: ' + parseError.message;
+        }
+      })
+      .catch(error => {
+        console.error('加载题目失败:', error);
+        document.getElementById('challenge-md').textContent = '题目加载失败: ' + error.message;
+      });
     // 加载优秀解答和其他解答（可根据实际需求动态生成）
     // 这里只是静态示例，如需动态可用js生成pdf链接
     </script>
@@ -73,7 +223,25 @@
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: ['base', 'ams', 'noerrors', 'noundefined']
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            // 确保数学公式正确渲染
+            if (window.MathJax) {
+              MathJax.typesetPromise();
+            }
+          });
+        }
       }
     };
     </script>

@@ -777,46 +777,7 @@ nav a:hover::after, nav a:focus::after {
   50% { border-color: transparent; }
 }
 
-/* ===== 加载动画样式 ===== */
-#page-loader {
-  position: fixed;
-  z-index: 4000;
-  left: 0; top: 0; right: 0; bottom: 0;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  pointer-events: all;
-  transition: opacity 0.5s;
-}
-#page-loader .loader-center {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-#page-loader .loader-img {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  border: 5px solid #232946;
-  box-shadow: 0 0 24px rgba(35,41,70,0.10);
-  margin-bottom: 32px;
-  animation: loader-fade 0.5s infinite alternate;
-  object-fit: cover;
-  background: #fff;
-}
-@keyframes loader-fade {
-  0% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-/* 删除进度条相关样式 */
-#page-loader .loader-bar-bg, #page-loader .loader-bar { display: none !important; }
+
 
 /* ===== 首页互动区块 ===== */
 .recent-section, .recent-style-section, .thanks-section {
