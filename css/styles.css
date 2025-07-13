@@ -522,6 +522,34 @@ nav a::after {
     .contact-icon i {
         font-size: 24px;
     }
+    .hero-carousel {
+        height: 50vh;
+        min-height: 280px;
+    }
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+    }
+    .carousel-btn.prev { left: 16px; }
+    .carousel-btn.next { right: 16px; }
+    .carousel-dots {
+        bottom: 16px;
+    }
+    .carousel-dots .dot {
+        width: 10px;
+        height: 10px;
+        margin: 0 4px;
+    }
+    .activity-carousel {
+        min-height: 280px;
+    }
+    .activity-carousel .carousel-prev,
+    .activity-carousel .carousel-next {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+    }
 }
 @media (max-width: 768px) {
     nav ul {
@@ -537,6 +565,45 @@ nav a::after {
     }
     .feedback, .join-us {
         padding: 18px 2vw 18px 2vw;
+    }
+    .join-qr {
+        width: 280px;
+        height: 560px;
+    }
+    .hero-carousel {
+        height: 45vh;
+        min-height: 240px;
+    }
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1em;
+    }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .advantage-card {
+        padding: 24px 20px;
+    }
+    .join-hero h1 {
+        font-size: 1.8em;
+        padding: 12px 16px;
+    }
+    .join-slogan {
+        font-size: 1.1em;
+        padding: 0 20px;
+    }
+    .activity-carousel {
+        min-height: 260px;
+    }
+    .activity-carousel .carousel-prev,
+    .activity-carousel .carousel-next {
+        width: 36px;
+        height: 36px;
+        font-size: 1em;
     }
 }
 @media (max-width: 480px) {
@@ -566,6 +633,336 @@ nav a::after {
     }
     .contact-value {
         font-size: 0.95em;
+    }
+    .join-qr {
+        width: 200px;
+        height: 400px;
+    }
+    .hero-carousel {
+        height: 40vh;
+        min-height: 200px;
+    }
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
+    .carousel-dots {
+        bottom: 12px;
+    }
+    .carousel-dots .dot {
+        width: 8px;
+        height: 8px;
+        margin: 0 3px;
+    }
+    .join-hero h1 {
+        font-size: 1.5em;
+        padding: 10px 12px;
+    }
+    .join-slogan {
+        font-size: 1em;
+        padding: 0 16px;
+    }
+    .advantage-card {
+        padding: 20px 16px;
+    }
+    .advantage-card h2 {
+        font-size: 1.3em;
+    }
+    .advantage-card p {
+        font-size: 0.95em;
+    }
+    .contact-methods {
+        gap: 12px;
+    }
+    .contact-item {
+        min-width: 200px;
+        padding: 14px 16px;
+    }
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+    .contact-icon i {
+        font-size: 18px;
+    }
+    .contact-info h3 {
+        font-size: 0.95em;
+    }
+    .contact-value {
+        font-size: 0.9em;
+    }
+    .join-welcome {
+        font-size: 1em;
+        padding: 0 16px;
+    }
+    .activity-carousel {
+        min-height: 220px;
+    }
+    .activity-carousel .carousel-prev,
+    .activity-carousel .carousel-next {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9em;
+    }
+    .activity-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .activity-links a {
+        font-size: 0.9em;
+        padding: 6px 14px;
+    }
+    .member {
+        width: 200px;
+        padding: 24px 16px 16px 16px;
+    }
+    .member img {
+        width: 110px;
+        height: 110px;
+    }
+    .member p {
+        font-size: 1.05em;
+    }
+    .member-role {
+        font-size: 1em;
+        padding: 4px 14px;
+    }
+    .team-intro, .team-summary {
+        font-size: 1.05em;
+        padding: 0 20px;
+    }
+    .feedback {
+        padding: 32px 4vw 32px 4vw;
+        max-width: 700px;
+    }
+    .feedback h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+}
+
+/* ===== 大屏幕设备 (1400px以上) ===== */
+@media (min-width: 1400px) {
+    .hero-carousel {
+        height: 65vh;
+        min-height: 400px;
+    }
+    .carousel-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 1.6em;
+    }
+    .carousel-btn.prev { left: 32px; }
+    .carousel-btn.next { right: 32px; }
+    .carousel-dots {
+        bottom: 24px;
+    }
+    .carousel-dots .dot {
+        width: 14px;
+        height: 14px;
+        margin: 0 6px;
+    }
+    .join-hero h1 {
+        font-size: 2.2em;
+        padding: 16px 20px;
+    }
+    .join-slogan {
+        font-size: 1.3em;
+        padding: 0 24px;
+    }
+    .advantage-card {
+        padding: 36px 28px;
+    }
+    .advantage-card h2 {
+        font-size: 1.6em;
+    }
+    .advantage-card p {
+        font-size: 1.1em;
+    }
+    .contact-item {
+        min-width: 320px;
+        padding: 28px 32px;
+    }
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+    }
+    .contact-icon i {
+        font-size: 28px;
+    }
+    .contact-info h3 {
+        font-size: 1.2em;
+    }
+    .contact-value {
+        font-size: 1.1em;
+    }
+    .join-welcome {
+        font-size: 1.2em;
+        padding: 0 24px;
+    }
+    .join-qr {
+        width: 400px;
+        height: 800px;
+    }
+    .activity-carousel {
+        min-height: 350px;
+    }
+    .activity-carousel .carousel-prev,
+    .activity-carousel .carousel-next {
+        width: 48px;
+        height: 48px;
+        font-size: 1.6em;
+    }
+    .activity-links a {
+        font-size: 1.1em;
+        padding: 8px 20px;
+    }
+    .member {
+        width: 240px;
+        padding: 28px 20px 20px 20px;
+    }
+    .member img {
+        width: 140px;
+        height: 140px;
+    }
+    .member p {
+        font-size: 1.2em;
+    }
+    .member-role {
+        font-size: 1.1em;
+        padding: 6px 18px;
+    }
+    .team-intro, .team-summary {
+        font-size: 1.2em;
+        padding: 0 24px;
+    }
+    .feedback {
+        padding: 40px 6vw 40px 6vw;
+        max-width: 800px;
+    }
+    .feedback h2 {
+        font-size: 1.8em;
+        margin-bottom: 24px;
+    }
+}
+
+/* ===== 超小屏幕设备 (320px以下) ===== */
+@media (max-width: 320px) {
+    .hero h1 {
+        font-size: 1.3em;
+        padding: 6px 8px;
+    }
+    .hero-carousel {
+        height: 35vh;
+        min-height: 180px;
+    }
+    .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8em;
+    }
+    .carousel-btn.prev { left: 6px; }
+    .carousel-btn.next { right: 6px; }
+    .join-hero h1 {
+        font-size: 1.3em;
+        padding: 8px 10px;
+    }
+    .join-slogan {
+        font-size: 0.9em;
+        padding: 0 12px;
+    }
+    .advantage-card {
+        padding: 16px 12px;
+    }
+    .advantage-card h2 {
+        font-size: 1.2em;
+    }
+    .advantage-card p {
+        font-size: 0.9em;
+    }
+    .contact-item {
+        min-width: 180px;
+        padding: 12px 14px;
+    }
+    .contact-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .contact-icon i {
+        font-size: 16px;
+    }
+    .contact-info h3 {
+        font-size: 0.9em;
+    }
+    .contact-value {
+        font-size: 0.85em;
+    }
+    .join-qr {
+        width: 160px;
+        height: 320px;
+    }
+    .join-welcome {
+        font-size: 0.9em;
+        padding: 0 12px;
+    }
+    .feedback, .join-us {
+        padding: 6px 0 6px 0;
+    }
+    nav {
+        padding: 8px 2vw;
+    }
+    nav ul {
+        gap: 0;
+    }
+    nav li {
+        margin: 6px 0;
+    }
+    nav a {
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+    .activity-carousel {
+        min-height: 200px;
+    }
+    .activity-carousel .carousel-prev,
+    .activity-carousel .carousel-next {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8em;
+    }
+    .activity-links a {
+        font-size: 0.85em;
+        padding: 5px 12px;
+    }
+    .member {
+        width: 180px;
+        padding: 20px 12px 12px 12px;
+    }
+    .member img {
+        width: 100px;
+        height: 100px;
+    }
+    .member p {
+        font-size: 1em;
+    }
+    .member-role {
+        font-size: 0.9em;
+        padding: 3px 12px;
+    }
+    .team-intro, .team-summary {
+        font-size: 1em;
+        padding: 0 16px;
+    }
+    .feedback {
+        padding: 16px 2vw 16px 2vw;
+        max-width: 450px;
+    }
+    .feedback h2 {
+        font-size: 1.1em;
+        margin-bottom: 10px;
     }
 }
 
@@ -638,6 +1035,47 @@ nav a:hover::after, nav a:focus::after {
     cursor: pointer;
     transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
 }
+
+/* 响应式返回顶部按钮 */
+@media (max-width: 768px) {
+    #backToTop {
+        right: 24px;
+        bottom: 40px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    #backToTop {
+        right: 20px;
+        bottom: 32px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 320px) {
+    #backToTop {
+        right: 16px;
+        bottom: 28px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.4em;
+    }
+}
+
+@media (min-width: 1400px) {
+    #backToTop {
+        right: 40px;
+        bottom: 56px;
+        width: 56px;
+        height: 56px;
+        font-size: 2.2em;
+    }
+}
 #backToTop:hover {
     background: linear-gradient(90deg, #357ab8 60%, #4a90e2 100%);
     transform: scale(1.08);
@@ -689,6 +1127,7 @@ nav a:hover::after, nav a:focus::after {
   top: 0; left: 0;
   opacity: 0;
   transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
+  z-index: 1;
 }
 .carousel-item.active {
   opacity: 1;
@@ -995,8 +1434,8 @@ nav a:hover::after, nav a:focus::after {
   margin: 18px 0 10px 0;
 }
 .join-qr {
-  width: 140px;
-  height: 140px;
+  width: 350px;
+  height: 700px;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(74,144,226,0.10);
   margin-bottom: 8px;
@@ -1132,26 +1571,16 @@ nav a:hover::after, nav a:focus::after {
   min-height: 120px;
 }
 
-/* 优化致谢项目样式 */
-.thanks-item {
-  padding: 16px 18px;
+/* 优化致谢内容样式 */
+.thanks-content {
   text-align: center;
+  line-height: 1.6;
 }
 
-.thanks-item img {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 12px auto;
-  display: block;
-}
-
-.thanks-item div {
-  text-align: center;
-}
-
-.thanks-item p {
-  margin: 8px 0;
-  text-align: center;
+.thanks-content p {
+  margin: 12px 0;
+  font-size: 1.05em;
+  color: #394867;
 }
 
 /* 调整挑战列表样式 */

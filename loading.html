@@ -122,11 +122,12 @@
         class LoadingManager {
             constructor() {
                 this.messages = [
-                    "数学之美，在于它的简洁与深刻",
+                    "tips:加入学术组可以学习网站部署",
                     "欢迎来到北京大学数学科学学院",
                     "学术组期待与您的相遇",
-                    "让我们一起探索数学的奥秘",
-                    "加载即将完成..."
+                    "要学数，先学术！",
+                    "加载不想完成...",
+                    "tips:加入学术组可以参与出题审题"
                 ];
                 this.currentMessageIndex = 0;
                 this.progress = 0;
@@ -202,16 +203,22 @@
 
             startMessageRotation() {
                 const messagesElement = document.getElementById('loading-messages');
-                let index = 0;
+                let index = Math.floor(Math.random() * this.messages.length); // 随机起始位置
                 
                 const rotateMessage = () => {
                     messagesElement.style.opacity = '0';
                     setTimeout(() => {
-                        messagesElement.textContent = this.messages[index];
+                        // 随机选择下一条消息，避免固定顺序
+                        const nextIndex = Math.floor(Math.random() * this.messages.length);
+                        messagesElement.textContent = this.messages[nextIndex];
                         messagesElement.style.opacity = '0.8';
-                        index = (index + 1) % this.messages.length;
+                        index = nextIndex;
                     }, 300);
                 };
+                
+                // 立即显示第一条随机消息
+                messagesElement.textContent = this.messages[index];
+                messagesElement.style.opacity = '0.8';
                 
                 setInterval(rotateMessage, 3000);
             }

@@ -50,40 +50,64 @@ function initHomeCarousel() {
   const nextBtn = document.querySelector('.carousel-btn.next');
   let currentIndex = 0;
   let carouselTimer = null;
+  let isPaused = false;
 
   console.log('主页轮播图: 图片数量=', carouselItems.length, '圆点数量=', dots.length);
 
   function showSlide(idx) {
-    carouselItems.forEach((item, i) => {
-      item.classList.toggle('active', i === idx);
-    });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === idx);
-    });
+    if (idx < 0 || idx >= carouselItems.length) return;
+    
+    // 移除所有active类
+    carouselItems.forEach(item => item.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    // 添加active类到当前项
+    carouselItems[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    
     currentIndex = idx;
+    console.log('切换到第', idx + 1, '张图片');
   }
   
   function nextSlide() {
-    showSlide((currentIndex + 1) % carouselItems.length);
+    const nextIndex = (currentIndex + 1) % carouselItems.length;
+    showSlide(nextIndex);
   }
   
   function prevSlide() {
-    showSlide((currentIndex - 1 + carouselItems.length) % carouselItems.length);
+    const prevIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+    showSlide(prevIndex);
   }
   
   function startCarousel() {
     if (carouselTimer) clearInterval(carouselTimer);
-    carouselTimer = setInterval(nextSlide, 4000);
+    if (!isPaused) {
+      carouselTimer = setInterval(nextSlide, 4000);
+      console.log('启动自动轮播');
+    }
   }
   
   function stopCarousel() {
     if (carouselTimer) {
       clearInterval(carouselTimer);
       carouselTimer = null;
+      console.log('停止自动轮播');
     }
   }
   
+  function pauseCarousel() {
+    isPaused = true;
+    stopCarousel();
+  }
+  
+  function resumeCarousel() {
+    isPaused = false;
+    startCarousel();
+  }
+  
   if (carouselItems.length > 0) {
+    console.log('初始化轮播图...');
+    
     // 确保第一张图片显示
     showSlide(0);
     
@@ -92,36 +116,113 @@ function initHomeCarousel() {
     
     // 绑定按钮事件
     if (nextBtn) {
-      nextBtn.addEventListener('click', () => { 
-        stopCarousel(); 
-        nextSlide(); 
-        startCarousel(); 
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('点击下一张按钮');
+        stopCarousel();
+        nextSlide();
+        startCarousel();
       });
     }
     
     if (prevBtn) {
-      prevBtn.addEventListener('click', () => { 
-        stopCarousel(); 
-        prevSlide(); 
-        startCarousel(); 
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('点击上一张按钮');
+        stopCarousel();
+        prevSlide();
+        startCarousel();
       });
     }
     
     // 绑定圆点事件
     dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { 
-        stopCarousel(); 
-        showSlide(i); 
-        startCarousel(); 
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('点击圆点', i + 1);
+        stopCarousel();
+        showSlide(i);
+        startCarousel();
       });
     });
     
     // 鼠标悬停暂停轮播
     const heroCarousel = document.querySelector('.hero-carousel');
     if (heroCarousel) {
-      heroCarousel.addEventListener('mouseenter', stopCarousel);
-      heroCarousel.addEventListener('mouseleave', startCarousel);
+      heroCarousel.addEventListener('mouseenter', () => {
+        console.log('鼠标进入，暂停轮播');
+        pauseCarousel();
+      });
+      heroCarousel.addEventListener('mouseleave', () => {
+        console.log('鼠标离开，恢复轮播');
+        resumeCarousel();
+      });
     }
+    
+    // 添加触摸滑动支持
+    let startX = 0;
+    let endX = 0;
+    
+    heroCarousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+    
+    heroCarousel.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      
+      if (Math.abs(diff) > 50) { // 最小滑动距离
+        if (diff > 0) {
+          console.log('向左滑动，下一张');
+          stopCarousel();
+          nextSlide();
+          startCarousel();
+        } else {
+          console.log('向右滑动，上一张');
+          stopCarousel();
+          prevSlide();
+          startCarousel();
+        }
+      }
+    });
+    
+    // 添加键盘支持
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        stopCarousel();
+        prevSlide();
+        startCarousel();
+      } else if (e.key === 'ArrowRight') {
+        stopCarousel();
+        nextSlide();
+        startCarousel();
+      }
+    });
+    
+    console.log('轮播图初始化完成');
+    
+    // 添加全局测试函数
+    window.testCarousel = function() {
+      console.log('手动测试轮播功能');
+      const items = document.querySelectorAll('.carousel-item');
+      const dots = document.querySelectorAll('.carousel-dots .dot');
+      console.log('找到轮播项:', items.length);
+      console.log('找到圆点:', dots.length);
+      
+      // 测试切换到第二张图片
+      if (items.length > 1) {
+        items.forEach(item => item.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        items[1].classList.add('active');
+        dots[1].classList.add('active');
+        console.log('手动切换到第二张图片');
+      }
+    };
+  } else {
+    console.log('未找到轮播图元素');
   }
 }
 
@@ -273,9 +374,6 @@ function initActivityCarousels() {
 
 // 统一的DOMContentLoaded事件处理
 window.addEventListener('DOMContentLoaded', function() {
-  // 初始化活动轮播图
-  initActivityCarousels();
-  
   // 初始化页面跳转
   interceptLinks();
   
@@ -296,6 +394,11 @@ window.addEventListener('DOMContentLoaded', function() {
         });
         // 标记已看过打字动画
         localStorage.setItem('hasSeenTyping', 'true');
+        // 打字动画完成后初始化轮播图
+        setTimeout(() => {
+          initHomeCarousel();
+          initActivityCarousels();
+        }, 100);
       });
     } else {
       // 已看过，直接显示主页内容
@@ -303,6 +406,17 @@ window.addEventListener('DOMContentLoaded', function() {
       Array.from(document.body.children).forEach(child => {
         if (child !== mask) child.style.display = '';
       });
+      // 直接初始化轮播图
+      setTimeout(() => {
+        initHomeCarousel();
+        initActivityCarousels();
+      }, 100);
     }
+  } else {
+    // 没有打字动画，直接初始化轮播图
+    setTimeout(() => {
+      initHomeCarousel();
+      initActivityCarousels();
+    }, 100);
   }
 }); 
