@@ -48,53 +48,59 @@
         </div>
     </div>
     
-    <!-- 主页卡片网格容器 -->
-    <div class="homepage-grid fade-in">
-        <!-- 最新发布区块 - 占据较大空间 -->
-        <section class="recent-section grid-item large">
-            <h2>最新发布</h2>
-            <ul class="recent-list">
-                <li><a href="https://mp.weixin.qq.com/s/CQVvuLLxyFGKxk1kmPh6bg">"九章算术新编"第一期</a> <span class="date">2025-06-01</span></li>
-                <li><a href="https://mp.weixin.qq.com/s/knU5n7UCmgGGTyo3CiXoaA">【数学一小时】可解释与"可推断"的机器学习</a> <span class="date">2025-05-19</span></li>
-                <li><a href="https://mp.weixin.qq.com/s/iOXUw8gkEC_21nQI1v9mNw">【学术pizza沙龙】学术pizza百样拼</a> <span class="date">2025-05-07</span></li>
-            </ul>
-        </section>
-        
-        <!-- 九章征解区块 - 中等大小 -->
-        <section class="challenge-section grid-item medium">
-            <h2>九章征解</h2>
-            <div class="challenge-list">
-                <div class="challenge-item">
-                    <span class="challenge-label">第1期</span>
-                    <a href="challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 模拟期中考试区块 - 中等大小 -->
-        <section class="challenge-section grid-item medium">
-            <h2>模拟期中考试</h2>
-            <div class="challenge-list">
-                <div class="challenge-item">
-                    <span class="challenge-label">第1期</span>
-                    <a href="midterm.html?issue=1" class="challenge-link">点击查看本期题目</a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 致谢教授区块 - 较小但内容丰富 -->
-        <section class="thanks-section grid-item small">
-            <h2>致谢教授</h2>
-            <div class="thanks-list">
-                <div class="thanks-item">
-                    <img src="images/member1.jpg" alt="张教授">
-                    <div>
-                        <p><strong>张三 教授</strong></p>
-                        <p>感谢张教授长期以来对学术组的悉心指导与支持！</p>
+    <!-- 主页左右分栏布局 -->
+    <div class="homepage-layout fade-in">
+        <!-- 左侧区域 - 占2/3 -->
+        <div class="left-column">
+            <!-- 最新发布区块 -->
+            <section class="recent-section grid-item">
+                <h2>最新发布</h2>
+                <ul class="recent-list">
+                    <li><a href="https://mp.weixin.qq.com/s/CQVvuLLxyFGKxk1kmPh6bg">"九章算术新编"第一期</a> <span class="date">2025-06-01</span></li>
+                    <li><a href="https://mp.weixin.qq.com/s/knU5n7UCmgGGTyo3CiXoaA">【数学一小时】可解释与"可推断"的机器学习</a> <span class="date">2025-05-19</span></li>
+                    <li><a href="https://mp.weixin.qq.com/s/iOXUw8gkEC_21nQI1v9mNw">【学术pizza沙龙】学术pizza百样拼</a> <span class="date">2025-05-07</span></li>
+                </ul>
+            </section>
+            
+            <!-- 致谢教授区块 -->
+            <section class="thanks-section grid-item">
+                <h2>致谢教授</h2>
+                <div class="thanks-list">
+                    <div class="thanks-item">
+                        <img src="images/member1.jpg" alt="张教授">
+                        <div>
+                            <p><strong>张三 教授</strong></p>
+                            <p>感谢张教授长期以来对学术组的悉心指导与支持！</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+        
+        <!-- 右侧区域 - 占1/3 -->
+        <div class="right-column">
+            <!-- 九章征解区块 -->
+            <section class="challenge-section grid-item">
+                <h2>九章征解</h2>
+                <div class="challenge-list">
+                    <div class="challenge-item">
+                        <span class="challenge-label">第1期</span>
+                        <a href="challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模拟期中考试区块 -->
+            <section class="challenge-section grid-item">
+                <h2>模拟期中考试</h2>
+                <div class="challenge-list">
+                    <div class="challenge-item">
+                        <span class="challenge-label">第1期</span>
+                        <a href="midterm.html?issue=1" class="challenge-link">点击查看本期题目</a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
     
     <button id="backToTop" title="返回顶部">↑</button>
