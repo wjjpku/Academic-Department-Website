@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟期中考试 - 题目</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        if (!sessionStorage.getItem('fromLoading')) {
+            sessionStorage.setItem('fromLoading', 'true');
+            window.location.href = 'loading.html?page=midterm.html';
+        }
+    </script>
+    <style>
+      .challenge-detail { max-width: 900px; margin: 80px auto 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(74,144,226,0.10); padding: 32px 5vw; }
+      .challenge-detail h1 { text-align: center; margin-bottom: 18px; }
+      .challenge-md { background: #f7f9fb; border-radius: 12px; padding: 18px 18px 12px 18px; margin-bottom: 24px; }
+      /* 省略其余样式，复用 challenge.html 的样式即可 */
+    </style>
+</head>
+<body>
+    <nav class="fade-in">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="activities.html">活动掠影</a></li>
+            <li><a href="feedback.html">倾听心声</a></li>
+            <li><a href="team.html">团队风采</a></li>
+            <li><a href="join.html">加入我们</a></li>
+        </ul>
+    </nav>
+    <div class="challenge-detail fade-in">
+        <h1 id="challenge-title">模拟期中考试 第1期</h1>
+        <div class="challenge-md" id="challenge-md">加载题目中...</div>
+    </div>
+    <button id="backToTop" title="返回顶部">↑</button>
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
+    <script>
+    marked.setOptions({ breaks: true, gfm: true });
+    function renderMathJax() {
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        return MathJax.typesetPromise().catch((err) => { console.log('MathJax渲染错误:', err); });
+      }
+      return Promise.resolve();
+    }
+    function getIssue() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('issue') || '1';
+    }
+    const issue = getIssue();
+    document.getElementById('challenge-title').textContent = `模拟期中考试 第${issue}期`;
+    const fileName = `midterm${issue}.md`;
+    const challengeMd = document.getElementById('challenge-md');
+    challengeMd.innerHTML = '加载题目中...';
+    fetch(`challenges/${fileName}`)
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.text();
+      })
+      .then(md => {
+        try {
+          const html = marked.parse(md);
+          challengeMd.innerHTML = html;
+          setTimeout(() => { renderMathJax(); }, 100);
+        } catch (error) {
+          challengeMd.innerHTML = '<p style=\"color: red;\">题目解析失败，请稍后重试。</p>';
+        }
+      })
+      .catch(error => {
+        challengeMd.innerHTML = '<p style=\"color: red;\">题目加载失败，请检查网络连接或稍后重试。</p>';
+      });
+    </script>
+    <!-- MathJax配置与引入 -->
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: ['base', 'ams', 'bussproofs', 'mathtools', 'physics', 'noerrors', 'noundefined']
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            if (window.MathJax) {
+              MathJax.typesetPromise();
+            }
+          });
+        }
+      }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="main.js"></script>
+    <div id="global-toast"></div>
+</body>
+</html> 

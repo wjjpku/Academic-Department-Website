@@ -72,8 +72,6 @@
             50% { opacity: 1; }
         }
 
-
-
         .loading-messages {
             margin-top: 20px;
             font-size: 0.9em;
@@ -112,6 +110,7 @@
     <div id="loading-container">
         <div class="loading-center">
             <img class="loading-img" src="images/loading.jpg" alt="加载中">
+            <div class="loading-text" id="loading-text">正在加载...</div>
             <div class="loading-messages" id="loading-messages">
                 数学之美，在于它的简洁与深刻
             </div>
@@ -130,6 +129,8 @@
                     "加载即将完成..."
                 ];
                 this.currentMessageIndex = 0;
+                this.progress = 0;
+                this.realProgress = 0;
                 this.targetPage = this.getTargetPage();
                 this.init();
             }
@@ -145,10 +146,17 @@
                 this.startProgress();
                 this.startMessageRotation();
                 this.preloadTargetPage();
+                
+                // 添加超时机制，2.5秒后强制跳转
+                setTimeout(() => {
+                    if (this.realProgress < 1) {
+                        console.log('加载超时，强制跳转');
+                        this.realProgress = 1;
+                    }
+                }, 2500); // 2.5秒超时
             }
 
             startProgress() {
-                const bar = document.getElementById('loading-bar');
                 const text = document.getElementById('loading-text');
                 
                 // 开始预加载目标页面内容
@@ -156,28 +164,24 @@
                 
                 const animate = () => {
                     // 结合真实进度和动画进度
-                    const targetProgress = Math.min(this.realProgress, 0.9);
-                    
+                    const targetProgress = Math.min(this.realProgress || 0, 0.95);
                     if (this.progress < targetProgress) {
-                        this.progress += Math.random() * 0.4;
+                        this.progress += Math.random() * 0.7; // 更快
                         this.progress = Math.min(this.progress, targetProgress);
-                        bar.style.width = (this.progress * 100) + '%';
                         text.textContent = `正在加载... ${Math.round(this.progress * 100)}%`;
-                        setTimeout(animate, 200 + Math.random() * 300);
-                    } else if (this.realProgress >= 1) {
+                        setTimeout(animate, 80 + Math.random() * 120);
+                    } else if ((this.realProgress || 0) >= 1) {
                         // 真实加载完成，快速完成动画
                         this.progress = 1;
-                        bar.style.width = '100%';
                         text.textContent = '加载完成！';
                         setTimeout(() => {
                             this.redirectToTarget();
-                        }, 300);
+                        }, 200);
                     } else {
                         // 继续等待真实进度
-                        setTimeout(animate, 100);
+                        setTimeout(animate, 60);
                     }
                 };
-                
                 animate();
             }
             
@@ -185,40 +189,11 @@
                 // 使用fetch预加载目标页面内容
                 fetch(this.targetPage)
                     .then(response => {
-                        this.realProgress = 0.3; // HTML加载完成
+                        this.realProgress = 1; // HTML加载完直接跳转
                         return response.text();
                     })
-                    .then(html => {
-                        // 解析HTML并预加载其中的图片
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        
-                        // 预加载页面中的图片
-                        const images = doc.querySelectorAll('img');
-                        if (images.length === 0) {
-                            this.realProgress = 1;
-                            return;
-                        }
-                        
-                        let loadedImages = 0;
-                        const imagePromises = Array.from(images).map(img => {
-                            return new Promise((resolve) => {
-                                const image = new Image();
-                                image.onload = image.onerror = () => {
-                                    loadedImages++;
-                                    this.realProgress = 0.3 + (loadedImages / images.length) * 0.7;
-                                    resolve();
-                                };
-                                image.src = img.src;
-                            });
-                        });
-                        
-                        // 等待所有图片加载完成
-                        Promise.all(imagePromises).then(() => {
-                            this.realProgress = 1;
-                            console.log('目标页面内容预加载完成');
-                        });
-                    })
+                    // 不再等待图片加载
+                    .then(() => {})
                     .catch(error => {
                         console.log('预加载失败，但不影响跳转:', error);
                         this.realProgress = 1;
@@ -265,21 +240,22 @@
                 // 添加淡出动画
                 const container = document.getElementById('loading-container');
                 container.style.opacity = '0';
-                container.style.transition = 'opacity 0.3s ease';
-                
+                container.style.transition = 'opacity 0.15s ease';
+                // 提前做跳转前的准备
+                sessionStorage.setItem('fromLoading', 'true');
+                let useReplace = false;
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', this.targetPage);
+                    useReplace = true;
+                }
                 setTimeout(() => {
-                    // 设置标记，防止目标页面再次跳转到loading
-                    sessionStorage.setItem('fromLoading', 'true');
-                    
-                    // 使用更顺滑的跳转方式
-                    if (window.history && window.history.replaceState) {
-                        // 尝试使用replaceState，避免在历史记录中留下loading页面
-                        window.history.replaceState(null, '', this.targetPage);
+                    // 只负责刷新或跳转页面
+                    if (useReplace) {
                         window.location.reload();
                     } else {
                         window.location.href = this.targetPage;
                     }
-                }, 100);
+                }, 50);
             }
         }
 

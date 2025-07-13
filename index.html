@@ -32,8 +32,10 @@
     <div class="hero-carousel fade-in">
         <div class="carousel-images">
             <div class="carousel-item active" style="background-image: url('images/homepage.jpg');"></div>
-            <div class="carousel-item" style="background-image: url('images/activity1.jpg');"></div>
-            <div class="carousel-item" style="background-image: url('images/activity2.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity1-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity3-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity2-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity4-1.jpg');"></div>
         </div>
         <button class="carousel-btn prev" aria-label="上一张">&#10094;</button>
         <button class="carousel-btn next" aria-label="下一张">&#10095;</button>
@@ -41,39 +43,60 @@
             <span class="dot active"></span>
             <span class="dot"></span>
             <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
     </div>
-    <!-- 首页互动区块 -->
-    <section class="recent-section fade-in">
-        <h2>最新发布</h2>
-        <ul class="recent-list">
-            <li><a href="#">2024年学术讲座报名开启</a> <span class="date">2024-05-01</span></li>
-            <li><a href="#">数学建模竞赛圆满结束</a> <span class="date">2024-04-20</span></li>
-            <li><a href="#">新学期第一次组会通知</a> <span class="date">2024-03-15</span></li>
-        </ul>
-    </section>
-    <!-- 九章征解区块 -->
-    <section class="challenge-section fade-in">
-        <h2>九章征解</h2>
-        <div class="challenge-list">
-            <div class="challenge-item">
-                <span class="challenge-label">第1期</span>
-                <a href="challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
-            </div>
-        </div>
-    </section>
-    <section class="thanks-section fade-in">
-        <h2>致谢教授</h2>
-        <div class="thanks-list">
-            <div class="thanks-item">
-                <img src="images/professor.jpg" alt="张教授">
-                <div>
-                    <p><strong>张三 教授</strong></p>
-                    <p>感谢张教授长期以来对学术组的悉心指导与支持！</p>
+    
+    <!-- 主页卡片网格容器 -->
+    <div class="homepage-grid fade-in">
+        <!-- 最新发布区块 - 占据较大空间 -->
+        <section class="recent-section grid-item large">
+            <h2>最新发布</h2>
+            <ul class="recent-list">
+                <li><a href="https://mp.weixin.qq.com/s/CQVvuLLxyFGKxk1kmPh6bg">"九章算术新编"第一期</a> <span class="date">2025-06-01</span></li>
+                <li><a href="https://mp.weixin.qq.com/s/knU5n7UCmgGGTyo3CiXoaA">【数学一小时】可解释与"可推断"的机器学习</a> <span class="date">2025-05-19</span></li>
+                <li><a href="https://mp.weixin.qq.com/s/iOXUw8gkEC_21nQI1v9mNw">【学术pizza沙龙】学术pizza百样拼</a> <span class="date">2025-05-07</span></li>
+            </ul>
+        </section>
+        
+        <!-- 九章征解区块 - 中等大小 -->
+        <section class="challenge-section grid-item medium">
+            <h2>九章征解</h2>
+            <div class="challenge-list">
+                <div class="challenge-item">
+                    <span class="challenge-label">第1期</span>
+                    <a href="challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+        
+        <!-- 模拟期中考试区块 - 中等大小 -->
+        <section class="challenge-section grid-item medium">
+            <h2>模拟期中考试</h2>
+            <div class="challenge-list">
+                <div class="challenge-item">
+                    <span class="challenge-label">第1期</span>
+                    <a href="midterm.html?issue=1" class="challenge-link">点击查看本期题目</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 致谢教授区块 - 较小但内容丰富 -->
+        <section class="thanks-section grid-item small">
+            <h2>致谢教授</h2>
+            <div class="thanks-list">
+                <div class="thanks-item">
+                    <img src="images/member1.jpg" alt="张教授">
+                    <div>
+                        <p><strong>张三 教授</strong></p>
+                        <p>感谢张教授长期以来对学术组的悉心指导与支持！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
     <button id="backToTop" title="返回顶部">↑</button>
     <script src="main.js"></script>
     <div id="global-toast"></div>

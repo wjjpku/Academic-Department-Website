@@ -137,115 +137,57 @@
     <div class="challenge-detail fade-in">
         <h1 id="challenge-title">九章征解 第1期</h1>
         <div class="challenge-md" id="challenge-md">加载题目中...</div>
-        <h2>优秀解答</h2>
-        <ul class="pdf-list" id="excellent-list">
-            <li><a class="pdf-link" href="pdfs/issue1-excellent.pdf" target="_blank">优秀解答1（PDF）</a></li>
-        </ul>
-        <h2>其他解答</h2>
-        <ul class="pdf-list" id="other-list">
-            <li><a class="pdf-link" href="pdfs/issue1-other1.pdf" target="_blank">其他解答1（PDF）</a></li>
-            <li><a class="pdf-link" href="pdfs/issue1-other2.pdf" target="_blank">其他解答2（PDF）</a></li>
-        </ul>
+        <div id="solutions-section" style="display: none;">
+            <h2>优秀解答</h2>
+            <ul class="pdf-list" id="excellent-list">
+                <li><a class="pdf-link" href="pdfs/issue1-excellent.pdf" target="_blank">优秀解答1（PDF）</a></li>
+            </ul>
+            <h2>其他解答</h2>
+            <ul class="pdf-list" id="other-list">
+                <li><a class="pdf-link" href="pdfs/issue1-other1.pdf" target="_blank">其他解答1（PDF）</a></li>
+                <li><a class="pdf-link" href="pdfs/issue1-other2.pdf" target="_blank">其他解答2（PDF）</a></li>
+            </ul>
+        </div>
     </div>
     <button id="backToTop" title="返回顶部">↑</button>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
     <script>
-    // 配置marked.js支持数学公式
-    marked.setOptions({
-      breaks: true,
-      gfm: true
-    });
-    
-    // 使用默认渲染器，让MathJax处理数学公式
-    console.log('marked.js配置完成');
-    
-    // 确保MathJax能正确处理数学公式
+    marked.setOptions({ breaks: true, gfm: true });
     function renderMathJax() {
       if (window.MathJax && window.MathJax.typesetPromise) {
-        console.log('开始渲染MathJax数学公式');
-        return MathJax.typesetPromise().catch((err) => {
-          console.log('MathJax渲染错误:', err);
-        });
+        return MathJax.typesetPromise().catch((err) => { console.log('MathJax渲染错误:', err); });
       }
       return Promise.resolve();
     }
-    
-    // 解析期数
     function getIssue() {
       const params = new URLSearchParams(window.location.search);
       return params.get('issue') || '1';
     }
-    // 设置标题
     const issue = getIssue();
     document.getElementById('challenge-title').textContent = `九章征解 第${issue}期`;
-    // 加载md题目
-    console.log('开始加载题目，期数:', issue);
-    fetch(`challenges/issue${issue}.md`)
+    document.getElementById('solutions-section').style.display = 'block';
+    const fileName = `issue${issue}.md`;
+    const challengeMd = document.getElementById('challenge-md');
+    challengeMd.innerHTML = '加载题目中...';
+    fetch(`challenges/${fileName}`)
       .then(response => {
-        console.log('fetch响应状态:', response.status);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.text();
       })
       .then(md => {
-        console.log('获取到markdown内容，长度:', md.length);
-        console.log('markdown内容前100字符:', md.substring(0, 100));
-        
         try {
           const html = marked.parse(md);
-          console.log('markdown解析成功，HTML长度:', html.length);
-          document.getElementById('challenge-md').innerHTML = html;
-          
-          // 等待MathJax加载完成后再渲染数学公式
-          setTimeout(() => {
-            renderMathJax().then(() => {
-              console.log('MathJax渲染完成');
-            }).catch((err) => {
-              console.log('MathJax渲染失败:', err);
-            });
-          }, 100);
-        } catch (parseError) {
-          console.error('markdown解析错误:', parseError);
-          document.getElementById('challenge-md').textContent = '题目解析失败: ' + parseError.message;
+          challengeMd.innerHTML = html;
+          setTimeout(() => { renderMathJax(); }, 100);
+        } catch (error) {
+          challengeMd.innerHTML = '<p style="color: red;">题目解析失败，请稍后重试。</p>';
         }
       })
       .catch(error => {
-        console.error('加载题目失败:', error);
-        document.getElementById('challenge-md').textContent = '题目加载失败: ' + error.message;
+        challengeMd.innerHTML = '<p style="color: red;">题目加载失败，请检查网络连接或稍后重试。</p>';
       });
-    // 加载优秀解答和其他解答（可根据实际需求动态生成）
-    // 这里只是静态示例，如需动态可用js生成pdf链接
     </script>
     <script src="main.js"></script>
-    <!-- 先配置MathJax，再引入MathJax主库 -->
-    <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        processEnvironments: true,
-        packages: ['base', 'ams', 'noerrors', 'noundefined']
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        ignoreHtmlClass: 'tex2jax_ignore',
-        processHtmlClass: 'tex2jax_process'
-      },
-      startup: {
-        pageReady: () => {
-          return MathJax.startup.defaultPageReady().then(() => {
-            // 确保数学公式正确渲染
-            if (window.MathJax) {
-              MathJax.typesetPromise();
-            }
-          });
-        }
-      }
-    };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <div id="global-toast"></div>
 </body>
 </html> 

@@ -136,16 +136,19 @@ nav a::after {
 }
 .activity-carousel {
   position: relative;
-    width: 100%;
+  width: 100%;
   margin-bottom: 12px;
   overflow: hidden;
-    border-radius: 10px;
+  border-radius: 10px;
+  min-height: 200px; /* 添加最小高度 */
 }
 .activity-carousel img {
   width: 100%;
+  height: auto;
   display: none;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(74,144,226,0.10);
+  object-fit: cover; /* 确保图片比例一致 */
 }
 .activity-carousel img.active {
   display: block;
@@ -154,22 +157,30 @@ nav a::after {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(35,41,70,0.7);
+  background: rgba(35,41,70,0.8);
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 50px;
+  height: 50px;
   font-size: 1.5em;
   cursor: pointer;
-  z-index: 2;
-  transition: background 0.2s;
+  z-index: 10;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  min-width: 50px;
+  min-height: 50px;
 }
 .carousel-prev:hover, .carousel-next:hover {
-  background: #232946;
+  background: rgba(35,41,70,1);
+  transform: translateY(-50%) scale(1.1);
 }
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
+.carousel-prev { left: 15px; }
+.carousel-next { right: 15px; }
 .activity-links {
   margin-top: 10px;
   padding-left: 0;
