@@ -552,12 +552,24 @@ nav a::after {
     }
 }
 @media (max-width: 768px) {
+    nav {
+        height: auto;
+        padding: 8px 0;
+    }
     nav ul {
-        flex-direction: column;
-        gap: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+        padding: 0 10px;
     }
     nav li {
-        margin: 8px 0;
+        margin: 2px;
+    }
+    nav a {
+        font-size: 0.9em;
+        padding: 8px 12px;
+        height: 36px;
     }
     .hero {
         height: 36vh;
@@ -607,6 +619,18 @@ nav a::after {
     }
 }
 @media (max-width: 480px) {
+    nav {
+        padding: 6px 0;
+    }
+    nav ul {
+        gap: 2px;
+        padding: 0 8px;
+    }
+    nav a {
+        font-size: 0.8em;
+        padding: 6px 8px;
+        height: 32px;
+    }
     .hero h1 {
         font-size: 1.5em;
         padding: 8px 10px;
@@ -912,17 +936,19 @@ nav a::after {
         padding: 6px 0 6px 0;
     }
     nav {
-        padding: 8px 2vw;
+        padding: 4px 0;
     }
     nav ul {
-        gap: 0;
+        gap: 1px;
+        padding: 0 4px;
     }
     nav li {
-        margin: 6px 0;
+        margin: 1px;
     }
     nav a {
-        font-size: 0.9em;
-        padding: 8px 12px;
+        font-size: 0.75em;
+        padding: 4px 6px;
+        height: 28px;
     }
     .activity-carousel {
         min-height: 200px;
