@@ -26,6 +26,7 @@
             <li><a href="feedback.html">倾听心声</a></li>
             <li><a href="team.html">团队风采</a></li>
             <li><a href="join.html">加入我们</a></li>
+            <li><a href="about.html">关于本站</a></li>
         </ul>
     </nav>
     <!-- 轮播大图 -->
@@ -69,7 +70,7 @@
                     <p>感谢所有为学术组发展做出贡献的老师、同学和朋友们！</p>
                     <p>特别感谢北京国际数学研究中心的各位教授与工作人员长期以来对学术组的悉心指导与支持。</p>
                     <p>感谢每一位参与学术活动的同学，正是你们的热情参与让学术组充满活力。</p>
-                    <p>在此特别感谢肖梁教授，为学术组在25春学期的学术工作提出了宝贵的意见，给予了巨大帮助</p>
+                    <p>在此特别感谢肖梁教授，为学术组在25春学期的学术工作提出了宝贵意见，给予了巨大帮助</p>
                 </div>
             </section>
         </div>
@@ -90,15 +91,13 @@
             <!-- 模拟期中考试区块 -->
             <section class="challenge-section grid-item">
                 <h2>模拟期中考试</h2>
-                <div class="challenge-list">
-                    <div class="challenge-item">
-                        <span class="challenge-label">24年数学类</span>
-                        <a href="pdfs/midterm1.pdf" class="challenge-link" target="_blank">点击查看本期试题</a>
-                    </div>
-                    <div class="challenge-item">
-                        <span class="challenge-label">23年数学类</span>
-                        <a href="pdfs/midterm2.pdf" class="challenge-link" target="_blank">点击查看本期试题</a>
-                    </div>
+                <div class="challenge-list exam-vertical-list">
+                    <a class="exam-card" href="pdfs/midterm1.pdf" target="_blank">24年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm2.pdf" target="_blank">23年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm3.pdf" target="_blank">20年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm4.pdf" target="_blank">19年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm5.pdf" target="_blank">18年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm6.pdf" target="_blank">17年数学类</a>
                 </div>
             </section>
         </div>
@@ -107,5 +106,24 @@
     <button id="backToTop" title="返回顶部">↑</button>
     <script src="main.js"></script>
     <div id="global-toast"></div>
+    <script>
+// 折叠卡片交互
+const cards = document.querySelectorAll('.collapsible-card');
+cards.forEach(card => {
+  const header = card.querySelector('.collapsible-header');
+  const content = card.querySelector('.collapsible-content');
+  const arrow = card.querySelector('.collapsible-arrow');
+  content.style.display = 'none';
+  header.addEventListener('click', () => {
+    const isOpen = content.style.display === 'block';
+    document.querySelectorAll('.collapsible-content').forEach(c => c.style.display = 'none');
+    document.querySelectorAll('.collapsible-arrow').forEach(a => a.textContent = '▼');
+    if (!isOpen) {
+      content.style.display = 'block';
+      arrow.textContent = '▲';
+    }
+  });
+});
+</script>
 </body>
 </html>
