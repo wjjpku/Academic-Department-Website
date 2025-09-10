@@ -79,9 +79,9 @@ Academic-Department-Website/
 
 ## 联系方式
 
-- **邮箱**: academic@math.pku.edu.cn
+- **邮箱**: wjj_math@stu.pku.edu.cn
 - **地址**: 北京大学数学科学学院
-- **微信公众号**: PKU数学学术组
+- **微信公众号**: SMS Stu Union
 
 ## 许可证
 
