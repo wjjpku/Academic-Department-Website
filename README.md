@@ -6,10 +6,13 @@
 
 ## 主要功能
 
-- 学术活动信息发布与展示
-- 团队成员介绍
-- 数学挑战题目展示与讨论
-- 用户反馈收集
+- **首页轮播展示**: 动态轮播图展示学术组活动精彩瞬间
+- **活动掠影**: 丰富的活动照片展示和详细介绍
+- **九章征解**: 数学挑战题目发布与PDF解答下载
+- **团队风采**: 学术组成员介绍和团队文化展示
+- **倾听心声**: 用户反馈收集系统
+- **关于本站**: 网站介绍和发展历程
+- **加载动画**: 优雅的页面加载过渡效果
 
 ## 技术特色
 
@@ -21,27 +24,38 @@
 - **流畅动画**: 页面滚动淡入效果、按钮波纹动效
 - **打字动画**: 首页独特的欢迎文字动画效果
 - **轮播图系统**: 首页大图轮播，活动页面图片轮播
+- **加载页面**: 页面间跳转的流畅加载动画
+- **Markdown支持**: 九章征解页面支持Markdown格式题目显示
+- **云端部署**: 支持Cloudflare Workers部署
 
 ## 文件结构
 
 ```
 Academic-Department-Website/
-├── index.html              # 首页
-├── about.html              # 关于本站页面
-├── activities.html         # 活动页面
-├── team.html              # 团队介绍页面
-├── join.html              # 加入我们页面
-├── challenge.html         # 数学挑战页面
-├── feedback.html          # 反馈页面
-├── world.svg              # 世界地图SVG文件
-├── basic-map.html         # 地图功能测试页面
+├── index.html              # 首页（带轮播图和打字动画）
+├── main.js                 # 主要JavaScript功能文件
+├── wrangler.jsonc          # Cloudflare Workers配置文件
+├── html/                   # 页面文件目录
+│   ├── about.html          # 关于本站页面
+│   ├── activities.html     # 活动掠影页面
+│   ├── challenge.html      # 九章征解（数学挑战）页面
+│   ├── feedback.html       # 倾听心声（反馈）页面
+│   ├── join.html           # 加入我们页面
+│   ├── loading.html        # 页面加载动画
+│   └── team.html           # 团队风采页面
 ├── css/
-│   └── styles.css         # 主样式文件
+│   └── styles.css          # 主样式文件
 ├── js/
-│   ├── main.js           # 主要JavaScript功能
-│   ├── svg-map-config.js # SVG地图配置文件
-├── images/               # 图片资源
-└── pdfs/                # PDF文档
+│   ├── google-analytics.js # Google Analytics配置
+│   ├── marked.min.js       # Markdown解析库
+│   └── svg-map-config.js   # SVG地图配置文件
+├── images/                 # 图片资源（活动照片、首页轮播图等）
+├── pdfs/                   # PDF文档（九章征解题目等）
+├── challenges/             # 挑战题目Markdown文件
+│   └── issue1.md          # 挑战题目1
+├── templates/              # 模板文件目录
+├── CNAME                   # 域名配置文件
+└── LICENSE                 # MIT许可证文件
 ```
 
 ## 浏览器兼容性
@@ -59,18 +73,37 @@ Academic-Department-Website/
 
 ## 开发说明
 
-- 在相应的HTML文件中添加页面结构
-- 在 `css/styles.css` 中添加样式
-- 在 `js/main.js` 中添加交互逻辑
-- 编辑 `js/svg-map-config.js` 调整地图配置
-- 使用 `basic-map.html` 测试地图显示
+### 本地开发
+- 所有页面文件位于 `html/` 目录，主页为根目录的 `index.html`
+- 样式文件统一在 `css/styles.css` 中维护
+- 主要交互逻辑在根目录的 `main.js` 中实现
+- 图片资源存放在 `images/` 目录
+- PDF文档存放在 `pdfs/` 目录
+
+### 功能模块
+- **加载系统**: 页面间跳转会自动显示loading动画
+- **轮播组件**: 首页和活动页面的图片轮播功能
+- **Markdown渲染**: 使用marked.js渲染九章征解的题目内容
+- **响应式导航**: 自适应移动端的导航菜单
+
+### 部署配置
+- 支持GitHub Pages部署（使用CNAME文件）
+- 支持Cloudflare Workers部署（使用wrangler.jsonc配置）
 
 ## 更新日志
 
-### v2.0.0 (最新)
+### v3.0.0 (最新)
+- ✅ 重构项目结构，页面文件移至html目录
+- ✅ 添加页面加载动画系统
+- ✅ 优化首页轮播图功能
+- ✅ 集成Markdown渲染支持
+- ✅ 添加Cloudflare Workers部署支持
+- ✅ 优化移动端响应式设计
+
+### v2.0.0
 - ✅ 优化页面结构和样式
-- ✅ 添加地图测试页面
-- ✅ 简化页面结构和样式
+- ✅ 添加地图功能
+- ✅ 简化页面架构
 
 ### v1.0.0
 - ✅ 基础网站功能
