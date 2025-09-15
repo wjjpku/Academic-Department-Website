@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加载中 - 学术组</title>
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* ===== 全局样式 ===== */
@@ -109,7 +110,7 @@
 <body>
     <div id="loading-container">
         <div class="loading-center">
-            <img class="loading-img" src="/images/loading.jpg" alt="加载中">
+            <img class="loading-img" src="../images/loading.jpg" alt="加载中">
             <div class="loading-text" id="loading-text">正在加载...</div>
             <div class="loading-messages" id="loading-messages">
                 数学之美，在于它的简洁与深刻
@@ -140,17 +141,20 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const page = urlParams.get('page');
                 // 如果URL参数为空，默认跳转到首页
-                let targetPage = page || '/index.html';
+                let targetPage = page || 'index.html';
 
-                // 处理路径：统一使用绝对路径
-                if (targetPage === 'index.html') {
-                    targetPage = '/index.html';
+                // 处理路径：统一转换为正确的绝对路径
+                if (targetPage === 'index.html' || targetPage === '/index.html') {
+                    targetPage = '../index.html';
                 } else if (targetPage.startsWith('../')) {
                     // 转换相对路径为绝对路径
-                    targetPage = targetPage.replace('../', '/');
-                } else if (!targetPage.startsWith('/')) {
-                    // 确保路径以 / 开头
-                    targetPage = '/' + targetPage;
+                    targetPage = targetPage.replace('../', '../');
+                } else if (targetPage.endsWith('.html') && !targetPage.startsWith('/')) {
+                    // 如果是html文件但不是绝对路径，添加/html/前缀
+                    targetPage = targetPage + '.html';
+                } else if (!targetPage.startsWith('../') && !targetPage.startsWith('http')) {
+                    // 确保路径以 ../ 开头
+                    targetPage = '../' + targetPage;
                 }
 
                 return targetPage;
@@ -246,7 +250,7 @@
                 // 预加载CSS和JS文件
                 const cssLink = document.createElement('link');
                 cssLink.rel = 'prefetch';
-                cssLink.href = '/css/styles.css';
+                cssLink.href = '../css/styles.css';
                 document.head.appendChild(cssLink);
                 
                 // 预加载字体

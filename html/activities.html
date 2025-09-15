@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>活动掠影 - 学术组</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <script>
         // 检查是否是从loading.html跳转过来的
@@ -16,7 +16,7 @@
             } else {
                 // 如果不是从loading.html来的，跳转到loading页面
                 sessionStorage.setItem('fromLoading', 'true');
-                window.location.href = '/html/loading.html?page=/html/activities.html';
+                window.location.href = 'loading.html?page=activities.html';
             }
         }
     </script>
@@ -24,20 +24,20 @@
 <body>
     <nav class="fade-in">
         <ul>
-            <li><a href="/index.html">首页</a></li>
-            <li><a href="/html/activities.html">活动掠影</a></li>
-            <li><a href="/html/feedback.html">倾听心声</a></li>
-            <li><a href="/html/team.html">团队风采</a></li>
-            <li><a href="/html/join.html">加入我们</a></li>
-            <li><a href="/html/about.html">关于本站</a></li>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="activities.html">活动掠影</a></li>
+            <li><a href="feedback.html">倾听心声</a></li>
+            <li><a href="team.html">团队风采</a></li>
+            <li><a href="join.html">加入我们</a></li>
+            <li><a href="about.html">关于本站</a></li>
         </ul>
     </nav>
     <section class="activities fade-in">
         <article class="activity">
             <div class="activity-carousel">
-                <img src="/images/activity1-1.jpg" class="active">
-                <img src="/images/activity1-2.jpg">
-                <img src="/images/activity1-3.jpg">
+                <img src="../images/activity1-1.jpg" class="active">
+                <img src="../images/activity1-2.jpg">
+                <img src="../images/activity1-3.jpg">
                 <button class="carousel-prev">‹</button>
                 <button class="carousel-next">›</button>
             </div>
@@ -51,10 +51,10 @@
         </article>
         <article class="activity">
             <div class="activity-carousel">
-                <img src="/images/activity2-1.jpg" class="active">
-                <img src="/images/activity2-2.jpg">
-                <img src="/images/activity2-3.jpg">
-                <img src="/images/activity2-4.jpg">
+                <img src="../images/activity2-1.jpg" class="active">
+                <img src="../images/activity2-2.jpg">
+                <img src="../images/activity2-3.jpg">
+                <img src="../images/activity2-4.jpg">
                 <button class="carousel-prev">‹</button>
                 <button class="carousel-next">›</button>
             </div>
@@ -67,9 +67,9 @@
         </article>
         <article class="activity">
             <div class="activity-carousel">
-                <img src="/images/activity3-1.jpg" class="active">
-                <img src="/images/activity3-2.jpg">
-                <img src="/images/activity3-3.jpg">
+                <img src="../images/activity3-1.jpg" class="active">
+                <img src="../images/activity3-2.jpg">
+                <img src="../images/activity3-3.jpg">
                 <button class="carousel-prev">‹</button>
                 <button class="carousel-next">›</button>
             </div>
@@ -83,9 +83,9 @@
         </article>
         <article class="activity">
             <div class="activity-carousel">
-                <img src="/images/activity4-1.jpg" class="active">
-                <img src="/images/activity4-2.jpg">
-                <img src="/images/activity4-3.jpg">
+                <img src="../images/activity4-1.jpg" class="active">
+                <img src="../images/activity4-2.jpg">
+                <img src="../images/activity4-3.jpg">
                 <button class="carousel-prev">‹</button>
                 <button class="carousel-next">›</button>
             </div>
@@ -100,6 +100,6 @@
     </section>
     <button id="backToTop" title="返回顶部">↑</button>
     <div id="global-toast"></div>
-    <script src="/main.js"></script>
+    <script src="../main.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加入我们 - 学术组</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <script>
         // 检查是否是从loading.html跳转过来的
@@ -16,7 +16,7 @@
             } else {
                 // 如果不是从loading.html来的，跳转到loading页面
                 sessionStorage.setItem('fromLoading', 'true');
-                window.location.href = '/html/loading.html?page=/html/join.html';
+                window.location.href = 'loading.html?page=join.html';
             }
         }
     </script>
@@ -24,12 +24,12 @@
 <body>
     <nav class="fade-in">
         <ul>
-            <li><a href="/index.html">首页</a></li>
-            <li><a href="/html/activities.html">活动掠影</a></li>
-            <li><a href="/html/feedback.html">倾听心声</a></li>
-            <li><a href="/html/team.html">团队风采</a></li>
-            <li><a href="/html/join.html">加入我们</a></li>
-            <li><a href="/html/about.html">关于本站</a></li>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="activities.html">活动掠影</a></li>
+            <li><a href="feedback.html">倾听心声</a></li>
+            <li><a href="team.html">团队风采</a></li>
+            <li><a href="join.html">加入我们</a></li>
+            <li><a href="about.html">关于本站</a></li>
         </ul>
     </nav>
     <section class="join-hero">
@@ -79,14 +79,14 @@
                 </div>
             </div>
             <div class="join-qr-area">
-                <img src="/images/QR.jpg" alt="加入群聊二维码" class="join-qr">
+                <img src="../images/QR.jpg" alt="加入群聊二维码" class="join-qr">
                 <div class="join-qr-tip">扫码加入招新群</div>
             </div>
             <p class="join-welcome">我们欢迎同学们加入学术组！<br>我们在这里等你，一起创造精彩！</p>
         </div>
     </section>
     <button id="backToTop" title="返回顶部">↑</button>
-    <script src="/main.js"></script>
+    <script src="../main.js"></script>
     <div id="global-toast"></div>
 </body>
 </html>
