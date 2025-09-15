@@ -109,7 +109,7 @@
 <body>
     <div id="loading-container">
         <div class="loading-center">
-            <img class="loading-img" src="../images/loading.jpg" alt="加载中">
+            <img class="loading-img" src="/images/loading.jpg" alt="加载中">
             <div class="loading-text" id="loading-text">正在加载...</div>
             <div class="loading-messages" id="loading-messages">
                 数学之美，在于它的简洁与深刻
@@ -140,14 +140,17 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const page = urlParams.get('page');
                 // 如果URL参数为空，默认跳转到首页
-                let targetPage = page || 'index.html';
+                let targetPage = page || '/index.html';
 
-                // 处理路径：如果是index.html且包含../则保持，否则如果是index.html则添加../
+                // 处理路径：统一使用绝对路径
                 if (targetPage === 'index.html') {
-                    targetPage = '../index.html';
+                    targetPage = '/index.html';
                 } else if (targetPage.startsWith('../')) {
-                    // 已经是正确的相对路径，保持不变
-                    targetPage = targetPage;
+                    // 转换相对路径为绝对路径
+                    targetPage = targetPage.replace('../', '/');
+                } else if (!targetPage.startsWith('/')) {
+                    // 确保路径以 / 开头
+                    targetPage = '/' + targetPage;
                 }
 
                 return targetPage;
@@ -243,7 +246,7 @@
                 // 预加载CSS和JS文件
                 const cssLink = document.createElement('link');
                 cssLink.rel = 'prefetch';
-                cssLink.href = 'css/styles.css';
+                cssLink.href = '/css/styles.css';
                 document.head.appendChild(cssLink);
                 
                 // 预加载字体

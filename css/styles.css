@@ -1222,7 +1222,7 @@ nav a:hover::after, nav a:focus::after {
   position: fixed;
   z-index: 3000;
   left: 0; top: 0; right: 0; bottom: 0;
-  background: url('images/loading.jpg') center center/cover no-repeat;
+  background: url('/images/loading.jpg') center center/cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;

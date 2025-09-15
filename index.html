@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>北京大学数学科学学院学生会学术组</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <script>
         // 检查是否是从loading.html跳转过来的
@@ -16,7 +16,7 @@
             } else {
                 // 如果不是从loading.html来的，跳转到loading页面
                 sessionStorage.setItem('fromLoading', 'true');
-                window.location.href = 'html/loading.html?page=../index.html';
+                window.location.href = '/html/loading.html?page=/index.html';
             }
         }
     </script>
@@ -27,22 +27,22 @@
     </div>
     <nav class="fade-in">
         <ul>
-            <li><a href="index.html">首页</a></li>
-            <li><a href="html/activities.html">活动掠影</a></li>
-            <li><a href="html/feedback.html">倾听心声</a></li>
-            <li><a href="html/team.html">团队风采</a></li>
-            <li><a href="html/join.html">加入我们</a></li>
-            <li><a href="html/about.html">关于本站</a></li>
+            <li><a href="/index.html">首页</a></li>
+            <li><a href="/html/activities.html">活动掠影</a></li>
+            <li><a href="/html/feedback.html">倾听心声</a></li>
+            <li><a href="/html/team.html">团队风采</a></li>
+            <li><a href="/html/join.html">加入我们</a></li>
+            <li><a href="/html/about.html">关于本站</a></li>
         </ul>
     </nav>
     <!-- 轮播大图 -->
     <div class="hero-carousel fade-in">
         <div class="carousel-images">
-            <div class="carousel-item active" style="background-image: url('images/homepage.jpg');"></div>
-            <div class="carousel-item" style="background-image: url('images/activity1-1.jpg');"></div>
-            <div class="carousel-item" style="background-image: url('images/activity3-1.jpg');"></div>
-            <div class="carousel-item" style="background-image: url('images/activity2-1.jpg');"></div>
-            <div class="carousel-item" style="background-image: url('images/activity4-1.jpg');"></div>
+            <div class="carousel-item active" style="background-image: url('/images/homepage.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('/images/activity1-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('/images/activity3-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('/images/activity2-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('/images/activity4-1.jpg');"></div>
         </div>
         <button class="carousel-btn prev" aria-label="上一张">&#10094;</button>
         <button class="carousel-btn next" aria-label="下一张">&#10095;</button>
@@ -89,7 +89,7 @@
                 <div class="challenge-list">
                     <div class="challenge-item">
                         <span class="challenge-label">第1期</span>
-                        <a href="html/challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
+                        <a href="/html/challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
                     </div>
                 </div>
             </section>
@@ -98,19 +98,19 @@
             <section class="challenge-section grid-item">
                 <h2>模拟期中考试</h2>
                 <div class="challenge-list exam-vertical-list">
-                    <a class="exam-card" href="pdfs/midterm1.pdf" target="_blank">24年数学类</a>
-                    <a class="exam-card" href="pdfs/midterm2.pdf" target="_blank">23年数学类</a>
-                    <a class="exam-card" href="pdfs/midterm3.pdf" target="_blank">20年数学类</a>
-                    <a class="exam-card" href="pdfs/midterm4.pdf" target="_blank">19年数学类</a>
-                    <a class="exam-card" href="pdfs/midterm5.pdf" target="_blank">18年数学类</a>
-                    <a class="exam-card" href="pdfs/midterm6.pdf" target="_blank">17年数学类</a>
+                    <a class="exam-card" href="/pdfs/midterm1.pdf" target="_blank">24年数学类</a>
+                    <a class="exam-card" href="/pdfs/midterm2.pdf" target="_blank">23年数学类</a>
+                    <a class="exam-card" href="/pdfs/midterm3.pdf" target="_blank">20年数学类</a>
+                    <a class="exam-card" href="/pdfs/midterm4.pdf" target="_blank">19年数学类</a>
+                    <a class="exam-card" href="/pdfs/midterm5.pdf" target="_blank">18年数学类</a>
+                    <a class="exam-card" href="/pdfs/midterm6.pdf" target="_blank">17年数学类</a>
                 </div>
             </section>
         </div>
     </div>
     
     <button id="backToTop" title="返回顶部">↑</button>
-    <script src="main.js"></script>
+    <script src="/main.js"></script>
     <div id="global-toast"></div>
     <script>
 // 折叠卡片交互
