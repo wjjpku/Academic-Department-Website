@@ -109,7 +109,7 @@
 <body>
     <div id="loading-container">
         <div class="loading-center">
-            <img class="loading-img" src="images/loading.jpg" alt="加载中">
+            <img class="loading-img" src="../images/loading.jpg" alt="加载中">
             <div class="loading-text" id="loading-text">正在加载...</div>
             <div class="loading-messages" id="loading-messages">
                 数学之美，在于它的简洁与深刻
@@ -140,7 +140,17 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const page = urlParams.get('page');
                 // 如果URL参数为空，默认跳转到首页
-                return page || 'index.html';
+                let targetPage = page || 'index.html';
+
+                // 处理路径：如果是index.html且包含../则保持，否则如果是index.html则添加../
+                if (targetPage === 'index.html') {
+                    targetPage = '../index.html';
+                } else if (targetPage.startsWith('../')) {
+                    // 已经是正确的相对路径，保持不变
+                    targetPage = targetPage;
+                }
+
+                return targetPage;
             }
 
             init() {

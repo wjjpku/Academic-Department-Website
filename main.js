@@ -270,11 +270,25 @@ function interceptLinks() {
       if (a.href && a.href !== window.location.href) {
         e.preventDefault();
         const targetPage = a.href.split('/').pop() || 'index.html';
+
+        // 检查是否为本地文件协议
+        if (window.location.protocol === 'file:') {
+          console.log('本地文件协议，直接跳转到:', a.href);
+          sessionStorage.setItem('fromLoading', 'true');
+          window.location.href = a.href;
+          return;
+        }
+
         // 只有不是loading.html时才清除fromLoading，防止重复加载
-        if (!window.location.pathname.endsWith('loading.html')) {
+        if (!window.location.pathname.endsWith('html/loading.html')) {
           sessionStorage.removeItem('fromLoading');
         }
-        window.location.href = `loading.html?page=${targetPage}`;
+        // 判断目标页面，如果是index.html则跳转到根目录，否则跳转到html目录
+        if (targetPage === 'index.html') {
+          window.location.href = 'html/loading.html?page=../index.html';
+        } else {
+          window.location.href = `html/loading.html?page=${targetPage}`;
+        }
       }
     });
   });

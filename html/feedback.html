@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>倾听心声 - 学术组</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <script>
         // 检查是否是从loading.html跳转过来的
         if (!sessionStorage.getItem('fromLoading')) {
-            // 如果不是从loading.html来的，跳转到loading页面
-            sessionStorage.setItem('fromLoading', 'true');
-            window.location.href = 'loading.html?page=feedback.html';
+            // 检查是否为本地文件协议，如果是则跳过loading页面
+            if (window.location.protocol === 'file:') {
+                console.log('检测到本地文件协议，跳过loading页面');
+                sessionStorage.setItem('fromLoading', 'true');
+            } else {
+                // 如果不是从loading.html来的，跳转到loading页面
+                sessionStorage.setItem('fromLoading', 'true');
+                window.location.href = 'loading.html?page=feedback.html';
+            }
         }
     </script>
 </head>
 <body>
     <nav class="fade-in">
         <ul>
-            <li><a href="index.html">首页</a></li>
+            <li><a href="../index.html">首页</a></li>
             <li><a href="activities.html">活动掠影</a></li>
             <li><a href="feedback.html">倾听心声</a></li>
             <li><a href="team.html">团队风采</a></li>
@@ -47,7 +53,7 @@
         </script>
     </section>
     <button id="backToTop" title="返回顶部">↑</button>
-    <script src="main.js"></script>
+    <script src="../main.js"></script>
     <div id="global-toast"></div>
 </body>
 </html>

@@ -9,9 +9,15 @@
     <script>
         // 检查是否是从loading.html跳转过来的
         if (!sessionStorage.getItem('fromLoading')) {
-            // 如果不是从loading.html来的，跳转到loading页面
-            sessionStorage.setItem('fromLoading', 'true');
-            window.location.href = 'loading.html?page=index.html';
+            // 检查是否为本地文件协议，如果是则跳过loading页面
+            if (window.location.protocol === 'file:') {
+                console.log('检测到本地文件协议，跳过loading页面');
+                sessionStorage.setItem('fromLoading', 'true');
+            } else {
+                // 如果不是从loading.html来的，跳转到loading页面
+                sessionStorage.setItem('fromLoading', 'true');
+                window.location.href = 'html/loading.html?page=../index.html';
+            }
         }
     </script>
 </head>
@@ -22,11 +28,11 @@
     <nav class="fade-in">
         <ul>
             <li><a href="index.html">首页</a></li>
-            <li><a href="activities.html">活动掠影</a></li>
-            <li><a href="feedback.html">倾听心声</a></li>
-            <li><a href="team.html">团队风采</a></li>
-            <li><a href="join.html">加入我们</a></li>
-            <li><a href="about.html">关于本站</a></li>
+            <li><a href="html/activities.html">活动掠影</a></li>
+            <li><a href="html/feedback.html">倾听心声</a></li>
+            <li><a href="html/team.html">团队风采</a></li>
+            <li><a href="html/join.html">加入我们</a></li>
+            <li><a href="html/about.html">关于本站</a></li>
         </ul>
     </nav>
     <!-- 轮播大图 -->
@@ -83,7 +89,7 @@
                 <div class="challenge-list">
                     <div class="challenge-item">
                         <span class="challenge-label">第1期</span>
-                        <a href="challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
+                        <a href="html/challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
                     </div>
                 </div>
             </section>

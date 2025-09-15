@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>九章征解 - 题目与解答</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <script>
         // 检查是否是从loading.html跳转过来的
         if (!sessionStorage.getItem('fromLoading')) {
-            // 如果不是从loading.html来的，跳转到loading页面
-            sessionStorage.setItem('fromLoading', 'true');
-            window.location.href = 'loading.html?page=challenge.html';
+            // 检查是否为本地文件协议，如果是则跳过loading页面
+            if (window.location.protocol === 'file:') {
+                console.log('检测到本地文件协议，跳过loading页面');
+                sessionStorage.setItem('fromLoading', 'true');
+            } else {
+                // 如果不是从loading.html来的，跳转到loading页面
+                sessionStorage.setItem('fromLoading', 'true');
+                window.location.href = 'loading.html?page=challenge.html';
+            }
         }
     </script>
     <style>
@@ -127,7 +133,7 @@
 <body>
     <nav class="fade-in">
         <ul>
-            <li><a href="index.html">首页</a></li>
+            <li><a href="../index.html">首页</a></li>
             <li><a href="activities.html">活动掠影</a></li>
             <li><a href="feedback.html">倾听心声</a></li>
             <li><a href="team.html">团队风采</a></li>
@@ -141,12 +147,12 @@
         <div id="solutions-section" style="display: none;">
             <h2>优秀解答</h2>
             <ul class="pdf-list" id="excellent-list">
-                <li><a class="pdf-link" href="pdfs/issue1-excellent.pdf" target="_blank">优秀解答1（PDF）</a></li>
+                <li><a class="pdf-link" href="../pdfs/issue1-excellent.pdf" target="_blank">优秀解答1（PDF）</a></li>
             </ul>
             <h2>其他解答</h2>
             <ul class="pdf-list" id="other-list">
-                <li><a class="pdf-link" href="pdfs/issue1-other1.pdf" target="_blank">其他解答1（PDF）</a></li>
-                <li><a class="pdf-link" href="pdfs/issue1-other2.pdf" target="_blank">其他解答2（PDF）</a></li>
+                <li><a class="pdf-link" href="../pdfs/issue1-other1.pdf" target="_blank">其他解答1（PDF）</a></li>
+                <li><a class="pdf-link" href="../pdfs/issue1-other2.pdf" target="_blank">其他解答2（PDF）</a></li>
             </ul>
         </div>
     </div>
@@ -160,6 +166,73 @@
       }
       return Promise.resolve();
     }
+    // 静态内容数据，用于本地文件协议
+    const staticChallenges = {
+      '1': `# 饮水之问
+
+## 题目：
+
+北大诸生皆知，宿舍之饮水机，唯供百摄氏度之沸水。有生名甲，独能饮温不逾六十度之水。手持一保温杯，满贮水，水温二十度。
+
+## 问曰：
+
+1. 设甲生可为二事：一日注水，二日饮水。注水者，以沸水注杯；饮水者，取水而饮。注水之量，不得逾杯之虚；饮水之量，不得逾杯之实。试求甲生可饮之杯数上确界 $B_0$
+
+2. 然甲生力有穷，愿注水不逾 $n$ 次。试求此时可饮之杯数上确界 $B_n$
+
+## 注曰：
+
+设此杯绝热。饮时不改其温。若以 $V_1$ 之水，温 $t_1$，与 $V_2$ 之水，温 $t_2$ 相合，则得其温为 $$\\frac{V_1 t_1 + V_2 t_2}{V_1 + V_2}$$
+
+## 二常例：
+
+1. 甲生尽饮杯中水，遂无可为。如此得饮一杯。
+2. 甲生饮半杯，复注满水半杯，则得水一杯，温适六十度。如此得饮一杯半。`
+    };
+
+    function loadChallengeContent(issue) {
+      const challengeMd = document.getElementById('challenge-md');
+      challengeMd.innerHTML = '加载题目中...';
+
+      // 检查是否为本地文件协议
+      if (window.location.protocol === 'file:') {
+        console.log('本地文件协议，使用静态内容');
+        const staticContent = staticChallenges[issue];
+        if (staticContent) {
+          try {
+            const html = marked.parse(staticContent);
+            challengeMd.innerHTML = html;
+            setTimeout(() => { renderMathJax(); }, 100);
+          } catch (error) {
+            challengeMd.innerHTML = '<p style="color: red;">题目解析失败，请稍后重试。</p>';
+          }
+        } else {
+          challengeMd.innerHTML = '<p style="color: orange;">暂无第' + issue + '期题目内容。</p>';
+        }
+        return;
+      }
+
+      // Web环境下使用fetch加载
+      const fileName = `issue${issue}.md`;
+      fetch(`challenges/${fileName}`)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.text();
+        })
+        .then(md => {
+          try {
+            const html = marked.parse(md);
+            challengeMd.innerHTML = html;
+            setTimeout(() => { renderMathJax(); }, 100);
+          } catch (error) {
+            challengeMd.innerHTML = '<p style="color: red;">题目解析失败，请稍后重试。</p>';
+          }
+        })
+        .catch(error => {
+          challengeMd.innerHTML = '<p style="color: red;">题目加载失败，请检查网络连接或稍后重试。</p>';
+        });
+    }
+
     function getIssue() {
       const params = new URLSearchParams(window.location.search);
       return params.get('issue') || '1';
@@ -167,28 +240,9 @@
     const issue = getIssue();
     document.getElementById('challenge-title').textContent = `九章征解 第${issue}期`;
     document.getElementById('solutions-section').style.display = 'block';
-    const fileName = `issue${issue}.md`;
-    const challengeMd = document.getElementById('challenge-md');
-    challengeMd.innerHTML = '加载题目中...';
-    fetch(`challenges/${fileName}`)
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return response.text();
-      })
-      .then(md => {
-        try {
-          const html = marked.parse(md);
-          challengeMd.innerHTML = html;
-          setTimeout(() => { renderMathJax(); }, 100);
-        } catch (error) {
-          challengeMd.innerHTML = '<p style="color: red;">题目解析失败，请稍后重试。</p>';
-        }
-      })
-      .catch(error => {
-        challengeMd.innerHTML = '<p style="color: red;">题目加载失败，请检查网络连接或稍后重试。</p>';
-      });
+    loadChallengeContent(issue);
     </script>
-    <script src="main.js"></script>
+    <script src="../main.js"></script>
     <div id="global-toast"></div>
 </body>
 </html> 
