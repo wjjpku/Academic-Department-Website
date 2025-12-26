@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京大学数学科学学院学生会学术组</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        // 检查是否是从loading.html跳转过来的
+        if (!sessionStorage.getItem('fromLoading')) {
+            // 检查是否为本地文件协议，如果是则跳过loading页面
+            if (window.location.protocol === 'file:') {
+                console.log('检测到本地文件协议，跳过loading页面');
+                sessionStorage.setItem('fromLoading', 'true');
+            } else {
+                // 如果不是从loading.html来的，跳转到loading页面
+                sessionStorage.setItem('fromLoading', 'true');
+                window.location.href = 'html/loading.html?page=index.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="typing-mask">
+      <span class="typing-text"></span>
+    </div>
+    <nav class="fade-in">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="html/activities.html">活动掠影</a></li>
+            <li><a href="html/feedback.html">倾听心声</a></li>
+            <li><a href="html/team.html">团队风采</a></li>
+            <li><a href="html/join.html">加入我们</a></li>
+            <li><a href="html/about.html">关于本站</a></li>
+        </ul>
+    </nav>
+    <!-- 轮播大图 -->
+    <div class="hero-carousel fade-in">
+        <div class="carousel-images">
+            <div class="carousel-item active" style="background-image: url('images/homepage.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity1-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity3-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity2-1.jpg');"></div>
+            <div class="carousel-item" style="background-image: url('images/activity4-1.jpg');"></div>
+        </div>
+        <button class="carousel-btn prev" aria-label="上一张">&#10094;</button>
+        <button class="carousel-btn next" aria-label="下一张">&#10095;</button>
+        <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+    
+    <!-- 主页左右分栏布局 -->
+    <div class="homepage-layout fade-in">
+        <!-- 左侧区域 - 占2/3 -->
+        <div class="left-column">
+            <!-- 最新发布区块 -->
+            <section class="recent-section grid-item">
+                <h2>最新发布</h2>
+                <ul class="recent-list">
+                    <li><a href="https://mp.weixin.qq.com/s/CQVvuLLxyFGKxk1kmPh6bg">"九章算术新编"第一期</a> <span class="date">2025-06-01</span></li>
+                    <li><a href="https://mp.weixin.qq.com/s/knU5n7UCmgGGTyo3CiXoaA">【数学一小时】可解释与"可推断"的机器学习</a> <span class="date">2025-05-19</span></li>
+                    <li><a href="https://mp.weixin.qq.com/s/iOXUw8gkEC_21nQI1v9mNw">【学术pizza沙龙】学术pizza百样拼</a> <span class="date">2025-05-07</span></li>
+                </ul>
+            </section>
+            
+            <!-- 致谢区块 -->
+            <section class="thanks-section grid-item">
+                <h2>致谢</h2>
+                <div class="thanks-content">
+                    <p>感谢所有为学术组发展做出贡献的老师、同学和朋友们！</p>
+                    <p>特别感谢北京国际数学研究中心的各位教授与工作人员长期以来对学术组的悉心指导与支持。</p>
+                    <p>感谢每一位参与学术活动的同学，正是你们的热情参与让学术组充满活力。</p>
+                    <p>在此特别感谢肖梁教授，为学术组在25春学期的学术工作提出了宝贵意见，给予了巨大帮助</p>
+                </div>
+            </section>
+        </div>
+        
+        <!-- 右侧区域 - 占1/3 -->
+        <div class="right-column">
+            <!-- 九章征解区块 -->
+            <section class="challenge-section grid-item">
+                <h2>九章征解</h2>
+                <div class="challenge-list">
+                    <div class="challenge-item">
+                        <span class="challenge-label">第1期</span>
+                        <a href="html/challenge.html?issue=1" class="challenge-link">点击查看本期题目与解答</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模拟期中考试区块 -->
+            <section class="challenge-section grid-item">
+                <h2>模拟期中考试</h2>
+                <div class="challenge-list exam-vertical-list">
+                    <a class="exam-card" href="pdfs/midterm1.pdf" target="_blank">24年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm2.pdf" target="_blank">23年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm3.pdf" target="_blank">20年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm4.pdf" target="_blank">19年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm5.pdf" target="_blank">18年数学类</a>
+                    <a class="exam-card" href="pdfs/midterm6.pdf" target="_blank">17年数学类</a>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <button id="backToTop" title="返回顶部">↑</button>
+    <script src="main.js"></script>
+    <div id="global-toast"></div>
+    <script>
+// 折叠卡片交互
+const cards = document.querySelectorAll('.collapsible-card');
+cards.forEach(card => {
+  const header = card.querySelector('.collapsible-header');
+  const content = card.querySelector('.collapsible-content');
+  const arrow = card.querySelector('.collapsible-arrow');
+  content.style.display = 'none';
+  header.addEventListener('click', () => {
+    const isOpen = content.style.display === 'block';
+    document.querySelectorAll('.collapsible-content').forEach(c => c.style.display = 'none');
+    document.querySelectorAll('.collapsible-arrow').forEach(a => a.textContent = '▼');
+    if (!isOpen) {
+      content.style.display = 'block';
+      arrow.textContent = '▲';
+    }
+  });
+});
+</script>
+</body>
+</html>
