@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { siteConfig, navConfig } from '../config';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,26 +17,17 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: '首页', path: '/' },
-    { name: '活动掠影', path: '/activities' },
-    { name: '九章征解', path: '/challenges' },
-    { name: '团队风采', path: '/team' },
-    { name: '加入我们', path: '/join' },
-    { name: '关于本站', path: '/about' },
-  ];
-
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'}`}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
           <Link to="/" className={`text-2xl font-bold font-serif ${scrolled ? 'text-pku-red' : 'text-white'}`}>
-            学术组
+            {siteConfig.shortTitle}
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
+            {navConfig.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
@@ -68,7 +60,7 @@ const Navbar = () => {
             className="md:hidden bg-white border-t"
           >
             <div className="flex flex-col p-4 space-y-4">
-              {navLinks.map((link) => (
+              {navConfig.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}

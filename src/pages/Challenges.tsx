@@ -7,6 +7,7 @@ import { marked } from 'marked';
 import markedKatex from 'marked-katex-extension';
 import 'github-markdown-css/github-markdown-light.css';
 import 'katex/dist/katex.min.css';
+import { challengesConfig } from '../config';
 
 // Configure marked with KaTeX support
 marked.use(markedKatex({
@@ -50,9 +51,9 @@ const Challenges = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold font-serif mb-4"
           >
-            九章征解
+            {challengesConfig.title}
           </motion.h1>
-          <p className="text-white/80">挑战思维极限，享受解题乐趣</p>
+          <p className="text-white/80">{challengesConfig.subtitle}</p>
         </div>
       </div>
 

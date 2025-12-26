@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { heroImages } from '../data/activities';
+import { homeConfig } from '../config';
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
+  const { images } = homeConfig.hero;
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % heroImages.length);
+      setCurrent((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % heroImages.length);
-  const prevSlide = () => setCurrent((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gray-900">
@@ -26,7 +27,7 @@ const Hero = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImages[current]})` }}
+          style={{ backgroundImage: `url(${images[current]})` }}
         >
           <div className="absolute inset-0 bg-black/40" />
         </motion.div>
@@ -40,9 +41,9 @@ const Hero = () => {
             transition={{ delay: 0.5 }}
             className="text-4xl md:text-6xl font-bold font-serif mb-6 tracking-wide drop-shadow-lg"
           >
-            北京大学数学科学学院
+            {homeConfig.hero.title}
             <br />
-            <span className="text-3xl md:text-5xl mt-4 block">学生会学术组</span>
+            <span className="text-3xl md:text-5xl mt-4 block">{homeConfig.hero.subtitle}</span>
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -50,7 +51,7 @@ const Hero = () => {
             transition={{ delay: 0.8 }}
             className="text-lg md:text-xl font-light tracking-widest drop-shadow-md"
           >
-            搭建师生桥梁 · 引领学术风尚 · 服务同学成长
+            {homeConfig.hero.slogan}
           </motion.p>
         </div>
       </div>
@@ -71,7 +72,7 @@ const Hero = () => {
 
       {/* Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
-        {heroImages.map((_, idx) => (
+        {images.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}

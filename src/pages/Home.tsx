@@ -3,8 +3,11 @@ import Hero from '../components/Hero';
 import ActivityShowcase from '../components/ActivityShowcase';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
+import { homeConfig } from '../config';
 
 const Home = () => {
+  const { intro } = homeConfig;
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -22,8 +25,8 @@ const Home = () => {
               className="md:w-1/2"
             >
               <img 
-                src="/images/homepage3.jpg" 
-                alt="About Us" 
+                src={intro.image} 
+                alt={intro.title} 
                 className="rounded-lg shadow-2xl w-full object-cover h-[400px]"
               />
             </motion.div>
@@ -34,22 +37,18 @@ const Home = () => {
               className="md:w-1/2"
             >
               <h2 className="text-3xl font-bold font-serif mb-6 text-gray-900">
-                关于学术组
+                {intro.title}
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6 text-lg">
-                北京大学数学科学学院学生会学术组致力于搭建师生交流平台，推动学术氛围建设。
-                我们通过举办学术讲座、经验分享会、模拟面试等多样化活动，帮助同学们开阔视野，
-                提升学术素养，规划未来发展。
+              <p className="text-gray-600 leading-relaxed mb-6 text-lg whitespace-pre-line">
+                {intro.description}
               </p>
               <div className="grid grid-cols-2 gap-6">
-                <div className="border-l-4 border-pku-red pl-4">
-                  <h4 className="font-bold text-xl mb-1">学术交流</h4>
-                  <p className="text-gray-500 text-sm">连接教授与学生，传递前沿知识</p>
-                </div>
-                <div className="border-l-4 border-pku-blue pl-4">
-                  <h4 className="font-bold text-xl mb-1">生涯规划</h4>
-                  <p className="text-gray-500 text-sm">分享保研经验，助力未来发展</p>
-                </div>
+                {intro.features.map((feature, index) => (
+                  <div key={index} className={`border-l-4 ${feature.color === 'pku-red' ? 'border-pku-red' : 'border-pku-blue'} pl-4`}>
+                    <h4 className="font-bold text-xl mb-1">{feature.title}</h4>
+                    <p className="text-gray-500 text-sm">{feature.description}</p>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>

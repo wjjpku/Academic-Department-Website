@@ -1,18 +1,21 @@
 import { Link } from 'react-router-dom';
 import { activities } from '../data/activities';
 import ActivityCard from './ActivityCard';
+import { activitiesConfig } from '../config';
 
 const ActivityShowcase = () => {
+  const { homeSection } = activitiesConfig;
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold font-serif text-gray-900 mb-4">
-            活动掠影
+            {homeSection.title}
           </h2>
           <div className="w-20 h-1 bg-pku-red mx-auto rounded-full" />
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            记录学术组的每一个精彩瞬间，见证思想的碰撞与成长的足迹
+            {homeSection.description}
           </p>
         </div>
 
@@ -27,7 +30,7 @@ const ActivityShowcase = () => {
             to="/activities" 
             className="inline-block px-8 py-3 border-2 border-pku-red text-pku-red font-bold rounded-full hover:bg-pku-red hover:text-white transition-colors duration-300"
           >
-            查看更多活动
+            {homeSection.buttonText}
           </Link>
         </div>
       </div>

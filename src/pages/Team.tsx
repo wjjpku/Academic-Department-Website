@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import { teamMembers } from '../data/team';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
+import { teamConfig } from '../config';
 
 const Team = () => {
   return (
@@ -16,10 +17,10 @@ const Team = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold font-serif mb-4"
           >
-            团队风采
+            {teamConfig.title}
           </motion.h1>
           <p className="text-white/80 max-w-2xl mx-auto">
-            一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园
+            {teamConfig.subtitle}
           </p>
         </div>
       </div>
@@ -48,7 +49,7 @@ const Team = () => {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <p className="text-white text-sm font-light">
-                    {member.description || '北京大学数学科学学院学生会学术组'}
+                    {member.description || teamConfig.defaultRoleDescription}
                   </p>
                 </div>
               </div>

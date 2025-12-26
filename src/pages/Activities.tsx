@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import ActivityCard from '../components/ActivityCard';
 import { activities } from '../data/activities';
 import { motion } from 'framer-motion';
+import { activitiesConfig } from '../config';
 
 const Activities = () => {
   return (
@@ -17,7 +18,7 @@ const Activities = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold font-serif mb-4"
           >
-            活动掠影
+            {activitiesConfig.title}
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -25,7 +26,7 @@ const Activities = () => {
             transition={{ delay: 0.2 }}
             className="text-white/80 max-w-2xl mx-auto"
           >
-            回顾过往精彩瞬间，展望未来无限可能
+            {activitiesConfig.subtitle}
           </motion.p>
         </div>
       </div>
