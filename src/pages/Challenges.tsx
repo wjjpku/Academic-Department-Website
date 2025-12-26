@@ -63,7 +63,7 @@ const Challenges = () => {
           <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
             <h3 className="text-lg font-bold mb-4 border-b pb-2">往期回顾</h3>
             <div className="space-y-2">
-              {[1].map((issue) => (
+              {(challengesConfig.issues || [1]).map((issue) => (
                 <button
                   key={issue}
                   onClick={() => setSelectedIssue(issue)}
@@ -95,7 +95,7 @@ const Challenges = () => {
                     <FileText className="mr-2" /> 第 {selectedIssue} 期题目
                   </h2>
                   <a 
-                    href={`/pdfs/midterm${selectedIssue}.pdf`} 
+                    href={`/pdfs/challenge${selectedIssue}.pdf`} 
                     target="_blank"
                     className="flex items-center text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full transition-colors"
                   >

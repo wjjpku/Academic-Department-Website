@@ -68,6 +68,7 @@ export const activitiesConfig = {
 export const challengesConfig = {
   title: '九章征解',
   subtitle: '挑战思维极限，享受解题乐趣',
+  issues: [1],
 };
 
 export const mockMidtermConfig = {
