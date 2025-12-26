@@ -15,6 +15,7 @@ export const navConfig = [
   { name: '首页', path: '/' },
   { name: '活动掠影', path: '/activities' },
   { name: '九章征解', path: '/challenges' },
+  { name: '模拟期中', path: '/mock-midterm' },
   { name: '团队风采', path: '/team' },
   { name: '加入我们', path: '/join' },
   { name: '关于本站', path: '/about' },
@@ -37,17 +38,17 @@ export const homeConfig = {
     image: '/images/homepage3.jpg',
     title: '关于学术组',
     description: `北京大学数学科学学院学生会学术组致力于搭建师生交流平台，推动学术氛围建设。
-    我们通过举办学术讲座、经验分享会、模拟面试等多样化活动，帮助同学们开阔视野，
+    我们通过举办学术讲座、pizza沙龙、模拟面试等多样化活动，帮助同学们开阔视野，
     提升学术素养，规划未来发展。`,
     features: [
       {
-        title: '学术交流',
-        description: '连接教授与学生，传递前沿知识',
+        title: '经验交流',
+        description: '分享分系经验，指明发展道路',
         color: 'pku-red',
       },
       {
-        title: '生涯规划',
-        description: '分享保研经验，助力未来发展',
+        title: '知识分享',
+        description: '连接教授与学生，传递前沿知识',
         color: 'pku-blue',
       },
     ],
@@ -69,6 +70,19 @@ export const challengesConfig = {
   subtitle: '挑战思维极限，享受解题乐趣',
 };
 
+export const mockMidtermConfig = {
+  title: '模拟期中',
+  subtitle: '查漏补缺，备战期中，助你从容应对考试',
+  intro: {
+    title: '关于模拟期中',
+    content: [
+      '模拟期中考试是学术组的传统特色活动，旨在帮助大一新生适应大学数学考试的节奏与难度。',
+      '我们邀请经验丰富的学长学姐出题，题目涵盖《数学分析》、《高等代数》等核心课程，模拟真实的考试环境。',
+      '考后我们将提供详细的解答，并组织试卷讲评，帮助同学们查漏补缺，巩固所学知识。',
+    ],
+  },
+};
+
 export const teamConfig = {
   title: '团队风采',
   subtitle: '一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园',
@@ -87,7 +101,7 @@ export const joinConfig = {
       icon: BookOpen,
       iconColor: 'text-pku-red',
       title: '丰富的学术活动',
-      desc: '定期举办讲座、研讨会，拓宽学术视野，近距离接触知名教授'
+      desc: '定期举办讲座、午餐会，拓宽学术视野，近距离接触知名教授'
     },
     {
       icon: Coffee,
@@ -137,14 +151,30 @@ export const aboutConfig = {
       '本站致力于为数学科学学院的学生提供学术交流、资源共享和活动信息平台。我们希望通过这个网站，能够更好地被广大同学所了解，促进学术氛围的建设。',
     ],
   },
+  author: {
+    title: '关于作者',
+    content: [
+      '本网站由北京大学数学科学学院 2024 级本科生吴家驹开发与维护。',
+      '作者热衷于全栈开发与 Web 技术，致力于用技术服务同学，提升学生工作的效率与体验。',
+      '如果您对本网站有任何建议或发现 Bug，欢迎通过下方的联系方式反馈。',
+    ],
+    social: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/wjjpku',
+      },
+      {
+        name: '个人主页',
+        url: 'https://wjjpku.github.io',
+      },
+    ],
+  },
   features: {
     title: '网站特色',
     list: [
-      '实时访客统计和地理位置显示',
-      '学术活动信息发布和报名',
       '团队成员介绍',
       '征解题目和解答',
-      '用户反馈和建议收集',
+      '学术活动介绍',
       '响应式设计，支持移动端访问'
     ],
   },

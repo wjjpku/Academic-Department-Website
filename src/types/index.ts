@@ -26,3 +26,5 @@ export interface Challenge {
     url: string;
   }[];
 }
+
+export * from './mockMidterm';
