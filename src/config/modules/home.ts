@@ -7,7 +7,6 @@ export const homeConfig = {
       '/images/homepage.jpg',
       '/images/activity1-1.jpg',
       '/images/activity3-1.jpg',
-      '/images/activity2-1.jpg',
       '/images/all.jpg',
       '/images/party.jpg'
     ],
