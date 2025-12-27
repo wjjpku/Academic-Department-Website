@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import ActivityCard from './ActivityCard';
 import { activitiesConfig } from '../config';
 
@@ -22,15 +21,6 @@ const ActivityShowcase = () => {
           {(activitiesConfig.activities || []).slice(0, 4).map((activity, index) => (
             <ActivityCard key={activity.id} activity={activity} index={index} />
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link 
-            to="/activities" 
-            className="inline-block px-8 py-3 border-2 border-pku-red text-pku-red font-bold rounded-full hover:bg-pku-red hover:text-white transition-colors duration-300"
-          >
-            {homeSection.buttonText}
-          </Link>
         </div>
       </div>
     </section>

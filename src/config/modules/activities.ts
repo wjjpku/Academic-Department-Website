@@ -6,7 +6,6 @@ export const activitiesConfig: {
   homeSection: {
     title: string;
     description: string;
-    buttonText: string;
   };
   activities: Activity[];
 } = {
@@ -15,7 +14,6 @@ export const activitiesConfig: {
   homeSection: {
     title: '活动掠影',
     description: '记录学术组的每一个精彩瞬间，见证思想的碰撞与成长的足迹',
-    buttonText: '查看更多活动',
   },
   activities: [
     {
