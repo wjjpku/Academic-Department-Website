@@ -1,4 +1,5 @@
 import { BookOpen, Coffee, Users, TrendingUp } from 'lucide-react';
+import type { Activity, TeamMember, Challenge } from '../types';
 
 export const siteConfig = {
   title: '北京大学数学科学学院学生会学术组',
@@ -56,7 +57,16 @@ export const homeConfig = {
   },
 };
 
-export const activitiesConfig = {
+export const activitiesConfig: {
+  title: string;
+  subtitle: string;
+  homeSection: {
+    title: string;
+    description: string;
+    buttonText: string;
+  };
+  activities: Activity[];
+} = {
   title: '活动掠影',
   subtitle: '回顾过往精彩瞬间，展望未来无限可能',
   homeSection: {
@@ -104,7 +114,11 @@ export const activitiesConfig = {
   ]
 };
 
-export const challengesConfig = {
+export const challengesConfig: {
+  title: string;
+  subtitle: string;
+  issues: Challenge[];
+} = {
   title: '九章征解',
   subtitle: '挑战思维极限，享受解题乐趣',
   issues: [
@@ -205,7 +219,21 @@ export const mockMidtermConfig = {
   ]
 };
 
-export const teamConfig = {
+export const teamConfig: {
+  title: string;
+  subtitle: string;
+  defaultRoleDescription: string;
+  members: TeamMember[];
+  memberLists: {
+    title: string;
+    groups: { year: string; names: string[] }[];
+  };
+  gallery: {
+    title: string;
+    description: string;
+    images: { src: string; caption: string }[];
+  };
+} = {
   title: '团队风采',
   subtitle: '一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园',
   defaultRoleDescription: '北京大学数学科学学院学生会学术组',
