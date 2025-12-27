@@ -104,6 +104,19 @@ export const teamConfig = {
   title: '团队风采',
   subtitle: '一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园',
   defaultRoleDescription: '北京大学数学科学学院学生会学术组',
+  memberLists: {
+    title: '成员名单',
+    groups: [
+      {
+        year: '2024',
+        names: ['张三', '李四', '王五', '赵六', '钱七']
+      },
+      {
+        year: '2023',
+        names: ['孙八', '周九', '吴十', '郑十一']
+      }
+    ]
+  },
   gallery: {
     title: '团队生活',
     description: '工作之余，我们也懂得享受生活，在欢声笑语中共同成长',

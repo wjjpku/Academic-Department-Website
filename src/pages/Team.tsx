@@ -61,6 +61,46 @@ const Team = () => {
           ))}
         </div>
 
+        {teamConfig.memberLists && (
+          <div className="mt-24 mb-12">
+            <div className="text-center mb-12">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="text-3xl font-bold font-serif text-gray-900 mb-4"
+              >
+                {teamConfig.memberLists.title}
+              </motion.h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {teamConfig.memberLists.groups.map((group, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white rounded-xl shadow-md p-6"
+                >
+                  <h3 className="text-xl font-bold text-pku-red mb-4 border-b pb-2">
+                    {group.year} 届成员
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {group.names.map((name, idx) => (
+                      <span 
+                        key={idx}
+                        className="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-sm hover:bg-pku-red hover:text-white transition-colors cursor-default"
+                      >
+                        {name}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {teamConfig.gallery && (
           <div className="mt-24 mb-12">
             <div className="text-center mb-12">
