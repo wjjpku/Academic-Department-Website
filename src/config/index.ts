@@ -31,7 +31,8 @@ export const homeConfig = {
       '/images/activity1-1.jpg',
       '/images/activity3-1.jpg',
       '/images/activity2-1.jpg',
-      '/images/activity4-1.jpg',
+      '/images/all.jpg',
+      '/images/party.jpg'
     ],
   },
   intro: {
@@ -103,6 +104,16 @@ export const teamConfig = {
   title: '团队风采',
   subtitle: '一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园',
   defaultRoleDescription: '北京大学数学科学学院学生会学术组',
+  gallery: {
+    title: '团队生活',
+    description: '工作之余，我们也懂得享受生活，在欢声笑语中共同成长',
+    images: [
+      { src: '/images/activity1-1.jpg', caption: '例会讨论' },
+      { src: '/images/activity2-1.jpg', caption: '团建活动' },
+      { src: '/images/activity3-1.jpg', caption: '学术沙龙' },
+      { src: '/images/activity4-1.jpg', caption: '经验分享' },
+    ],
+  },
 };
 
 export const joinConfig = {
