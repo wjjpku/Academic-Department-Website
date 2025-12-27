@@ -121,7 +121,7 @@ const Challenges = () => {
                         rel="noreferrer"
                         className="flex items-center text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full transition-colors"
                       >
-                        <Download size={14} className="mr-2" /> 题目 PDF
+                        <Download size={14} className="mr-2" /> 优秀解答 PDF
                       </a>
                     )}
                     

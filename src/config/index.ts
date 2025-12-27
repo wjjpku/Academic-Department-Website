@@ -126,15 +126,15 @@ export const challengesConfig: {
       id: 2,
       title: '第二期',
       contentPath: '/challenges/issue2.md',
-      pdfPath: '/pdfs/challenge2.pdf',
+      pdfPath: '/pdfs/aw2.pdf',
       solutionPath: null,
     },
     {
       id: 1,
       title: '第一期',
       contentPath: '/challenges/issue1.md',
-      pdfPath: '/pdfs/challenge1.pdf',
-      solutionPath: '/pdfs/challenge1-solution.pdf',
+      pdfPath: '/pdfs/aw1.pdf',
+      solutionPath: null,
     }
   ],
 };
