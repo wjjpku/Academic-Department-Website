@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, FileText, Download } from 'lucide-react';
+import { ChevronDown, FileText, Download, ExternalLink } from 'lucide-react';
 import { mockMidtermConfig } from '../config';
 
 const MockMidterm = () => {
@@ -64,17 +64,30 @@ const MockMidterm = () => {
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="bg-white p-8 rounded-xl shadow-md"
+            className="bg-white p-8 rounded-xl shadow-md overflow-hidden"
           >
-            <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">
-              {mockMidtermConfig.intro.title}
-            </h2>
-            <div className="prose max-w-none text-gray-600 leading-relaxed">
-              {mockMidtermConfig.intro.content.map((paragraph, idx) => (
-                <p key={idx} className="mb-4">
-                  {paragraph}
-                </p>
-              ))}
+            <div className={`flex flex-col ${mockMidtermConfig.intro.image ? 'md:flex-row' : ''} gap-8 items-center`}>
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">
+                  {mockMidtermConfig.intro.title}
+                </h2>
+                <div className="prose max-w-none text-gray-600 leading-relaxed">
+                  {mockMidtermConfig.intro.content.map((paragraph, idx) => (
+                    <p key={idx} className="mb-4">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              {mockMidtermConfig.intro.image && (
+                <div className="flex-1 w-full md:w-auto">
+                  <img 
+                    src={mockMidtermConfig.intro.image} 
+                    alt="Mock Midterm Scene" 
+                    className="rounded-lg shadow-md w-full object-cover h-64 md:h-80 hover:scale-[1.02] transition-transform duration-300" 
+                  />
+                </div>
+              )}
             </div>
           </motion.section>
 
@@ -111,29 +124,46 @@ const MockMidterm = () => {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <div className="px-6 pb-6 border-t border-gray-100">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                            {examsByYear[year].map((exam, idx) => (
-                              <div key={idx} className="border rounded-lg p-4 hover:shadow-sm transition-shadow">
-                                <h4 className="font-bold text-lg mb-3 text-pku-blue flex items-center">
-                                  <FileText size={18} className="mr-2" />
-                                  {exam.title}
-                                </h4>
-                                <div className="flex space-x-3">
-                                  {exam.pdfPath && (
-                                    <a 
-                                      href={exam.pdfPath}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-pku-red bg-red-50 hover:bg-red-100 rounded-md transition-colors"
-                                    >
-                                      <Download size={14} className="mr-2" />
-                                      试题 PDF
-                                    </a>
-                                  )}
+                        <div className="border-t border-gray-100">
+                          {/* Report Link */}
+                          {mockMidtermConfig.reports?.find(r => r.year === year) && (
+                            <div className="px-6 pt-6">
+                              <a 
+                                href={mockMidtermConfig.reports.find(r => r.year === year)?.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center text-white bg-pku-red hover:bg-red-700 px-4 py-2 rounded-lg transition-colors text-sm font-medium shadow-sm"
+                              >
+                                <ExternalLink size={16} className="mr-2" />
+                                {mockMidtermConfig.reports.find(r => r.year === year)?.title || '查看成绩报告'}
+                              </a>
+                            </div>
+                          )}
+
+                          <div className="px-6 pb-6 pt-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              {examsByYear[year].map((exam, idx) => (
+                                <div key={idx} className="border rounded-lg p-4 hover:shadow-sm transition-shadow">
+                                  <h4 className="font-bold text-lg mb-3 text-pku-blue flex items-center">
+                                    <FileText size={18} className="mr-2" />
+                                    {exam.title}
+                                  </h4>
+                                  <div className="flex space-x-3">
+                                    {exam.pdfPath && (
+                                      <a 
+                                        href={exam.pdfPath}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-pku-red bg-red-50 hover:bg-red-100 rounded-md transition-colors"
+                                      >
+                                        <Download size={14} className="mr-2" />
+                                        试题 PDF
+                                      </a>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </motion.div>
