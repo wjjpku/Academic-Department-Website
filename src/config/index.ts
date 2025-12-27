@@ -132,7 +132,7 @@ export const resourcesConfig: {
         {
           id: 'sms',
           title: '数学科学学院官网',
-          description: '学院新闻、通知公告、师资介绍',
+          description: '学院新闻、通知公告、教室预约',
           link: 'http://portal.math.pku.edu.cn/htdocs/main.php',
           tags: ['学院']
         },
@@ -170,6 +170,13 @@ export const resourcesConfig: {
           description: '2025年选课手册, 包含选课指南、生活攻略等实用信息',
           pdfPath: '/pdfs/lecture.pdf',
           tags: ['手册', '新生']
+        },
+        {
+          id: 'handbook2',
+          title: '双学位培养方案',
+          description: '2025年双学位培养方案, 包含辅修与双专业的课程内容、选修要求等',
+          pdfPath: '/pdfs/shuangxuewei.pdf',
+          tags: ['手册', '新生']
         }
       ]
     },
@@ -183,7 +190,7 @@ export const resourcesConfig: {
           title: '计算机基础手册',
           description: '由臧炫懿学长热心整理的计算机基础手册，伟大！',
           pdfPath: '/pdfs/shouce.pdf',
-          tags: ['计算机', '经验分享']
+          tags: ['计算机']
         }
       ]
     }
@@ -205,7 +212,7 @@ export const challengesConfig: {
       contentPath: '/challenges/issue2.md',
       pdfPath: '/pdfs/aw2.pdf',
       solutionPath: null,
-      submitUrl: 'https://wj.qq.com/s2/25364156/62a3/', // Replace with actual submission link for issue 2
+      submitUrl: 'https://mp.weixin.qq.com/s/AEzL46M1J5jUDdvVdPMhYA', // Replace with actual submission link for issue 2
     },
     {
       id: 1,
@@ -213,7 +220,7 @@ export const challengesConfig: {
       contentPath: '/challenges/issue1.md',
       pdfPath: '/pdfs/aw1.pdf',
       solutionPath: null,
-      submitUrl: 'https://wj.qq.com/s2/25364156/62a3/', // Replace with actual submission link for issue 1
+      submitUrl: 'https://mp.weixin.qq.com/s/CQVvuLLxyFGKxk1kmPh6bg', // Replace with actual submission link for issue 1
     }
   ],
 };
