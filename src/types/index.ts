@@ -17,14 +17,11 @@ export interface TeamMember {
 }
 
 export interface Challenge {
-  id: string;
+  id: number;
   title: string;
-  issue: number;
-  description: string;
-  pdfLinks?: {
-    title: string;
-    url: string;
-  }[];
+  contentPath: string;
+  pdfPath: string | null;
+  solutionPath: string | null;
 }
 
 export * from './mockMidterm';
