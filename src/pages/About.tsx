@@ -1,11 +1,11 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
-import { Github, Globe } from 'lucide-react';
+import { Github, Globe, GitPullRequest, GitBranch, ArrowRight } from 'lucide-react';
 import { aboutConfig } from '../config';
 
 const About = () => {
-  const { intro, author, features, techStack, contact } = aboutConfig;
+  const { intro, author, features, techStack, contact, openSource } = aboutConfig;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -41,11 +41,75 @@ const About = () => {
             </div>
           </motion.section>
 
+          {/* Open Source Section - New Added */}
+          {openSource && (
+            <motion.section 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
+            >
+              <div className="p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-pku-blue border-l-4 border-pku-red pl-4">
+                    {openSource.title}
+                  </h2>
+                  <a 
+                    href={openSource.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Github size={24} className="mr-2" />
+                    <span className="font-medium">Star on GitHub</span>
+                  </a>
+                </div>
+
+                <div className="prose max-w-none text-gray-600 leading-relaxed mb-8">
+                  {openSource.content.map((paragraph, idx) => (
+                    <p key={idx} className="mb-4">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                  <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                    <GitPullRequest size={20} className="mr-2 text-pku-red" />
+                    如何参与贡献？
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {openSource.guide.map((step, idx) => (
+                      <div key={idx} className="flex items-start">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-pku-blue text-white flex items-center justify-center text-xs font-bold mt-0.5 mr-3">
+                          {idx + 1}
+                        </div>
+                        <span className="text-sm text-gray-700">{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 pt-4 border-t border-gray-200 flex justify-end">
+                    <a 
+                      href={openSource.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
+                    >
+                      <GitBranch size={16} className="mr-2" />
+                      前往 GitHub 仓库
+                      <ArrowRight size={16} className="ml-2" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+          )}
+
           {/* Author Section */}
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
+            transition={{ delay: 0.1 }}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">{author.title}</h2>
@@ -76,7 +140,7 @@ const About = () => {
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.15 }}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">{features.title}</h2>
@@ -120,7 +184,7 @@ const About = () => {
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.25 }}
             className="bg-gradient-to-r from-pku-blue to-blue-900 text-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-bold mb-6">{contact.title}</h2>
