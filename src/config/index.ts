@@ -193,6 +193,7 @@ export const resourcesConfig: {
 export const challengesConfig: {
   title: string;
   subtitle: string;
+  submitUrl?: string;
   issues: Challenge[];
 } = {
   title: '九章征解',
@@ -204,6 +205,7 @@ export const challengesConfig: {
       contentPath: '/challenges/issue2.md',
       pdfPath: '/pdfs/aw2.pdf',
       solutionPath: null,
+      submitUrl: 'https://wj.qq.com/s2/25364156/62a3/', // Replace with actual submission link for issue 2
     },
     {
       id: 1,
@@ -211,6 +213,7 @@ export const challengesConfig: {
       contentPath: '/challenges/issue1.md',
       pdfPath: '/pdfs/aw1.pdf',
       solutionPath: null,
+      submitUrl: 'https://wj.qq.com/s2/25364156/62a3/', // Replace with actual submission link for issue 1
     }
   ],
 };

@@ -22,6 +22,7 @@ export interface Challenge {
   contentPath: string;
   pdfPath: string | null;
   solutionPath: string | null;
+  submitUrl?: string;
 }
 
 export interface ResourceItem {

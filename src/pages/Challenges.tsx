@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
-import { FileText, Download, ChevronRight, CheckCircle } from 'lucide-react';
+import { FileText, Download, ChevronRight, CheckCircle, Send } from 'lucide-react';
 import { marked } from 'marked';
 import markedKatex from 'marked-katex-extension';
 import 'github-markdown-css/github-markdown-light.css';
@@ -107,7 +107,7 @@ const Challenges = () => {
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pku-red"></div>
               </div>
             ) : (
-              <div>
+              <div className="flex flex-col h-full">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b pb-4 gap-4">
                   <h2 className="text-2xl font-bold text-pku-red flex items-center">
                     <FileText className="mr-2" /> 第 {selectedIssueId} 期题目
@@ -139,10 +139,24 @@ const Challenges = () => {
                 </div>
                 
                 <article 
-                  className="markdown-body !bg-white !text-gray-800" 
+                  className="markdown-body !bg-white !text-gray-800 flex-grow mb-8" 
                   style={{ backgroundColor: 'white', color: '#24292f' }}
                   dangerouslySetInnerHTML={{ __html: marked(markdownContent) as string }} 
                 />
+
+                {currentIssue.submitUrl && (
+                  <div className="mt-auto pt-6 border-t border-gray-100 flex justify-center">
+                    <a
+                      href={currentIssue.submitUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-8 py-3 bg-pku-red hover:bg-red-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      <Send size={18} className="mr-2" />
+                      提交本期解答
+                    </a>
+                  </div>
+                )}
               </div>
             )}
           </div>
