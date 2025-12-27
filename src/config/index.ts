@@ -110,7 +110,12 @@ export const mockMidtermConfig = {
     {
       year: 2025,
       title: '查看2025年获奖名单',
-      link: '#'
+      link: 'https://mp.weixin.qq.com/s/xnfZLnIMhkyYtoxRoAhnpg'
+    },
+    {
+      year: 2024,
+      title: '查看2024年获奖名单',
+      link: 'https://mp.weixin.qq.com/s/6SZUgBbOYdQPnnWRdW6pdQ'
     }
   ],
   exams: [
