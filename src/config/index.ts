@@ -97,18 +97,25 @@ export const mockMidtermConfig = {
       '我们邀请经验丰富的学长学姐出题，题目适应数学组与非数学组，考纲覆盖数分高代，也有高数线代，模拟真实的考试环境。',
       '考后我们将提供详细的解答，并颁发奖品，鼓励同学们查漏补缺，巩固所学知识。',
     ],
-    image: '/images/activity2-1.jpg',
+    image: '/images/exam.jpg',
   },
   reports: [
     {
-      year: 2024,
-      title: '查看2024年成绩报告',
+      year: 2025,
+      title: '查看2025年成绩报告',
+      link: 'https://pkusmsexam.netlify.app/'
+    }
+  ],
+  awards: [
+    {
+      year: 2025,
+      title: '查看2025年获奖名单',
       link: '#'
     }
   ],
   exams: [
     {
-      id: 3,
+      id: 6,
       title: '2025年 数学组',
       pdfPath: '/public/pdfs/2025math.pdf',
     },
@@ -144,12 +151,12 @@ export const mockMidtermConfig = {
     },
     {
       id: 1,
-      title: '其他 某届数学组',
+      title: '某届数学组',
       pdfPath: '/pdfs/old1.pdf',
     },
     {
       id: 1,
-      title: '其他 首届数学组',
+      title: '首届数学组',
       pdfPath: '/pdfs/old0.pdf',
     }
   ]

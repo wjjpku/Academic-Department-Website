@@ -125,9 +125,9 @@ const MockMidterm = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <div className="border-t border-gray-100">
-                          {/* Report Link */}
-                          {mockMidtermConfig.reports?.find(r => r.year === year) && (
-                            <div className="px-6 pt-6">
+                          {/* Report and Award Links */}
+                          <div className="px-6 pt-6 flex flex-wrap gap-4">
+                            {mockMidtermConfig.reports?.find(r => r.year === year) && (
                               <a 
                                 href={mockMidtermConfig.reports.find(r => r.year === year)?.link}
                                 target="_blank"
@@ -137,8 +137,20 @@ const MockMidterm = () => {
                                 <ExternalLink size={16} className="mr-2" />
                                 {mockMidtermConfig.reports.find(r => r.year === year)?.title || '查看成绩报告'}
                               </a>
-                            </div>
-                          )}
+                            )}
+                            
+                            {mockMidtermConfig.awards?.find(r => r.year === year) && (
+                              <a 
+                                href={mockMidtermConfig.awards.find(r => r.year === year)?.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center text-pku-red bg-red-50 hover:bg-red-100 border border-red-200 px-4 py-2 rounded-lg transition-colors text-sm font-medium shadow-sm"
+                              >
+                                <ExternalLink size={16} className="mr-2" />
+                                {mockMidtermConfig.awards.find(r => r.year === year)?.title || '查看获奖名单'}
+                              </a>
+                            )}
+                          </div>
 
                           <div className="px-6 pb-6 pt-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
