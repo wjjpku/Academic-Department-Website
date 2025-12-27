@@ -117,10 +117,12 @@ export const activitiesConfig: {
 export const resourcesConfig: {
   title: string;
   subtitle: string;
+  submitUrl?: string;
   categories: ResourceCategory[];
 } = {
   title: '学术资源',
   subtitle: '汇聚优质学习资料，助力学术探索之路',
+  submitUrl: 'https://wj.qq.com/', // Replace with your actual survey link
   categories: [
     {
       id: 'general',
@@ -138,7 +140,7 @@ export const resourcesConfig: {
           id: 'sms',
           title: '数学科学学院官网',
           description: '学院新闻、通知公告、师资介绍',
-          link: 'https://www.math.pku.edu.cn',
+          link: 'http://portal.math.pku.edu.cn/htdocs/main.php',
           tags: ['学院']
         },
         {

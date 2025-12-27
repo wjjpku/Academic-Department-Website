@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { resourcesConfig } from '../config';
-import { FileText, Link as LinkIcon, Download, ExternalLink, Tag } from 'lucide-react';
+import { FileText, Link as LinkIcon, Download, ExternalLink, Tag, Send } from 'lucide-react';
 
 const Resources = () => {
   return (
@@ -10,8 +10,8 @@ const Resources = () => {
       <Navbar />
       
       {/* Header */}
-      <div className="bg-pku-blue pt-24 pb-12 text-white text-center">
-        <div className="container mx-auto px-4">
+      <div className="bg-pku-blue pt-24 pb-12 text-white text-center relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -23,10 +23,31 @@ const Resources = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-white/80 max-w-2xl mx-auto text-sm md:text-base"
+            className="text-white/80 max-w-2xl mx-auto text-sm md:text-base mb-6"
           >
             {resourcesConfig.subtitle}
           </motion.p>
+          
+          {resourcesConfig.submitUrl && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <a
+                href={resourcesConfig.submitUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-2 bg-pku-red hover:bg-red-700 text-white text-sm font-medium rounded-full transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
+              >
+                <Send size={16} className="mr-2" />
+                提交资源
+              </a>
+              <p className="text-white/60 text-xs mt-2">
+                欢迎分享优质学术资源，共建学术社区
+              </p>
+            </motion.div>
+          )}
         </div>
       </div>
 
