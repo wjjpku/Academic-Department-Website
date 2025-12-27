@@ -1,5 +1,5 @@
 import { BookOpen, Coffee, Users, TrendingUp } from 'lucide-react';
-import type { Activity, TeamMember, Challenge } from '../types';
+import type { Activity, TeamMember, Challenge, ResourceCategory } from '../types';
 
 export const siteConfig = {
   title: '北京大学数学科学学院学生会学术组',
@@ -14,7 +14,7 @@ export const siteConfig = {
 
 export const navConfig = [
   { name: '首页', path: '/' },
-  { name: '活动掠影', path: '/activities' },
+  { name: '学术资源', path: '/resources' },
   { name: '九章征解', path: '/challenges' },
   { name: '模拟期中', path: '/mock-midterm' },
   { name: '团队风采', path: '/team' },
@@ -110,6 +110,73 @@ export const activitiesConfig: {
       image: '/images/activity4-1.jpg',
       category: 'interview',
       link: 'https://mp.weixin.qq.com/s/iSl8ixuXGz-uRJWZXne_uA'
+    }
+  ]
+};
+
+export const resourcesConfig: {
+  title: string;
+  subtitle: string;
+  categories: ResourceCategory[];
+} = {
+  title: '学术资源',
+  subtitle: '汇聚优质学习资料，助力学术探索之路',
+  categories: [
+    {
+      id: 'general',
+      title: '常用链接',
+      description: '数学学院常用网站入口',
+      items: [
+        {
+          id: 'portal',
+          title: '北京大学校内门户',
+          description: '选课、查询成绩、缴纳学费等',
+          link: 'https://portal.pku.edu.cn',
+          tags: ['校务']
+        },
+        {
+          id: 'sms',
+          title: '数学科学学院官网',
+          description: '学院新闻、通知公告、师资介绍',
+          link: 'https://www.math.pku.edu.cn',
+          tags: ['学院']
+        },
+        {
+          id: 'bb',
+          title: '教学网 (Blackboard)',
+          description: '课程资料下载、作业提交',
+          link: 'https://course.pku.edu.cn',
+          tags: ['教学']
+        }
+      ]
+    },
+    {
+      id: 'freshman',
+      title: '新生指引',
+      description: '帮助大一新生快速适应大学生活',
+      items: [
+        {
+          id: 'handbook',
+          title: '新生手册',
+          description: '包含选课指南、生活攻略等实用信息',
+          pdfPath: '/pdfs/freshman-handbook.pdf',
+          tags: ['手册', '新生']
+        }
+      ]
+    },
+    {
+      id: 'lectures',
+      title: '讲座资料',
+      description: '学术讲座的PPT与录像存档',
+      items: [
+        {
+          id: 'l1',
+          title: '如何学好数学分析',
+          description: '2024秋季学期学习经验分享会',
+          pdfPath: '/pdfs/ma-learning-guide.pdf',
+          tags: ['数分', '经验分享']
+        }
+      ]
     }
   ]
 };

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
-const Activities = lazy(() => import('./pages/Activities'));
+const Resources = lazy(() => import('./pages/Resources'));
 const Challenges = lazy(() => import('./pages/Challenges'));
 const MockMidterm = lazy(() => import('./pages/MockMidterm'));
 const Team = lazy(() => import('./pages/Team'));
@@ -23,7 +23,7 @@ function App() {
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/activities" element={<Activities />} />
+          <Route path="/resources" element={<Resources />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/mock-midterm" element={<MockMidterm />} />
           <Route path="/team" element={<Team />} />

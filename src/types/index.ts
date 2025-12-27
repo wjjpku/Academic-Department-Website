@@ -24,4 +24,22 @@ export interface Challenge {
   solutionPath: string | null;
 }
 
+export interface ResourceItem {
+  id: string;
+  title: string;
+  description: string;
+  date?: string;
+  link?: string;
+  pdfPath?: string;
+  image?: string;
+  tags?: string[];
+}
+
+export interface ResourceCategory {
+  id: string;
+  title: string;
+  description?: string;
+  items: ResourceItem[];
+}
+
 export * from './mockMidterm';
