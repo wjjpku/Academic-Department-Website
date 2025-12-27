@@ -98,6 +98,38 @@ export const mockMidtermConfig = {
       '考后我们将提供详细的解答，并组织试卷讲评，帮助同学们查漏补缺，巩固所学知识。',
     ],
   },
+  exams: [
+    {
+      id: 6,
+      title: '2024年秋季学期 数学分析I',
+      pdfPath: '/pdfs/midterm6.pdf',
+    },
+    {
+      id: 5,
+      title: '2024年秋季学期 高等代数I',
+      pdfPath: '/pdfs/midterm5.pdf',
+    },
+    {
+      id: 4,
+      title: '2023年秋季学期 数学分析I',
+      pdfPath: '/pdfs/midterm4.pdf',
+    },
+    {
+      id: 3,
+      title: '2023年秋季学期 高等代数I',
+      pdfPath: '/pdfs/midterm3.pdf',
+    },
+    {
+      id: 2,
+      title: '2022年秋季学期 数学分析I',
+      pdfPath: '/pdfs/midterm2.pdf',
+    },
+    {
+      id: 1,
+      title: '2022年秋季学期 高等代数I',
+      pdfPath: '/pdfs/midterm1.pdf',
+    },
+  ]
 };
 
 export const teamConfig = {
@@ -108,12 +140,12 @@ export const teamConfig = {
     title: '成员名单',
     groups: [
       {
-        year: '2024',
-        names: ['张三', '李四', '王五', '赵六', '钱七']
+        year: '2025',
+        names: ['黄桢', '徐楚洋', '赵林', '陈文韬', '黄彦钧', '杨博文', '彭柏铭', '郑和易', '郑志远', '闫轶', '翟芸烽', '曹津睿', '唐小雨', '张源', '谢子强', '张晟轩', '庄子路']
       },
       {
-        year: '2023',
-        names: ['孙八', '周九', '吴十', '郑十一']
+        year: '2024',
+        names: ['陈诺', '黄乐天', '吴家驹', '张清州', '朱既同']
       }
     ]
   },
@@ -121,10 +153,10 @@ export const teamConfig = {
     title: '团队生活',
     description: '工作之余，我们也懂得享受生活，在欢声笑语中共同成长',
     images: [
-      { src: '/images/activity1-1.jpg', caption: '例会讨论' },
-      { src: '/images/activity2-1.jpg', caption: '团建活动' },
-      { src: '/images/activity3-1.jpg', caption: '学术沙龙' },
-      { src: '/images/activity4-1.jpg', caption: '经验分享' },
+      { src: '/images/selfintro.jpg', caption: '自我介绍' },
+      { src: '/images/firstmeet.jpg', caption: '例会合影' },
+      { src: '/images/party.jpg', caption: '团建聚餐' },
+      { src: '/images/ghkpiza.jpg', caption: 'pizza沙龙' },
     ],
   },
 };

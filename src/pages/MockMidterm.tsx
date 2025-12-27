@@ -3,11 +3,31 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, FileText, Download } from 'lucide-react';
-import { mockMidterms } from '../data/mockMidterms';
 import { mockMidtermConfig } from '../config';
 
 const MockMidterm = () => {
-  const [expandedYear, setExpandedYear] = useState<number | null>(mockMidterms[0]?.year || null);
+  // Group exams by year from config if available, otherwise use default structure or empty
+  // Assuming exams have titles like "2024年秋季学期 数学分析I"
+  const getYearFromTitle = (title: string) => {
+    const match = title.match(/(\d{4})年/);
+    return match ? parseInt(match[1]) : 0;
+  };
+
+  const examsByYear = mockMidtermConfig.exams 
+    ? mockMidtermConfig.exams.reduce((acc, exam) => {
+        const year = getYearFromTitle(exam.title);
+        if (!acc[year]) {
+          acc[year] = [];
+        }
+        acc[year].push(exam);
+        return acc;
+      }, {} as Record<number, typeof mockMidtermConfig.exams>)
+    : {};
+
+  // Sort years in descending order
+  const years = Object.keys(examsByYear).map(Number).sort((a, b) => b - a);
+  
+  const [expandedYear, setExpandedYear] = useState<number | null>(years[0] || null);
 
   const toggleYear = (year: number) => {
     setExpandedYear(expandedYear === year ? null : year);
@@ -65,66 +85,67 @@ const MockMidterm = () => {
             transition={{ delay: 0.1 }}
             className="space-y-4"
           >
-            {mockMidterms.map((yearData) => (
-              <div key={yearData.year} className="bg-white rounded-xl shadow-md overflow-hidden">
-                <button
-                  onClick={() => toggleYear(yearData.year)}
-                  className="w-full flex justify-between items-center p-6 hover:bg-gray-50 transition-colors"
-                >
-                  <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                    <span className="w-2 h-8 bg-pku-red mr-4 rounded-full"></span>
-                    {yearData.year} 年模拟期中
-                  </h3>
-                  <ChevronDown 
-                    className={`transform transition-transform duration-300 text-gray-500 ${
-                      expandedYear === yearData.year ? 'rotate-180' : ''
-                    }`} 
-                  />
-                </button>
-                
-                <AnimatePresence>
-                  {expandedYear === yearData.year && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="px-6 pb-6 border-t border-gray-100">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                          {yearData.exams.map((exam, idx) => (
-                            <div key={idx} className="border rounded-lg p-4 hover:shadow-sm transition-shadow">
-                              <h4 className="font-bold text-lg mb-3 text-pku-blue flex items-center">
-                                <FileText size={18} className="mr-2" />
-                                {exam.subject}
-                              </h4>
-                              <div className="flex space-x-3">
-                                <a 
-                                  href={exam.questionFile}
-                                  target="_blank"
-                                  className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-pku-red bg-red-50 hover:bg-red-100 rounded-md transition-colors"
-                                >
-                                  <Download size={14} className="mr-2" />
-                                  试题
-                                </a>
-                                <a 
-                                  href={exam.answerFile}
-                                  target="_blank"
-                                  className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-pku-blue bg-blue-50 hover:bg-blue-100 rounded-md transition-colors"
-                                >
-                                  <Download size={14} className="mr-2" />
-                                  解答
-                                </a>
+            {years.length > 0 ? (
+              years.map((year) => (
+                <div key={year} className="bg-white rounded-xl shadow-md overflow-hidden">
+                  <button
+                    onClick={() => toggleYear(year)}
+                    className="w-full flex justify-between items-center p-6 hover:bg-gray-50 transition-colors"
+                  >
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center">
+                      <span className="w-2 h-8 bg-pku-red mr-4 rounded-full"></span>
+                      {year} 年模拟期中
+                    </h3>
+                    <ChevronDown 
+                      className={`transform transition-transform duration-300 text-gray-500 ${
+                        expandedYear === year ? 'rotate-180' : ''
+                      }`} 
+                    />
+                  </button>
+                  
+                  <AnimatePresence>
+                    {expandedYear === year && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="px-6 pb-6 border-t border-gray-100">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                            {examsByYear[year].map((exam, idx) => (
+                              <div key={idx} className="border rounded-lg p-4 hover:shadow-sm transition-shadow">
+                                <h4 className="font-bold text-lg mb-3 text-pku-blue flex items-center">
+                                  <FileText size={18} className="mr-2" />
+                                  {exam.title}
+                                </h4>
+                                <div className="flex space-x-3">
+                                  {exam.pdfPath && (
+                                    <a 
+                                      href={exam.pdfPath}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-pku-red bg-red-50 hover:bg-red-100 rounded-md transition-colors"
+                                    >
+                                      <Download size={14} className="mr-2" />
+                                      试题 PDF
+                                    </a>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-500 bg-white rounded-xl shadow-md">
+                暂无试题信息
               </div>
-            ))}
+            )}
           </motion.section>
         </div>
       </main>
