@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ActivityCard from '../components/ActivityCard';
-import { activities } from '../data/activities';
 import { motion } from 'framer-motion';
 import { activitiesConfig } from '../config';
 
@@ -34,7 +33,7 @@ const Activities = () => {
       {/* Activities Grid */}
       <main className="flex-grow container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {activities.map((activity, index) => (
+          {(activitiesConfig.activities || []).map((activity, index) => (
             <ActivityCard key={activity.id} activity={activity} index={index} />
           ))}
         </div>

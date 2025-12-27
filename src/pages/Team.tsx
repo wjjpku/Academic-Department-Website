@@ -1,6 +1,5 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { teamMembers } from '../data/team';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 import { teamConfig } from '../config';
@@ -27,7 +26,7 @@ const Team = () => {
 
       <main className="flex-grow container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {teamMembers.map((member, index) => (
+          {(teamConfig.members || []).map((member, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}

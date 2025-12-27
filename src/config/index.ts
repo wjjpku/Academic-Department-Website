@@ -63,7 +63,45 @@ export const activitiesConfig = {
     title: '活动掠影',
     description: '记录学术组的每一个精彩瞬间，见证思想的碰撞与成长的足迹',
     buttonText: '查看更多活动',
-  }
+  },
+  activities: [
+    {
+      id: '1',
+      title: '学术PIZZA沙龙',
+      description: '邀请各个方向的知名教授与学生进行深入交流，旨在增进本科生对该学科前沿的理解，创造教授与优秀本科生接触的机会。',
+      date: '2025-05-13',
+      image: '/images/activity1-1.jpg',
+      category: 'salon',
+      link: 'https://mp.weixin.qq.com/s/5cymKAUBZtfdv2HEbyvdsA'
+    },
+    {
+      id: '2',
+      title: '分系讲座&手册',
+      description: '邀请学长学姐分享分系心得，编撰分系手册并举办讲座，旨在帮助同学们明晰分系的方向。',
+      date: '2025-04-26',
+      image: '/images/activity2-1.jpg',
+      category: 'lecture',
+      link: 'https://mp.weixin.qq.com/s/9Hzq6mEnws0g_nM5ga_dyA'
+    },
+    {
+      id: '3',
+      title: '数学一小时',
+      description: '邀请著名教授讲授一小时左右的前沿内容，旨在帮助有志于学术的同学们增长见识，拓宽视野。',
+      date: '2025-05-22',
+      image: '/images/activity3-1.jpg',
+      category: 'lecture',
+      link: 'https://mp.weixin.qq.com/s/knU5n7UCmgGGTyo3CiXoaA'
+    },
+    {
+      id: '4',
+      title: '四推模拟面试',
+      description: '邀请大四本科生或博士生作为面试官，对进行四推面试的同学们进行模拟面试。旨在帮助大三同学熟悉四推面试的形式、流程以及问题。',
+      date: '2025-04-12',
+      image: '/images/activity4-1.jpg',
+      category: 'interview',
+      link: 'https://mp.weixin.qq.com/s/iSl8ixuXGz-uRJWZXne_uA'
+    }
+  ]
 };
 
 export const challengesConfig = {
@@ -171,6 +209,56 @@ export const teamConfig = {
   title: '团队风采',
   subtitle: '一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园',
   defaultRoleDescription: '北京大学数学科学学院学生会学术组',
+  members: [
+    {
+      name: '吴家驹',
+      role: '负责人',
+      image: '/images/member1.jpg',
+      link: 'https://wjjpku.github.io'
+    },
+    {
+      name: '陈诺',
+      role: '骨干',
+      image: '/images/member2.jpg',
+      link: '#'
+    },
+    {
+      name: '朱既同',
+      role: '核心成员',
+      image: '/images/member3.jpg',
+      link: '#'
+    },
+    {
+      name: '黄乐天',
+      role: '核心成员',
+      image: '/images/member4.jpg',
+      link: '#'
+    },
+    {
+      name: '张清州',
+      role: '核心成员',
+      image: '/images/member5.jpg',
+      link: '#'
+    },
+    {
+      name: '郭焕琨',
+      role: '29届负责人',
+      image: '/images/member6.jpg',
+      link: '#'
+    },
+    {
+      name: '蒋昕灏',
+      role: '29届骨干',
+      image: '/images/member8.jpg',
+      link: '#'
+    },
+    {
+      name: '吴昀泽',
+      role: '28届负责人',
+      image: '/images/member7.jpg',
+      link: '#'
+    }
+  ],
   memberLists: {
     title: '成员名单',
     groups: [
