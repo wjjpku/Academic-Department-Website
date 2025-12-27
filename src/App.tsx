@@ -1,24 +1,36 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Activities from './pages/Activities';
-import Challenges from './pages/Challenges';
-import MockMidterm from './pages/MockMidterm';
-import Team from './pages/Team';
-import Join from './pages/Join';
-import About from './pages/About';
+
+// Lazy load pages
+const Home = lazy(() => import('./pages/Home'));
+const Activities = lazy(() => import('./pages/Activities'));
+const Challenges = lazy(() => import('./pages/Challenges'));
+const MockMidterm = lazy(() => import('./pages/MockMidterm'));
+const Team = lazy(() => import('./pages/Team'));
+const Join = lazy(() => import('./pages/Join'));
+const About = lazy(() => import('./pages/About'));
+
+// Loading component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="animate-spin rounded-full h-12 w-12 border-4 border-pku-red border-t-transparent"></div>
+  </div>
+);
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/activities" element={<Activities />} />
-        <Route path="/challenges" element={<Challenges />} />
-        <Route path="/mock-midterm" element={<MockMidterm />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/challenges" element={<Challenges />} />
+          <Route path="/mock-midterm" element={<MockMidterm />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

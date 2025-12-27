@@ -84,6 +84,7 @@ const MockMidterm = () => {
                   <img 
                     src={mockMidtermConfig.intro.image} 
                     alt="Mock Midterm Scene" 
+                    loading="lazy"
                     className="rounded-lg shadow-md w-full object-cover h-64 md:h-80 hover:scale-[1.02] transition-transform duration-300" 
                   />
                 </div>

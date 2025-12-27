@@ -19,6 +19,7 @@ const ActivityCard = ({ activity, index }: ActivityCardProps) => (
       <img 
         src={activity.image} 
         alt={activity.title} 
+        loading="lazy"
         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
       />
       <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-pku-red shadow-sm">
