@@ -1,42 +1,105 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
-import SectionHeader from '../components/SectionHeader';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, FileText, Download, ExternalLink } from 'lucide-react';
+import { ChevronRight, Download, ExternalLink, Calendar, BookOpen } from 'lucide-react';
 import { mockMidtermConfig } from '../config';
+import 'github-markdown-css/github-markdown-light.css';
+import 'katex/dist/katex.min.css';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+
+// Optional: preprocessing to fix common markdown math issues
+const preprocessMarkdown = (text: string) => {
+  if (!text) return '';
+  
+  let processed = text;
+  
+  // 1. 修复多行公式中常见的 \\ 被 markdown 吞掉的问题
+  processed = processed.replace(/\\\\/g, '\\\\\\\\');
+
+  return processed;
+};
 
 const MockMidterm = () => {
   // Group exams by year from config if available, otherwise use default structure or empty
-  // Assuming exams have titles like "2024年秋季学期 数学分析I"
+  // For exams like "首届数学组", we'll assign them to a special "早期档案" category
   const getYearFromTitle = (title: string) => {
     const match = title.match(/(\d{4})年/);
-    return match ? parseInt(match[1]) : 0;
+    return match ? parseInt(match[1]) : 0; // 0 for old/special exams
   };
 
   const examsByYear = mockMidtermConfig.exams 
     ? mockMidtermConfig.exams.reduce((acc, exam) => {
         const year = getYearFromTitle(exam.title);
-        if (!acc[year]) {
-          acc[year] = [];
+        const yearKey = year === 0 ? '早期档案' : year.toString();
+        if (!acc[yearKey]) {
+          acc[yearKey] = [];
         }
-        acc[year].push(exam);
+        acc[yearKey].push(exam);
         return acc;
-      }, {} as Record<number, typeof mockMidtermConfig.exams>)
+      }, {} as Record<string, typeof mockMidtermConfig.exams>)
     : {};
 
-  // Sort years in descending order
-  const years = Object.keys(examsByYear).map(Number).sort((a, b) => b - a);
+  // Sort years in descending order, put "早期档案" at the end
+  const yearKeys = Object.keys(examsByYear).sort((a, b) => {
+    if (a === '早期档案') return 1;
+    if (b === '早期档案') return -1;
+    return parseInt(b) - parseInt(a);
+  });
   
-  const [expandedYear, setExpandedYear] = useState<number | null>(years[0] || null);
+  const [selectedYearKey, setSelectedYearKey] = useState<string>(yearKeys[0] || '');
+  const [selectedExamId, setSelectedExamId] = useState<number | null>(
+    examsByYear[yearKeys[0]]?.[0]?.id || null
+  );
+  
+  const [markdownContent, setMarkdownContent] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
-  const toggleYear = (year: number) => {
-    setExpandedYear(expandedYear === year ? null : year);
-  };
+  // Auto-select first exam when year changes
+  useEffect(() => {
+    if (selectedYearKey && examsByYear[selectedYearKey]?.length > 0) {
+      // Only change selected exam if current one is not in the newly selected year
+      const currentExamInNewYear = examsByYear[selectedYearKey].find(e => e.id === selectedExamId);
+      if (!currentExamInNewYear) {
+        setSelectedExamId(examsByYear[selectedYearKey][0].id);
+      }
+    }
+  }, [selectedYearKey]);
+
+  const currentExam = mockMidtermConfig.exams?.find(e => e.id === selectedExamId);
+
+  useEffect(() => {
+    const fetchMarkdown = async () => {
+      if (!currentExam || !currentExam.contentPath) {
+        setMarkdownContent('# 暂无详细内容\n\n请点击上方按钮下载 PDF 查看试卷。');
+        return;
+      }
+      
+      setLoading(true);
+      try {
+        const response = await fetch(currentExam.contentPath);
+        if (response.ok) {
+          const text = await response.text();
+          setMarkdownContent(text);
+        } else {
+          setMarkdownContent('# 内容加载失败\n\n可能是文件不存在，请点击上方按钮下载 PDF 查看。');
+        }
+      } catch (error) {
+        setMarkdownContent('# 加载出错了\n\n网络请求失败，请稍后重试或下载 PDF。');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMarkdown();
+  }, [currentExam]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#F9F9F7]">
       <Navbar />
       
       <PageHero 
@@ -45,146 +108,181 @@ const MockMidterm = () => {
         theme="blue"
       />
 
-      <main className="flex-grow container mx-auto px-4 py-16 max-w-4xl">
-        <div className="space-y-12">
-          {/* Intro Section */}
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="paper-panel p-8 md:p-10 overflow-hidden"
-          >
-            <div className={`flex flex-col ${mockMidtermConfig.intro.image ? 'md:flex-row' : ''} gap-10 items-center`}>
-              <div className="flex-1">
-                <SectionHeader title={mockMidtermConfig.intro.title} />
-                <div className="prose max-w-none text-gray-600 leading-relaxed text-lg">
-                  {mockMidtermConfig.intro.content.map((paragraph, idx) => (
-                    <p key={idx} className="mb-4">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              {mockMidtermConfig.intro.image && (
-                <div className="flex-1 w-full md:w-auto relative group">
-                  <div className="absolute inset-0 bg-pku-blue/10 rounded-2xl transform translate-x-3 translate-y-3 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
-                  <img 
-                    src={mockMidtermConfig.intro.image} 
-                    alt="Mock Midterm Scene" 
-                    loading="lazy"
-                    className="relative rounded-2xl shadow-md w-full object-cover h-64 md:h-80 hover:shadow-xl transition-all duration-300" 
-                  />
-                </div>
-              )}
+      <main className="flex-grow container mx-auto px-4 py-12 max-w-7xl">
+        {/* Intro Section - Now more compact at top */}
+        <motion.section 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="paper-panel p-6 md:p-8 mb-8"
+        >
+          <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                <div className="w-1.5 h-5 bg-pku-red mr-3 rounded-full"></div>
+                {mockMidtermConfig.intro.title}
+              </h2>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                {mockMidtermConfig.intro.content.join(' ')}
+              </p>
             </div>
-          </motion.section>
-
-          {/* Exams List */}
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <SectionHeader title="历年试题与报告" />
-            
-            {years.length > 0 ? (
-              years.map((year) => (
-                <div key={year} className="paper-panel overflow-hidden transition-all duration-300 hover:shadow-md">
-                  <button
-                    onClick={() => toggleYear(year)}
-                    className="w-full flex justify-between items-center p-6 hover:bg-gray-50/50 transition-colors"
-                  >
-                    <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                      <span className="w-1.5 h-6 bg-pku-red mr-4 rounded-full"></span>
-                      {year} 年模拟期中
-                    </h3>
-                    <div className={`p-2 rounded-full transition-colors ${expandedYear === year ? 'bg-red-50 text-pku-red' : 'bg-gray-50 text-gray-400'}`}>
-                      <ChevronDown 
-                        className={`transform transition-transform duration-300 ${
-                          expandedYear === year ? 'rotate-180' : ''
-                        }`} 
-                        size={20}
-                      />
-                    </div>
-                  </button>
-                  
-                  <AnimatePresence>
-                    {expandedYear === year && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                      >
-                        <div className="border-t border-gray-100 bg-gray-50/30">
-                          {/* Report and Award Links */}
-                          <div className="px-8 pt-8 flex flex-wrap gap-4">
-                            {mockMidtermConfig.reports?.find(r => r.year === year) && (
-                              <a 
-                                href={mockMidtermConfig.reports.find(r => r.year === year)?.link}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center text-white bg-pku-red hover:bg-red-700 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-0.5 text-sm font-medium shadow-md hover:shadow-lg"
-                              >
-                                <ExternalLink size={16} className="mr-2" />
-                                {mockMidtermConfig.reports.find(r => r.year === year)?.title || '查看成绩报告'}
-                              </a>
-                            )}
-                            
-                            {mockMidtermConfig.awards?.find(r => r.year === year) && (
-                              <a 
-                                href={mockMidtermConfig.awards.find(r => r.year === year)?.link}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center text-pku-red bg-white hover:bg-red-50 border border-red-100 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-0.5 text-sm font-medium shadow-sm hover:shadow"
-                              >
-                                <ExternalLink size={16} className="mr-2" />
-                                {mockMidtermConfig.awards.find(r => r.year === year)?.title || '查看获奖名单'}
-                              </a>
-                            )}
-                          </div>
-
-                          <div className="p-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                              {examsByYear[year].map((exam, idx) => (
-                                <div key={idx} className="bg-white border border-gray-100 rounded-xl p-5 hover:border-pku-red/30 hover:shadow-md transition-all group">
-                                  <h4 className="font-bold text-lg mb-4 text-gray-800 flex items-center group-hover:text-pku-red transition-colors">
-                                    <div className="p-2 bg-blue-50 text-pku-blue rounded-lg mr-3 group-hover:bg-red-50 group-hover:text-pku-red transition-colors">
-                                      <FileText size={18} />
-                                    </div>
-                                    {exam.title}
-                                  </h4>
-                                  <div className="flex space-x-3">
-                                    {exam.pdfPath && (
-                                      <a 
-                                        href={exam.pdfPath}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="flex-1 flex items-center justify-center px-4 py-2.5 text-sm font-medium text-pku-red bg-red-50/50 hover:bg-red-50 rounded-lg transition-colors border border-red-100/50"
-                                      >
-                                        <Download size={16} className="mr-2" />
-                                        试题 PDF
-                                      </a>
-                                    )}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-12 text-gray-500 paper-panel border-none shadow-sm">
-                暂无试题信息
+            {mockMidtermConfig.intro.image && (
+              <div className="hidden md:block w-48 h-32 rounded-xl overflow-hidden shadow-sm flex-shrink-0">
+                <img 
+                  src={mockMidtermConfig.intro.image} 
+                  alt="Mock Midterm Scene" 
+                  className="w-full h-full object-cover" 
+                />
               </div>
             )}
-          </motion.section>
+          </div>
+        </motion.section>
+
+        {/* Split Pane Layout */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          
+          {/* Left Sidebar: Year Navigation */}
+          <div className="lg:w-1/4 flex flex-col gap-4">
+            <div className="paper-panel p-5 sticky top-24">
+              <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center border-b border-gray-100 pb-3">
+                <Calendar size={18} className="mr-2 text-pku-blue" />
+                往年试卷集
+              </h3>
+              
+              <div className="space-y-2">
+                {yearKeys.map((yearKey) => (
+                  <button
+                    key={yearKey}
+                    onClick={() => setSelectedYearKey(yearKey)}
+                    className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center justify-between ${
+                      selectedYearKey === yearKey 
+                        ? 'bg-pku-blue text-white shadow-md transform scale-[1.02]' 
+                        : 'hover:bg-blue-50 text-gray-600 hover:text-pku-blue'
+                    }`}
+                  >
+                    <span className="font-medium">
+                      {yearKey === '早期档案' ? yearKey : `${yearKey} 年`}
+                    </span>
+                    <ChevronRight size={16} className={selectedYearKey === yearKey ? 'text-white' : 'text-gray-400'} />
+                  </button>
+                ))}
+              </div>
+
+              {/* Reports and Awards for selected year */}
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={selectedYearKey}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-6 space-y-3"
+                >
+                  {selectedYearKey !== '早期档案' && mockMidtermConfig.reports?.find(r => r.year.toString() === selectedYearKey) && (
+                    <a 
+                      href={mockMidtermConfig.reports.find(r => r.year.toString() === selectedYearKey)?.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-center w-full bg-red-50 hover:bg-red-100 text-pku-red py-2.5 rounded-lg text-sm font-medium transition-colors border border-red-100"
+                    >
+                      <ExternalLink size={14} className="mr-2" />
+                      查看成绩报告
+                    </a>
+                  )}
+                  {selectedYearKey !== '早期档案' && mockMidtermConfig.awards?.find(r => r.year.toString() === selectedYearKey) && (
+                    <a 
+                      href={mockMidtermConfig.awards.find(r => r.year.toString() === selectedYearKey)?.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-center w-full bg-blue-50 hover:bg-blue-100 text-pku-blue py-2.5 rounded-lg text-sm font-medium transition-colors border border-blue-100"
+                    >
+                      <ExternalLink size={14} className="mr-2" />
+                      查看获奖名单
+                    </a>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Right Area: Exam Selection & Markdown Viewer */}
+          <div className="lg:w-3/4 flex flex-col gap-6">
+            
+            {/* Exam Pills */}
+            <motion.div 
+              key={`exams-${selectedYearKey}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="paper-panel p-4"
+            >
+              <div className="flex flex-wrap gap-2">
+                {examsByYear[selectedYearKey]?.map((exam) => (
+                  <button
+                    key={exam.id}
+                    onClick={() => setSelectedExamId(exam.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      selectedExamId === exam.id
+                        ? 'bg-pku-red text-white shadow-md'
+                        : 'bg-gray-50 text-gray-600 hover:bg-red-50 hover:text-pku-red border border-gray-200'
+                    }`}
+                  >
+                    {exam.title.replace(`${selectedYearKey}年 `, '')}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Markdown Workspace */}
+            <motion.div 
+              key={`content-${selectedExamId}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="paper-panel p-8 min-h-[600px] flex flex-col"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-gray-100 gap-4">
+                <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                  <BookOpen className="mr-3 text-pku-red" />
+                  {currentExam?.title || '试题详情'}
+                </h2>
+                
+                {currentExam?.pdfPath && (
+                  <a 
+                    href={currentExam.pdfPath}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center px-5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                  >
+                    <Download size={16} className="mr-2" />
+                    下载 PDF 原件
+                  </a>
+                )}
+              </div>
+
+              {loading ? (
+                <div className="flex-grow flex justify-center items-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pku-red"></div>
+                </div>
+              ) : (
+                <div className="flex-grow bg-white/50 rounded-xl">
+                  <article className="markdown-body !bg-transparent !text-gray-800 prose prose-slate max-w-none prose-headings:text-pku-blue prose-a:text-pku-red">
+                     <ReactMarkdown
+                        remarkPlugins={[remarkMath, remarkGfm]}
+                        rehypePlugins={[
+                          [rehypeKatex, {
+                            strict: false,
+                            macros: {
+                              "\\nmid": "\\not\\mid"
+                            }
+                          }]
+                        ]}
+                      >
+                       {preprocessMarkdown(markdownContent)}
+                     </ReactMarkdown>
+                   </article>
+                </div>
+              )}
+            </motion.div>
+
+          </div>
         </div>
       </main>
 

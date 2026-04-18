@@ -31,49 +31,58 @@ export const mockMidtermConfig = {
   ],
   exams: [
     {
-      id: 6,
+      id: 9,
       title: '2025年 数学组',
-      pdfPath: '/public/pdfs/2025math.pdf',
+      pdfPath: '/pdfs/2025math.pdf',
+      contentPath: '/mock-midterm/2025math.md'
+    },
+    {
+      id: 8,
+      title: '2025年 高等数学',
+      pdfPath: '/pdfs/2025gs.pdf',
+      contentPath: '/mock-midterm/2025gs.md'
+    },
+    {
+      id: 7,
+      title: '2025年 线性代数',
+      pdfPath: '/pdfs/2025xd.pdf',
+      contentPath: '/mock-midterm/2025xd.md'
+    },
+    {
+      id: 6,
+      title: '2024年 数学组',
+      pdfPath: '/pdfs/2024math.pdf',
+      contentPath: '/mock-midterm/2024math.md'
     },
     {
       id: 5,
-      title: '2025年 高等数学',
-      pdfPath: '/public/pdfs/2025gs.pdf',
+      title: '2023年 数学组',
+      pdfPath: '/pdfs/2023math.pdf',
+      contentPath: '/mock-midterm/2023math.md'
     },
     {
       id: 4,
-      title: '2025年 线性代数',
-      pdfPath: '/pdfs/2025xd.pdf',
+      title: '2020年 数学组',
+      pdfPath: '/pdfs/2020math.pdf',
+      contentPath: '/mock-midterm/2020math.md'
+    },
+    {
+      id: 3,
+      title: '2019年 数学组',
+      pdfPath: '/pdfs/2019math.pdf',
+      contentPath: '/mock-midterm/2019math.md'
     },
     {
       id: 2,
-      title: '2024年 数学组',
-      pdfPath: '/pdfs/2024math.pdf',
-    },
-    {
-      id: 1,
-      title: '2023年 数学组',
-      pdfPath: '/pdfs/2023math.pdf',
-    },
-    {
-      id: 1,
-      title: '2020年 数学组',
-      pdfPath: '/pdfs/2020math.pdf',
-    },
-    {
-      id: 1,
-      title: '2019年 数学组',
-      pdfPath: '/pdfs/2019math.pdf',
-    },
-    {
-      id: 1,
       title: '某届数学组',
       pdfPath: '/pdfs/old1.pdf',
+      contentPath: '/mock-midterm/old1.md'
     },
     {
       id: 1,
       title: '首届数学组',
       pdfPath: '/pdfs/old0.pdf',
+      contentPath: '/mock-midterm/old0.md'
     }
   ]
 };
