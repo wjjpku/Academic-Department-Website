@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
+import SectionHeader from '../components/SectionHeader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, FileText, Download, ExternalLink } from 'lucide-react';
 import { mockMidtermConfig } from '../config';
@@ -34,29 +36,14 @@ const MockMidterm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      {/* Hero Section */}
-      <div className="bg-pku-blue pt-32 pb-16 text-white text-center">
-        <div className="container mx-auto px-4">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold font-serif mb-4"
-          >
-            {mockMidtermConfig.title}
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-white/80 max-w-2xl mx-auto"
-          >
-            {mockMidtermConfig.subtitle}
-          </motion.p>
-        </div>
-      </div>
+      <PageHero 
+        title={mockMidtermConfig.title} 
+        subtitle={mockMidtermConfig.subtitle}
+        theme="blue"
+      />
 
       <main className="flex-grow container mx-auto px-4 py-16 max-w-4xl">
         <div className="space-y-12">
@@ -64,14 +51,13 @@ const MockMidterm = () => {
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="bg-white p-8 rounded-xl shadow-md overflow-hidden"
+            viewport={{ once: true }}
+            className="paper-panel p-8 md:p-10 overflow-hidden"
           >
-            <div className={`flex flex-col ${mockMidtermConfig.intro.image ? 'md:flex-row' : ''} gap-8 items-center`}>
+            <div className={`flex flex-col ${mockMidtermConfig.intro.image ? 'md:flex-row' : ''} gap-10 items-center`}>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">
-                  {mockMidtermConfig.intro.title}
-                </h2>
-                <div className="prose max-w-none text-gray-600 leading-relaxed">
+                <SectionHeader title={mockMidtermConfig.intro.title} />
+                <div className="prose max-w-none text-gray-600 leading-relaxed text-lg">
                   {mockMidtermConfig.intro.content.map((paragraph, idx) => (
                     <p key={idx} className="mb-4">
                       {paragraph}
@@ -80,12 +66,13 @@ const MockMidterm = () => {
                 </div>
               </div>
               {mockMidtermConfig.intro.image && (
-                <div className="flex-1 w-full md:w-auto">
+                <div className="flex-1 w-full md:w-auto relative group">
+                  <div className="absolute inset-0 bg-pku-blue/10 rounded-2xl transform translate-x-3 translate-y-3 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
                   <img 
                     src={mockMidtermConfig.intro.image} 
                     alt="Mock Midterm Scene" 
                     loading="lazy"
-                    className="rounded-lg shadow-md w-full object-cover h-64 md:h-80 hover:scale-[1.02] transition-transform duration-300" 
+                    className="relative rounded-2xl shadow-md w-full object-cover h-64 md:h-80 hover:shadow-xl transition-all duration-300" 
                   />
                 </div>
               )}
@@ -97,24 +84,30 @@ const MockMidterm = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="space-y-4"
+            viewport={{ once: true }}
+            className="space-y-6"
           >
+            <SectionHeader title="历年试题与报告" />
+            
             {years.length > 0 ? (
               years.map((year) => (
-                <div key={year} className="bg-white rounded-xl shadow-md overflow-hidden">
+                <div key={year} className="paper-panel overflow-hidden transition-all duration-300 hover:shadow-md">
                   <button
                     onClick={() => toggleYear(year)}
-                    className="w-full flex justify-between items-center p-6 hover:bg-gray-50 transition-colors"
+                    className="w-full flex justify-between items-center p-6 hover:bg-gray-50/50 transition-colors"
                   >
                     <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                      <span className="w-2 h-8 bg-pku-red mr-4 rounded-full"></span>
+                      <span className="w-1.5 h-6 bg-pku-red mr-4 rounded-full"></span>
                       {year} 年模拟期中
                     </h3>
-                    <ChevronDown 
-                      className={`transform transition-transform duration-300 text-gray-500 ${
-                        expandedYear === year ? 'rotate-180' : ''
-                      }`} 
-                    />
+                    <div className={`p-2 rounded-full transition-colors ${expandedYear === year ? 'bg-red-50 text-pku-red' : 'bg-gray-50 text-gray-400'}`}>
+                      <ChevronDown 
+                        className={`transform transition-transform duration-300 ${
+                          expandedYear === year ? 'rotate-180' : ''
+                        }`} 
+                        size={20}
+                      />
+                    </div>
                   </button>
                   
                   <AnimatePresence>
@@ -123,17 +116,17 @@ const MockMidterm = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                       >
-                        <div className="border-t border-gray-100">
+                        <div className="border-t border-gray-100 bg-gray-50/30">
                           {/* Report and Award Links */}
-                          <div className="px-6 pt-6 flex flex-wrap gap-4">
+                          <div className="px-8 pt-8 flex flex-wrap gap-4">
                             {mockMidtermConfig.reports?.find(r => r.year === year) && (
                               <a 
                                 href={mockMidtermConfig.reports.find(r => r.year === year)?.link}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center text-white bg-pku-red hover:bg-red-700 px-4 py-2 rounded-lg transition-colors text-sm font-medium shadow-sm"
+                                className="inline-flex items-center text-white bg-pku-red hover:bg-red-700 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-0.5 text-sm font-medium shadow-md hover:shadow-lg"
                               >
                                 <ExternalLink size={16} className="mr-2" />
                                 {mockMidtermConfig.reports.find(r => r.year === year)?.title || '查看成绩报告'}
@@ -145,7 +138,7 @@ const MockMidterm = () => {
                                 href={mockMidtermConfig.awards.find(r => r.year === year)?.link}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center text-pku-red bg-red-50 hover:bg-red-100 border border-red-200 px-4 py-2 rounded-lg transition-colors text-sm font-medium shadow-sm"
+                                className="inline-flex items-center text-pku-red bg-white hover:bg-red-50 border border-red-100 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-0.5 text-sm font-medium shadow-sm hover:shadow"
                               >
                                 <ExternalLink size={16} className="mr-2" />
                                 {mockMidtermConfig.awards.find(r => r.year === year)?.title || '查看获奖名单'}
@@ -153,12 +146,14 @@ const MockMidterm = () => {
                             )}
                           </div>
 
-                          <div className="px-6 pb-6 pt-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="p-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                               {examsByYear[year].map((exam, idx) => (
-                                <div key={idx} className="border rounded-lg p-4 hover:shadow-sm transition-shadow">
-                                  <h4 className="font-bold text-lg mb-3 text-pku-blue flex items-center">
-                                    <FileText size={18} className="mr-2" />
+                                <div key={idx} className="bg-white border border-gray-100 rounded-xl p-5 hover:border-pku-red/30 hover:shadow-md transition-all group">
+                                  <h4 className="font-bold text-lg mb-4 text-gray-800 flex items-center group-hover:text-pku-red transition-colors">
+                                    <div className="p-2 bg-blue-50 text-pku-blue rounded-lg mr-3 group-hover:bg-red-50 group-hover:text-pku-red transition-colors">
+                                      <FileText size={18} />
+                                    </div>
                                     {exam.title}
                                   </h4>
                                   <div className="flex space-x-3">
@@ -167,9 +162,9 @@ const MockMidterm = () => {
                                         href={exam.pdfPath}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-pku-red bg-red-50 hover:bg-red-100 rounded-md transition-colors"
+                                        className="flex-1 flex items-center justify-center px-4 py-2.5 text-sm font-medium text-pku-red bg-red-50/50 hover:bg-red-50 rounded-lg transition-colors border border-red-100/50"
                                       >
-                                        <Download size={14} className="mr-2" />
+                                        <Download size={16} className="mr-2" />
                                         试题 PDF
                                       </a>
                                     )}
@@ -185,7 +180,7 @@ const MockMidterm = () => {
                 </div>
               ))
             ) : (
-              <div className="text-center py-8 text-gray-500 bg-white rounded-xl shadow-md">
+              <div className="text-center py-12 text-gray-500 paper-panel border-none shadow-sm">
                 暂无试题信息
               </div>
             )}

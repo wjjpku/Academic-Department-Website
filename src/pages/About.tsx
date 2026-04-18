@@ -1,38 +1,37 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
+import SectionHeader from '../components/SectionHeader';
 import { motion } from 'framer-motion';
-import { Github, Globe, GitPullRequest, GitBranch, ArrowRight } from 'lucide-react';
-import { aboutConfig } from '../config';
+import { Github, Globe, GitPullRequest, GitBranch, ArrowRight, Mail, MessageSquare } from 'lucide-react';
+import { aboutConfig, joinConfig } from '../config';
 
 const About = () => {
-  const { intro, author, features, techStack, contact, openSource } = aboutConfig;
+  const { intro, author, features, techStack, contact: aboutContact, openSource } = aboutConfig;
+  const { hero: joinHero, benefits, contact: joinContact } = joinConfig;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <div className="bg-pku-blue pt-32 pb-16 text-white text-center">
-        <div className="container mx-auto px-4">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold font-serif mb-4"
-          >
-            {aboutConfig.title}
-          </motion.h1>
-        </div>
-      </div>
+      <PageHero 
+        title="关于与加入" 
+        subtitle="了解我们的工作，或者成为我们的一员"
+        theme="blue"
+      />
 
-      <main className="flex-grow container mx-auto px-4 py-16 max-w-4xl">
-        <div className="space-y-12">
+      <main className="flex-grow container mx-auto px-4 py-16 max-w-5xl">
+        <div className="space-y-16">
           {/* Intro Section */}
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="bg-white p-8 rounded-xl shadow-md"
+            viewport={{ once: true }}
+            className="paper-panel p-8 md:p-12 relative overflow-hidden"
           >
-            <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">{intro.title}</h2>
-            <div className="prose max-w-none text-gray-600 leading-relaxed">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-pku-blue opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+            <SectionHeader title={intro.title} />
+            <div className="prose max-w-none text-gray-600 leading-relaxed text-lg relative z-10">
               {intro.content.map((paragraph, idx) => (
                 <p key={idx} className="mb-4">
                   {paragraph}
@@ -41,27 +40,99 @@ const About = () => {
             </div>
           </motion.section>
 
-          {/* Open Source Section - New Added */}
+          {/* Join Us Benefits Section */}
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="pt-8"
+          >
+            <div className="text-center mb-12 flex flex-col items-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{joinConfig.benefitsTitle}</h2>
+              <div className="w-16 h-1.5 bg-pku-red rounded-full"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {benefits.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  className="paper-panel p-6 hover:border-pku-red/30 transition-all duration-300 group hover:-translate-y-1"
+                >
+                  <div className="mb-5 flex justify-center">
+                    <div className="p-4 bg-gray-50 rounded-2xl group-hover:bg-red-50 transition-colors duration-300 shadow-sm">
+                      <item.icon className={`w-8 h-8 ${item.iconColor} group-hover:scale-110 transition-transform`} />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-bold mb-3 text-center text-gray-900">{item.title}</h3>
+                  <p className="text-gray-500 leading-relaxed text-sm text-center">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* How to Join Section */}
+          <motion.section 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="paper-panel overflow-hidden max-w-5xl mx-auto border-none shadow-xl"
+          >
+            <div className="md:flex">
+              <div className="md:w-5/12 bg-pku-blue flex flex-col items-center justify-center p-12 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center" style={{ backgroundImage: `url('${joinHero.bgImage}')` }}></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-pku-blue/80 to-pku-blue/95 pointer-events-none"></div>
+                <div className="relative z-10 bg-white/10 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-white/20">
+                  <img src={joinContact.qrImage} alt="招新群二维码" className="w-48 h-48 object-contain rounded-xl bg-white" />
+                </div>
+                <p className="mt-6 text-sm font-medium text-white/90 text-center relative z-10">{joinContact.qrTip}</p>
+              </div>
+              <div className="md:w-7/12 p-10 md:p-12 flex flex-col justify-center bg-white">
+                <SectionHeader title={joinContact.title} />
+                <div className="space-y-8 mt-4">
+                  {joinContact.methods.map((method, idx) => (
+                    <div key={idx} className="flex items-start group">
+                      <div className={`p-3.5 rounded-2xl mr-5 shadow-sm transition-transform group-hover:-translate-y-1 ${method.type === 'wechat' ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
+                        {method.type === 'wechat' ? <MessageSquare size={22} /> : <Mail size={22} />}
+                      </div>
+                      <div className="flex-1 pt-1">
+                        <h4 className="font-bold text-gray-900 text-lg">{method.label}</h4>
+                        {method.isLink ? (
+                          <a href={`mailto:${method.value}`} className="text-pku-red hover:text-red-700 font-medium transition-colors mt-1 block">
+                            {method.value}
+                          </a>
+                        ) : (
+                          <p className="text-gray-600 mt-1 leading-relaxed">{method.value}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Open Source Section */}
           {openSource && (
             <motion.section 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
-              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
+              viewport={{ once: true }}
+              className="paper-panel overflow-hidden border-none"
             >
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-pku-blue border-l-4 border-pku-red pl-4">
-                    {openSource.title}
-                  </h2>
+              <div className="p-8 md:p-10">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                  <SectionHeader title={openSource.title} />
                   <a 
                     href={openSource.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-gray-600 hover:text-black transition-colors"
+                    className="flex items-center justify-center px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-black rounded-full transition-colors border border-gray-200"
                   >
-                    <Github size={24} className="mr-2" />
-                    <span className="font-medium">Star on GitHub</span>
+                    <Github size={18} className="mr-2" />
+                    <span className="font-medium text-sm">Star on GitHub</span>
                   </a>
                 </div>
 
@@ -73,27 +144,27 @@ const About = () => {
                   ))}
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                  <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                  <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center">
                     <GitPullRequest size={20} className="mr-2 text-pku-red" />
                     如何参与贡献？
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {openSource.guide.map((step, idx) => (
                       <div key={idx} className="flex items-start">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-pku-blue text-white flex items-center justify-center text-xs font-bold mt-0.5 mr-3">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-pku-blue text-white flex items-center justify-center text-xs font-bold mt-0.5 mr-3 shadow-sm">
                           {idx + 1}
                         </div>
-                        <span className="text-sm text-gray-700">{step}</span>
+                        <span className="text-sm text-gray-700 leading-relaxed">{step}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-6 pt-4 border-t border-gray-200 flex justify-end">
+                  <div className="mt-8 pt-6 border-t border-gray-200 flex justify-end">
                     <a 
                       href={openSource.repoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
+                      className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-full hover:bg-black hover:shadow-md transition-all duration-200"
                     >
                       <GitBranch size={16} className="mr-2" />
                       前往 GitHub 仓库
@@ -109,88 +180,99 @@ const About = () => {
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white p-8 rounded-xl shadow-md"
+            viewport={{ once: true }}
+            className="paper-panel p-8 md:p-10"
           >
-            <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">{author.title}</h2>
+            <SectionHeader title={author.title} />
             <div className="prose max-w-none text-gray-600 leading-relaxed">
               {author.content.map((paragraph, idx) => (
                 <p key={idx} className="mb-4">
                   {paragraph}
                 </p>
               ))}
-              <div className="flex space-x-4 mt-6">
+              <div className="flex flex-wrap gap-4 mt-8">
                 {author.social.map((item, idx) => (
                   <a
                     key={idx}
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-pku-blue hover:text-pku-red transition-colors bg-gray-50 px-4 py-2 rounded-lg"
+                    className="flex items-center space-x-2 text-pku-blue hover:text-white hover:bg-pku-blue transition-colors bg-blue-50 px-5 py-2.5 rounded-full font-medium shadow-sm"
                   >
-                    {item.name === 'GitHub' ? <Github size={20} /> : <Globe size={20} />}
-                    <span className="font-medium">{item.name}</span>
+                    {item.name === 'GitHub' ? <Github size={18} /> : <Globe size={18} />}
+                    <span>{item.name}</span>
                   </a>
                 ))}
               </div>
             </div>
           </motion.section>
 
-          {/* Features Section */}
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="bg-white p-8 rounded-xl shadow-md"
-          >
-            <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">{features.title}</h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {features.list.map((feature, idx) => (
-                <li key={idx} className="flex items-center text-gray-700 bg-gray-50 p-3 rounded-lg">
-                  <span className="text-green-500 mr-3 font-bold">✓</span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </motion.section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Features Section */}
+            <motion.section 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="paper-panel p-8"
+            >
+              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                <div className="w-1.5 h-5 bg-pku-red mr-3 rounded-full"></div>
+                {features.title}
+              </h2>
+              <ul className="space-y-3">
+                {features.list.map((feature, idx) => (
+                  <li key={idx} className="flex items-start text-gray-700 bg-gray-50/80 p-3.5 rounded-xl border border-gray-100">
+                    <span className="text-green-500 mr-3 font-bold mt-0.5">✓</span>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.section>
 
-          {/* Tech Stack Section */}
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white p-8 rounded-xl shadow-md"
-          >
-            <h2 className="text-2xl font-bold text-pku-blue mb-6 border-l-4 border-pku-red pl-4">{techStack.title}</h2>
-            <div className="bg-gray-900 text-gray-300 p-6 rounded-lg font-mono text-sm">
-              <div className="flex items-center mb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            {/* Tech Stack Section */}
+            <motion.section 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="paper-panel p-8"
+            >
+              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                <div className="w-1.5 h-5 bg-pku-red mr-3 rounded-full"></div>
+                {techStack.title}
+              </h2>
+              <div className="bg-[#1e1e1e] text-gray-300 p-6 rounded-xl font-mono text-sm shadow-inner h-[calc(100%-4rem)]">
+                <div className="flex items-center mb-5">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56] mr-2"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e] mr-2"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                </div>
+                <p className="mb-2"><span className="text-blue-400">const</span> <span className="text-yellow-300">stack</span> = {`{`}</p>
+                <div className="pl-4 space-y-1.5">
+                  <p><span className="text-blue-300">framework</span>: <span className="text-green-400">'React 19'</span>,</p>
+                  <p><span className="text-blue-300">buildTool</span>: <span className="text-green-400">'Vite'</span>,</p>
+                  <p><span className="text-blue-300">styling</span>: <span className="text-green-400">'Tailwind CSS'</span>,</p>
+                  <p><span className="text-blue-300">animation</span>: <span className="text-green-400">'Framer Motion'</span>,</p>
+                  <p><span className="text-blue-300">typeSafety</span>: <span className="text-green-400">'TypeScript'</span></p>
+                </div>
+                <p className="mt-2">{`}`};</p>
               </div>
-              <p className="mb-2"><span className="text-blue-400">const</span> stack = {`{`}</p>
-              <div className="pl-4 space-y-1">
-                <p>framework: <span className="text-green-400">'React 19'</span>,</p>
-                <p>buildTool: <span className="text-green-400">'Vite'</span>,</p>
-                <p>styling: <span className="text-green-400">'Tailwind CSS'</span>,</p>
-                <p>animation: <span className="text-green-400">'Framer Motion'</span>,</p>
-                <p>typeSafety: <span className="text-green-400">'TypeScript'</span></p>
-              </div>
-              <p>{`}`};</p>
-            </div>
-          </motion.section>
+            </motion.section>
+          </div>
 
           {/* Contact Section */}
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-            className="bg-gradient-to-r from-pku-blue to-blue-900 text-white p-8 rounded-xl shadow-md"
+            viewport={{ once: true }}
+            className="bg-gradient-to-br from-pku-blue to-blue-900 text-white p-10 rounded-2xl shadow-xl relative overflow-hidden"
           >
-            <h2 className="text-2xl font-bold mb-6">{contact.title}</h2>
-            <div className="space-y-4">
-              {contact.info.map((item, idx) => (
-                <p key={idx}><strong>{item.label}:</strong> {item.value}</p>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+            <h2 className="text-2xl font-bold mb-6 relative z-10">{aboutContact.title}</h2>
+            <div className="space-y-4 relative z-10">
+              {aboutContact.info.map((item, idx) => (
+                <p key={idx} className="text-white/90">
+                  <strong className="text-white">{item.label}:</strong> {item.value}
+                </p>
               ))}
             </div>
           </motion.section>

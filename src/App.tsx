@@ -9,7 +9,6 @@ const Resources = lazy(() => import('./pages/Resources'));
 const Challenges = lazy(() => import('./pages/Challenges'));
 const MockMidterm = lazy(() => import('./pages/MockMidterm'));
 const Team = lazy(() => import('./pages/Team'));
-const Join = lazy(() => import('./pages/Join'));
 const About = lazy(() => import('./pages/About'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -31,7 +30,6 @@ function App() {
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/mock-midterm" element={<MockMidterm />} />
           <Route path="/team" element={<Team />} />
-          <Route path="/join" element={<Join />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

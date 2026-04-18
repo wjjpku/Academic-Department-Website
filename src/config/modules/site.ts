@@ -15,6 +15,5 @@ export const navConfig = [
   { name: '九章征解', path: '/challenges' },
   { name: '模拟期中', path: '/mock-midterm' },
   { name: '团队风采', path: '/team' },
-  { name: '加入我们', path: '/join' },
-  { name: '关于本站', path: '/about' },
+  { name: '关于与加入', path: '/about' },
 ];

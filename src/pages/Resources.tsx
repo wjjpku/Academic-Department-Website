@@ -1,83 +1,62 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
+import SectionHeader from '../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { resourcesConfig } from '../config';
 import { FileText, Link as LinkIcon, Download, ExternalLink, Tag, Send } from 'lucide-react';
 
 const Resources = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       {/* Header */}
-      <div className="bg-pku-blue pt-24 pb-12 text-white text-center relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl font-bold font-serif mb-2"
-          >
-            {resourcesConfig.title}
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-white/80 max-w-2xl mx-auto text-sm md:text-base mb-6"
-          >
-            {resourcesConfig.subtitle}
-          </motion.p>
-          
-          {resourcesConfig.submitUrl && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+      <PageHero 
+        title={resourcesConfig.title} 
+        subtitle={resourcesConfig.subtitle}
+        theme="blue"
+      >
+        {resourcesConfig.submitUrl && (
+          <div className="mt-6">
+            <a
+              href={resourcesConfig.submitUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-2.5 bg-pku-red hover:bg-red-700 text-white text-sm font-medium rounded-full transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
             >
-              <a
-                href={resourcesConfig.submitUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-2 bg-pku-red hover:bg-red-700 text-white text-sm font-medium rounded-full transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
-              >
-                <Send size={16} className="mr-2" />
-                提交资源
-              </a>
-              <p className="text-white/60 text-xs mt-2">
-                欢迎分享优质学术资源，共建学术社区
-              </p>
-            </motion.div>
-          )}
-        </div>
-      </div>
+              <Send size={16} className="mr-2" />
+              提交资源
+            </a>
+            <p className="text-white/60 text-xs mt-3">
+              欢迎分享优质学术资源，共建学术社区
+            </p>
+          </div>
+        )}
+      </PageHero>
 
       {/* Resources Content */}
-      <main className="flex-grow container mx-auto px-4 py-8 max-w-6xl">
-        <div className="space-y-10">
+      <main className="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+        <div className="space-y-16">
           {resourcesConfig.categories.map((category, index) => (
             <motion.section
               key={category.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="paper-panel p-8"
             >
-              <div className="flex items-center mb-6">
-                <div className="w-1.5 h-6 bg-pku-red mr-3 rounded-full"></div>
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900">{category.title}</h2>
-                  {category.description && (
-                    <p className="text-gray-500 text-xs mt-0.5">{category.description}</p>
-                  )}
-                </div>
-              </div>
+              <SectionHeader 
+                title={category.title} 
+                description={category.description} 
+              />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {category.items.map((item) => (
                   <motion.div
                     key={item.id}
-                    whileHover={{ y: -5 }}
-                    className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col"
+                    className="rounded-card flex flex-col"
                   >
                     {item.image && (
                       <div className="h-32 overflow-hidden bg-gray-100">

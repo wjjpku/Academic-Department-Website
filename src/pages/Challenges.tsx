@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
 import { motion } from 'framer-motion';
 import { FileText, Download, ChevronRight, CheckCircle, Send } from 'lucide-react';
 import { marked } from 'marked';
@@ -56,43 +57,36 @@ const Challenges = () => {
   }, [selectedIssueId, currentIssue.contentPath]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <div className="bg-pku-blue pt-32 pb-16 text-white text-center">
-        <div className="container mx-auto px-4">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold font-serif mb-4"
-          >
-            {challengesConfig.title}
-          </motion.h1>
-          <p className="text-white/80">{challengesConfig.subtitle}</p>
-        </div>
-      </div>
+      <PageHero 
+        title={challengesConfig.title} 
+        subtitle={challengesConfig.subtitle}
+        theme="blue"
+      />
 
       <main className="flex-grow container mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
         <div className="md:w-1/4">
-          <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
-            <h3 className="text-lg font-bold mb-4 border-b pb-2">往期回顾</h3>
+          <div className="paper-panel p-6 sticky top-24 border-none shadow-sm">
+            <h3 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2 text-gray-800">往期回顾</h3>
             <div className="space-y-2">
               {challengesConfig.issues.map((issue) => (
                 <button
                   key={issue.id}
                   onClick={() => setSelectedIssueId(issue.id)}
-                  className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between transition-colors ${
+                  className={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between transition-all duration-300 ${
                     selectedIssueId === issue.id 
-                      ? 'bg-pku-red text-white' 
-                      : 'hover:bg-gray-100 text-gray-700'
+                      ? 'bg-pku-red text-white shadow-md transform scale-[1.02]' 
+                      : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900'
                   }`}
                 >
                   <div className="flex flex-col">
                     <span className="font-medium">第 {issue.id} 期</span>
-                    {issue.title && <span className={`text-xs ${selectedIssueId === issue.id ? 'text-white/80' : 'text-gray-500'}`}>{issue.title}</span>}
+                    {issue.title && <span className={`text-xs mt-0.5 ${selectedIssueId === issue.id ? 'text-white/80' : 'text-gray-400'}`}>{issue.title}</span>}
                   </div>
-                  {selectedIssueId === issue.id && <ChevronRight size={16} />}
+                  {selectedIssueId === issue.id && <ChevronRight size={16} className="text-white/90" />}
                 </button>
               ))}
             </div>
@@ -101,25 +95,31 @@ const Challenges = () => {
 
         {/* Content */}
         <div className="md:w-3/4">
-          <div className="bg-white rounded-xl shadow-md p-8 min-h-[500px]">
+          <motion.div 
+            key={selectedIssueId}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="paper-panel p-8 min-h-[600px] border-none shadow-sm"
+          >
             {loading ? (
-              <div className="flex justify-center items-center h-full">
+              <div className="flex justify-center items-center h-full min-h-[400px]">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pku-red"></div>
               </div>
             ) : (
               <div className="flex flex-col h-full">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b pb-4 gap-4">
-                  <h2 className="text-2xl font-bold text-pku-red flex items-center">
-                    <FileText className="mr-2" /> 第 {selectedIssueId} 期题目
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-100 pb-6 gap-4">
+                  <h2 className="text-2xl font-bold text-pku-red flex items-center tracking-tight">
+                    <FileText className="mr-3" /> 第 {selectedIssueId} 期题目
                   </h2>
                   
-                  <div className="flex gap-3">
+                  <div className="flex flex-wrap gap-3">
                     {currentIssue.pdfPath && (
                       <a 
                         href={currentIssue.pdfPath} 
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full transition-colors"
+                        className="flex items-center text-sm bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-full transition-colors border border-gray-200 shadow-sm hover:shadow"
                       >
                         <Download size={14} className="mr-2" /> 优秀解答 PDF
                       </a>
@@ -130,7 +130,7 @@ const Challenges = () => {
                         href={currentIssue.solutionPath} 
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center text-sm bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-full transition-colors border border-green-200"
+                        className="flex items-center text-sm bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-full transition-colors border border-green-200 shadow-sm hover:shadow"
                       >
                         <CheckCircle size={14} className="mr-2" /> 参考解答
                       </a>
@@ -139,18 +139,17 @@ const Challenges = () => {
                 </div>
                 
                 <article 
-                  className="markdown-body !bg-white !text-gray-800 flex-grow mb-8" 
-                  style={{ backgroundColor: 'white', color: '#24292f' }}
+                  className="markdown-body !bg-transparent !text-gray-800 flex-grow mb-8 prose prose-slate max-w-none" 
                   dangerouslySetInnerHTML={{ __html: marked(markdownContent) as string }} 
                 />
 
                 {currentIssue.submitUrl && (
-                  <div className="mt-auto pt-6 border-t border-gray-100 flex justify-center">
+                  <div className="mt-auto pt-8 border-t border-gray-100 flex justify-center">
                     <a
                       href={currentIssue.submitUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-8 py-3 bg-pku-red hover:bg-red-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                      className="inline-flex items-center px-8 py-3 bg-pku-red hover:bg-red-700 text-white font-medium rounded-full shadow-md hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
                     >
                       <Send size={18} className="mr-2" />
                       提交本期解答
@@ -159,7 +158,7 @@ const Challenges = () => {
                 )}
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </main>
 
