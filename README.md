@@ -11,6 +11,7 @@
 *   **活动掠影**：展示学术组举办的各类讲座、沙龙、面试模拟等活动精彩瞬间。
 *   **团队风采**：介绍学术组现任及往届成员，展示团队文化。
 *   **响应式设计**：基于 Tailwind CSS 开发，完美适配桌面端与移动端访问。
+*   **良好的用户体验**：内置了返回顶部（Scroll To Top）浮动按钮与页面路由自动置顶，并提供友好的 404 页面提示。
 
 ## 🛠 技术栈
 
@@ -19,6 +20,7 @@
 *   **核心框架**: [React 18](https://react.dev/)
 *   **构建工具**: [Vite](https://vitejs.dev/)
 *   **编程语言**: [TypeScript](https://www.typescriptlang.org/)
+*   **代码规范**: [ESLint](https://eslint.org/) (ESLint 9.x 配置支持)
 *   **样式方案**: [Tailwind CSS](https://tailwindcss.com/)
 *   **路由管理**: [React Router v6](https://reactrouter.com/)
 *   **动画效果**: [Framer Motion](https://www.framer.com/motion/)
