@@ -5,24 +5,7 @@ import PageHero from '../components/PageHero';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Download, ExternalLink, Calendar, BookOpen } from 'lucide-react';
 import { mockMidtermConfig } from '../config';
-import 'github-markdown-css/github-markdown-light.css';
-import 'katex/dist/katex.min.css';
-import ReactMarkdown from 'react-markdown';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import remarkGfm from 'remark-gfm';
-
-// Optional: preprocessing to fix common markdown math issues
-const preprocessMarkdown = (text: string) => {
-  if (!text) return '';
-  
-  let processed = text;
-  
-  // 1. 修复多行公式中常见的 \\ 被 markdown 吞掉的问题
-  processed = processed.replace(/\\\\/g, '\\\\\\\\');
-
-  return processed;
-};
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 const MockMidterm = () => {
   // Group exams by year from config if available, otherwise use default structure or empty
@@ -263,21 +246,10 @@ const MockMidterm = () => {
                 </div>
               ) : (
                 <div className="flex-grow bg-white/50 rounded-xl">
-                  <article className="markdown-body !bg-transparent !text-gray-800 prose prose-slate max-w-none prose-headings:text-pku-blue prose-a:text-pku-red">
-                     <ReactMarkdown
-                        remarkPlugins={[remarkMath, remarkGfm]}
-                        rehypePlugins={[
-                          [rehypeKatex, {
-                            strict: false,
-                            macros: {
-                              "\\nmid": "\\not\\mid"
-                            }
-                          }]
-                        ]}
-                      >
-                       {preprocessMarkdown(markdownContent)}
-                     </ReactMarkdown>
-                   </article>
+                  <MarkdownRenderer
+                    content={markdownContent}
+                    className="markdown-body !bg-transparent !text-gray-800 prose prose-slate max-w-none prose-headings:text-pku-blue prose-a:text-pku-red"
+                  />
                 </div>
               )}
             </motion.div>

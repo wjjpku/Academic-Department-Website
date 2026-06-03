@@ -4,24 +4,8 @@ import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
 import { motion } from 'framer-motion';
 import { FileText, Download, ChevronRight, CheckCircle, Send } from 'lucide-react';
-import 'github-markdown-css/github-markdown-light.css';
-import 'katex/dist/katex.min.css';
 import { challengesConfig } from '../config';
-import ReactMarkdown from 'react-markdown';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import remarkGfm from 'remark-gfm';
-
-// Optional: preprocessing to fix common markdown math issues
-const preprocessMarkdown = (text: string) => {
-  if (!text) return '';
-  let processed = text;
-  
-  // 1. 修复多行公式中常见的 \\ 被 markdown 吞掉的问题
-  processed = processed.replace(/\\\\/g, '\\\\\\\\');
-
-  return processed;
-};
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 const Challenges = () => {
   // Use the first issue's ID as default, or fallback to 1
@@ -146,21 +130,10 @@ const Challenges = () => {
                   </div>
                 </div>
                 
-                <article className="markdown-body !bg-transparent !text-gray-800 flex-grow mb-8 prose prose-slate max-w-none">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkMath, remarkGfm]}
-                    rehypePlugins={[
-                      [rehypeKatex, {
-                        strict: false,
-                        macros: {
-                          "\\nmid": "\\not\\mid"
-                        }
-                      }]
-                    ]}
-                  >
-                    {preprocessMarkdown(markdownContent)}
-                  </ReactMarkdown>
-                </article>
+                <MarkdownRenderer
+                  content={markdownContent}
+                  className="markdown-body !bg-transparent !text-gray-800 flex-grow mb-8 prose prose-slate max-w-none"
+                />
 
                 {currentIssue.submitUrl && (
                   <div className="mt-auto pt-8 border-t border-gray-100 flex justify-center">

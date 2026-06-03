@@ -4,7 +4,7 @@ export const joinConfig = {
   hero: {
     title: '加入我们，点亮你的大学生活！',
     subtitle: '这里有最有趣的活动、最温暖的伙伴、最广阔的舞台',
-    bgImage: '/images/homepage.jpg',
+    bgImage: '/images/homepage.webp',
   },
   benefitsTitle: '在我们这里，你可以获得',
   benefits: [
@@ -35,7 +35,7 @@ export const joinConfig = {
   ],
   contact: {
     title: '如何加入我们？',
-    qrImage: '/images/QR.jpg',
+    qrImage: '/images/QR.webp',
     qrTip: '扫码加入招新群，期待你的到来！',
     methods: [
       {

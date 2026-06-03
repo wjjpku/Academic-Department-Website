@@ -4,15 +4,15 @@ export const homeConfig = {
     subtitle: '学生会学术组',
     slogan: '搭建师生桥梁 · 引领学术风尚 · 服务同学成长',
     images: [
-      '/images/homepage.jpg',
-      '/images/activity1-1.jpg',
-      '/images/activity3-1.jpg',
-      '/images/all.jpg',
-      '/images/party.jpg'
+      '/images/homepage.webp',
+      '/images/activity1-1.webp',
+      '/images/activity3-1.webp',
+      '/images/all.webp',
+      '/images/party.webp'
     ],
   },
   intro: {
-    image: '/images/homepage3.jpg',
+    image: '/images/homepage3.webp',
     title: '关于学术组',
     description: `北京大学数学科学学院学生会学术组致力于搭建师生交流平台，推动学术氛围建设。
     我们通过举办学术讲座、pizza沙龙、模拟面试等多样化活动，帮助同学们开阔视野，

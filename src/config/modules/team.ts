@@ -22,49 +22,49 @@ export const teamConfig: {
     {
       name: '吴家驹',
       role: '负责人',
-      image: '/images/member1.jpg',
+      image: '/images/member1.webp',
       link: 'https://wjjpku.github.io'
     },
     {
       name: '陈诺',
       role: '骨干',
-      image: '/images/member2.jpg',
+      image: '/images/member2.webp',
       link: '#'
     },
     {
       name: '朱既同',
       role: '核心成员',
-      image: '/images/member3.jpg',
+      image: '/images/member3.webp',
       link: '#'
     },
     {
       name: '黄乐天',
       role: '核心成员',
-      image: '/images/member4.jpg',
+      image: '/images/member4.webp',
       link: '#'
     },
     {
       name: '张清州',
       role: '核心成员',
-      image: '/images/member5.jpg',
+      image: '/images/member5.webp',
       link: '#'
     },
     {
       name: '郭焕琨',
       role: '29届负责人',
-      image: '/images/member6.jpg',
+      image: '/images/member6.webp',
       link: '#'
     },
     {
       name: '蒋昕灏',
       role: '29届骨干',
-      image: '/images/member8.jpg',
+      image: '/images/member8.webp',
       link: '#'
     },
     {
       name: '吴昀泽',
       role: '28届负责人',
-      image: '/images/member7.jpg',
+      image: '/images/member7.webp',
       link: '#'
     }
   ],
@@ -85,10 +85,10 @@ export const teamConfig: {
     title: '团队生活',
     description: '工作之余，我们也懂得享受生活，在欢声笑语中共同成长',
     images: [
-      { src: '/images/selfintro.jpg', caption: '自我介绍' },
-      { src: '/images/firstmeet.jpg', caption: '例会合影' },
-      { src: '/images/party.jpg', caption: '团建聚餐' },
-      { src: '/images/ghkpiza.jpg', caption: 'pizza沙龙' },
+      { src: '/images/selfintro.webp', caption: '自我介绍' },
+      { src: '/images/firstmeet.webp', caption: '例会合影' },
+      { src: '/images/party.webp', caption: '团建聚餐' },
+      { src: '/images/ghkpiza.webp', caption: 'pizza沙龙' },
     ],
   },
 };
