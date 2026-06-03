@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { FileText, Download, ChevronRight, CheckCircle, Send } from 'lucide-react';
 import { challengesConfig } from '../config';
 import MarkdownRenderer from '../components/MarkdownRenderer';
+import Seo from '../components/Seo';
 
 const Challenges = () => {
   // Use the first issue's ID as default, or fallback to 1
@@ -38,7 +39,7 @@ const Challenges = () => {
         } else {
           setMarkdownContent('# 暂无该期内容');
         }
-      } catch (error) {
+      } catch {
         setMarkdownContent('# 加载失败，请稍后重试');
       } finally {
         setLoading(false);
@@ -50,19 +51,20 @@ const Challenges = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo title={challengesConfig.title} description={challengesConfig.subtitle} path="/challenges" />
       <Navbar />
-      
-      <PageHero 
-        title={challengesConfig.title} 
+
+      <PageHero
+        title={challengesConfig.title}
         subtitle={challengesConfig.subtitle}
         theme="blue"
       />
 
-      <main className="flex-grow container mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
+      <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
         <div className="md:w-1/4">
           <div className="paper-panel p-6 sticky top-24 border-none shadow-sm">
-            <h3 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2 text-gray-800">往期回顾</h3>
+            <h3 className="text-lg font-bold mb-4 border-b border-gray-100 dark:border-gray-700 pb-2 text-gray-800 dark:text-gray-100">往期回顾</h3>
             <div className="space-y-2">
               {challengesConfig.issues.map((issue) => (
                 <button
@@ -70,8 +72,8 @@ const Challenges = () => {
                   onClick={() => setSelectedIssueId(issue.id)}
                   className={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between transition-all duration-300 ${
                     selectedIssueId === issue.id 
-                      ? 'bg-pku-red text-white shadow-md transform scale-[1.02]' 
-                      : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900'
+                      ? 'bg-pku-red text-white shadow-md transform scale-[1.02]'
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
                   }`}
                 >
                   <div className="flex flex-col">
@@ -100,7 +102,7 @@ const Challenges = () => {
               </div>
             ) : (
               <div className="flex flex-col h-full">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-100 pb-6 gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-100 dark:border-gray-700 pb-6 gap-4">
                   <h2 className="text-2xl font-bold text-pku-red flex items-center tracking-tight">
                     <FileText className="mr-3" /> 第 {selectedIssueId} 期题目
                   </h2>
@@ -111,7 +113,7 @@ const Challenges = () => {
                         href={currentIssue.pdfPath} 
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center text-sm bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-full transition-colors border border-gray-200 shadow-sm hover:shadow"
+                        className="flex items-center text-sm bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-full transition-colors border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow"
                       >
                         <Download size={14} className="mr-2" /> 优秀解答 PDF
                       </a>
@@ -136,7 +138,7 @@ const Challenges = () => {
                 />
 
                 {currentIssue.submitUrl && (
-                  <div className="mt-auto pt-8 border-t border-gray-100 flex justify-center">
+                  <div className="mt-auto pt-8 border-t border-gray-100 dark:border-gray-700 flex justify-center">
                     <a
                       href={currentIssue.submitUrl}
                       target="_blank"

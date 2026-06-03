@@ -4,16 +4,47 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/academic.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 在首屏绘制前确定明暗主题，避免切换时白屏闪烁 -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <!-- 默认标题（无 JS 时的兜底，运行时由各页面的 <Seo> 覆盖） -->
     <title>北京大学数学科学学院学生会学术组</title>
-    <meta name="description" content="北京大学数学科学学院学生会学术组官网：九章征解、学术资源、模拟期中、活动掠影与团队风采，搭建师生桥梁，服务同学成长。" />
     <meta name="keywords" content="北京大学,数学科学学院,学生会,学术组,九章征解,模拟期中,学术资源" />
-    <meta name="theme-color" content="#8B0012" />
-    <!-- Open Graph / 微信、QQ 等分享卡片 -->
+    <meta name="theme-color" content="#8B0012" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <!-- 预加载首屏 Hero 首图，优化 LCP -->
+    <link rel="preload" as="image" href="/images/homepage.webp" fetchpriority="high" />
+    <!-- Open Graph / Twitter 站点级不变标签；标题/描述/URL 由各页面的 <Seo> 注入 -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="北京大学数学科学学院学生会学术组" />
-    <meta property="og:description" content="九章征解、学术资源、模拟期中、活动掠影与团队风采，搭建师生桥梁，服务同学成长。" />
-    <meta property="og:image" content="/academic.svg" />
+    <meta property="og:site_name" content="北京大学数学科学学院学生会学术组" />
+    <meta property="og:image" content="https://pkusms.com/og-image.jpg" />
     <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://pkusms.com/og-image.jpg" />
+    <!-- 结构化数据：组织信息 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "北京大学数学科学学院学生会学术组",
+        "alternateName": "Academic Department, SMS Student Union, PKU",
+        "url": "https://pkusms.com/",
+        "logo": "https://pkusms.com/academic.svg",
+        "parentOrganization": {
+          "@type": "CollegeOrUniversity",
+          "name": "北京大学数学科学学院"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

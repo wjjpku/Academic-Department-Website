@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
 import SectionHeader from '../components/SectionHeader';
+import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
 import { Github, Globe, GitPullRequest, GitBranch, ArrowRight, Mail, MessageSquare } from 'lucide-react';
 import { aboutConfig, joinConfig } from '../config';
@@ -12,15 +13,20 @@ const About = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo
+        title="关于与加入"
+        description="了解学术组的工作与本站，或加入我们——这里有最有趣的活动、最温暖的伙伴、最广阔的舞台。"
+        path="/about"
+      />
       <Navbar />
-      
-      <PageHero 
-        title="关于与加入" 
+
+      <PageHero
+        title="关于与加入"
         subtitle="了解我们的工作，或者成为我们的一员"
         theme="blue"
       />
 
-      <main className="flex-grow container mx-auto px-4 py-16 max-w-5xl">
+      <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-16 max-w-5xl">
         <div className="space-y-16">
           {/* Intro Section */}
           <motion.section 
@@ -31,7 +37,7 @@ const About = () => {
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-pku-blue opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
             <SectionHeader title={intro.title} />
-            <div className="prose max-w-none text-gray-600 leading-relaxed text-lg relative z-10">
+            <div className="prose max-w-none text-gray-600 dark:text-gray-300 leading-relaxed text-lg relative z-10">
               {intro.content.map((paragraph, idx) => (
                 <p key={idx} className="mb-4">
                   {paragraph}
@@ -48,7 +54,7 @@ const About = () => {
             className="pt-8"
           >
             <div className="text-center mb-12 flex flex-col items-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{joinConfig.benefitsTitle}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">{joinConfig.benefitsTitle}</h2>
               <div className="w-16 h-1.5 bg-pku-red rounded-full"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -62,12 +68,12 @@ const About = () => {
                   className="paper-panel p-6 hover:border-pku-red/30 transition-all duration-300 group hover:-translate-y-1"
                 >
                   <div className="mb-5 flex justify-center">
-                    <div className="p-4 bg-gray-50 rounded-2xl group-hover:bg-red-50 transition-colors duration-300 shadow-sm">
+                    <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl group-hover:bg-red-50 dark:group-hover:bg-gray-700 transition-colors duration-300 shadow-sm">
                       <item.icon className={`w-8 h-8 ${item.iconColor} group-hover:scale-110 transition-transform`} />
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold mb-3 text-center text-gray-900">{item.title}</h3>
-                  <p className="text-gray-500 leading-relaxed text-sm text-center">{item.desc}</p>
+                  <h3 className="text-lg font-bold mb-3 text-center text-gray-900 dark:text-gray-100">{item.title}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-sm text-center">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -89,7 +95,7 @@ const About = () => {
                 </div>
                 <p className="mt-6 text-sm font-medium text-white/90 text-center relative z-10">{joinContact.qrTip}</p>
               </div>
-              <div className="md:w-7/12 p-10 md:p-12 flex flex-col justify-center bg-white">
+              <div className="md:w-7/12 p-10 md:p-12 flex flex-col justify-center bg-white dark:bg-gray-800">
                 <SectionHeader title={joinContact.title} />
                 <div className="space-y-8 mt-4">
                   {joinContact.methods.map((method, idx) => (
@@ -98,13 +104,13 @@ const About = () => {
                         {method.type === 'wechat' ? <MessageSquare size={22} /> : <Mail size={22} />}
                       </div>
                       <div className="flex-1 pt-1">
-                        <h4 className="font-bold text-gray-900 text-lg">{method.label}</h4>
+                        <h4 className="font-bold text-gray-900 dark:text-gray-100 text-lg">{method.label}</h4>
                         {method.isLink ? (
-                          <a href={`mailto:${method.value}`} className="text-pku-red hover:text-red-700 font-medium transition-colors mt-1 block">
+                          <a href={`mailto:${method.value}`} className="text-pku-red dark:text-pku-red-light hover:text-red-700 font-medium transition-colors mt-1 block">
                             {method.value}
                           </a>
                         ) : (
-                          <p className="text-gray-600 mt-1 leading-relaxed">{method.value}</p>
+                          <p className="text-gray-600 dark:text-gray-300 mt-1 leading-relaxed">{method.value}</p>
                         )}
                       </div>
                     </div>
@@ -129,14 +135,14 @@ const About = () => {
                     href={openSource.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-black rounded-full transition-colors border border-gray-200"
+                    className="flex items-center justify-center px-4 py-2 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white rounded-full transition-colors border border-gray-200 dark:border-gray-600"
                   >
                     <Github size={18} className="mr-2" />
                     <span className="font-medium text-sm">Star on GitHub</span>
                   </a>
                 </div>
 
-                <div className="prose max-w-none text-gray-600 leading-relaxed mb-8">
+                <div className="prose max-w-none text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
                   {openSource.content.map((paragraph, idx) => (
                     <p key={idx} className="mb-4">
                       {paragraph}
@@ -144,8 +150,8 @@ const About = () => {
                   ))}
                 </div>
 
-                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
-                  <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center">
+                <div className="bg-gray-50 dark:bg-gray-700/40 rounded-2xl p-8 border border-gray-100 dark:border-gray-700">
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
                     <GitPullRequest size={20} className="mr-2 text-pku-red" />
                     如何参与贡献？
                   </h3>
@@ -155,11 +161,11 @@ const About = () => {
                         <div className="flex-shrink-0 w-6 h-6 rounded-full bg-pku-blue text-white flex items-center justify-center text-xs font-bold mt-0.5 mr-3 shadow-sm">
                           {idx + 1}
                         </div>
-                        <span className="text-sm text-gray-700 leading-relaxed">{step}</span>
+                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{step}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-200 flex justify-end">
+                  <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                     <a 
                       href={openSource.repoUrl}
                       target="_blank"
@@ -184,7 +190,7 @@ const About = () => {
             className="paper-panel p-8 md:p-10"
           >
             <SectionHeader title={author.title} />
-            <div className="prose max-w-none text-gray-600 leading-relaxed">
+            <div className="prose max-w-none text-gray-600 dark:text-gray-300 leading-relaxed">
               {author.content.map((paragraph, idx) => (
                 <p key={idx} className="mb-4">
                   {paragraph}
@@ -215,13 +221,13 @@ const About = () => {
               viewport={{ once: true }}
               className="paper-panel p-8"
             >
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
                 <div className="w-1.5 h-5 bg-pku-red mr-3 rounded-full"></div>
                 {features.title}
               </h2>
               <ul className="space-y-3">
                 {features.list.map((feature, idx) => (
-                  <li key={idx} className="flex items-start text-gray-700 bg-gray-50/80 p-3.5 rounded-xl border border-gray-100">
+                  <li key={idx} className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50/80 dark:bg-gray-700/40 p-3.5 rounded-xl border border-gray-100 dark:border-gray-700">
                     <span className="text-green-500 mr-3 font-bold mt-0.5">✓</span>
                     <span className="text-sm">{feature}</span>
                   </li>
@@ -236,7 +242,7 @@ const About = () => {
               viewport={{ once: true }}
               className="paper-panel p-8"
             >
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
                 <div className="w-1.5 h-5 bg-pku-red mr-3 rounded-full"></div>
                 {techStack.title}
               </h2>

@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import ActivityShowcase from '../components/ActivityShowcase';
 import Footer from '../components/Footer';
 import SectionHeader from '../components/SectionHeader';
+import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
 import { homeConfig } from '../config';
 
@@ -11,12 +12,18 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo
+        title="首页"
+        description="北京大学数学科学学院学生会学术组官网：九章征解、学术资源、模拟期中、活动掠影与团队风采，搭建师生桥梁，服务同学成长。"
+        path="/"
+      />
       <Navbar />
-      <Hero />
-      <ActivityShowcase />
-      
-      {/* Introduction Section */}
-      <section className="py-24 container mx-auto px-4 max-w-6xl">
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+        <ActivityShowcase />
+
+        {/* Introduction Section */}
+        <section className="py-24 container mx-auto px-4 max-w-6xl">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,24 +57,25 @@ const Home = () => {
               className="md:w-1/2 w-full"
             >
               <SectionHeader title={intro.title} />
-              <p className="text-gray-600 leading-relaxed mb-10 text-lg whitespace-pre-line">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-10 text-lg whitespace-pre-line">
                 {intro.description}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {intro.features.map((feature, index) => (
-                  <div key={index} className="bg-gray-50/80 p-5 rounded-xl border border-gray-100 hover:border-pku-red/20 transition-colors group">
+                  <div key={index} className="bg-gray-50/80 dark:bg-gray-700/40 p-5 rounded-xl border border-gray-100 dark:border-gray-700 hover:border-pku-red/20 transition-colors group">
                     <div className="flex items-center mb-3">
                       <div className={`w-1.5 h-6 rounded-full mr-3 ${feature.color === 'pku-red' ? 'bg-pku-red' : 'bg-pku-blue'}`}></div>
-                      <h4 className="font-bold text-lg text-gray-800 group-hover:text-pku-red transition-colors">{feature.title}</h4>
+                      <h4 className="font-bold text-lg text-gray-800 dark:text-gray-100 group-hover:text-pku-red transition-colors">{feature.title}</h4>
                     </div>
-                    <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{feature.description}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
           </div>
         </motion.div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>

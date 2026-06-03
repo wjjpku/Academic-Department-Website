@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
 import { AlertCircle, Home } from 'lucide-react';
 
 const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo title="页面未找到" description="抱歉，您访问的页面不存在或已被移除。" path="/404" />
       <Navbar />
-      
-      <main className="flex-grow flex items-center justify-center pt-24 pb-12 relative overflow-hidden">
+
+      <main id="main-content" tabIndex={-1} className="flex-grow flex items-center justify-center pt-24 pb-12 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-pku-red/5 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pku-blue/5 rounded-full blur-3xl"></div>
@@ -32,9 +34,9 @@ const NotFound = () => {
                 <AlertCircle size={64} strokeWidth={2} />
               </div>
             </motion.div>
-            <h1 className="text-7xl md:text-8xl font-bold font-serif text-gray-900 mb-2 tracking-tighter">404</h1>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">页面未找到</h2>
-            <p className="text-gray-500 mb-10 leading-relaxed">
+            <h1 className="text-7xl md:text-8xl font-bold font-serif text-gray-900 dark:text-gray-100 mb-2 tracking-tighter">404</h1>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-4">页面未找到</h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-10 leading-relaxed">
               抱歉，您访问的页面不存在或已被移除。请检查网址是否正确，或返回首页继续浏览。
             </p>
             <Link

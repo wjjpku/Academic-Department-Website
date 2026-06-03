@@ -5,14 +5,14 @@ const ActivityShowcase = () => {
   const { homeSection } = activitiesConfig;
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50 dark:bg-gray-900/40">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-serif text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold font-serif text-gray-900 dark:text-gray-100 mb-4">
             {homeSection.title}
           </h2>
           <div className="w-20 h-1 bg-pku-red mx-auto rounded-full" />
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {homeSection.description}
           </p>
         </div>

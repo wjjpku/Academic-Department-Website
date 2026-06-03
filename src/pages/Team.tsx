@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
 import SectionHeader from '../components/SectionHeader';
+import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 import { teamConfig } from '../config';
@@ -9,15 +10,16 @@ import { teamConfig } from '../config';
 const Team = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo title={teamConfig.title} description={teamConfig.subtitle} path="/team" />
       <Navbar />
-      
-      <PageHero 
-        title={teamConfig.title} 
+
+      <PageHero
+        title={teamConfig.title}
         subtitle={teamConfig.subtitle}
         theme="blue"
       />
 
-      <main className="flex-grow container mx-auto px-4 py-16">
+      <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {(teamConfig.members || []).map((member, index) => (
             <motion.div
@@ -46,9 +48,9 @@ const Team = () => {
                   </p>
                 </div>
               </div>
-              <div className="p-4 text-center bg-white">
-                <h3 className="text-lg font-bold text-gray-800 mb-1">{member.name}</h3>
-                <p className="text-sm text-pku-red font-medium">{member.role}</p>
+              <div className="p-4 text-center bg-white dark:bg-gray-800">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">{member.name}</h3>
+                <p className="text-sm text-pku-red dark:text-pku-red-light font-medium">{member.role}</p>
               </div>
             </motion.div>
           ))}
@@ -71,14 +73,14 @@ const Team = () => {
                   transition={{ delay: index * 0.1 }}
                   className="paper-panel p-6 hover:border-pku-red/20 transition-colors"
                 >
-                  <h3 className="text-xl font-bold text-pku-red mb-4 border-b border-gray-100 pb-2">
+                  <h3 className="text-xl font-bold text-pku-red dark:text-pku-red-light mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
                     {group.year} 届成员
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {group.names.map((name, idx) => (
-                      <span 
+                      <span
                         key={idx}
-                        className="px-3 py-1 bg-gray-50 border border-gray-100 text-gray-700 rounded-full text-sm hover:bg-pku-red hover:text-white hover:border-pku-red transition-all cursor-default"
+                        className="px-3 py-1 bg-gray-50 dark:bg-gray-700 border border-gray-100 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-pku-red hover:text-white hover:border-pku-red transition-all cursor-default"
                       >
                         {name}
                       </span>

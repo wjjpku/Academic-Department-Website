@@ -8,6 +8,13 @@
     /* Soft paper-like background for the entire app */
     background-color: #F9F9F7;
     background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* 暗色模式整体底色与文字 */
+  .dark body {
+    background-color: #0f1115;
+    color: theme('colors.gray.200');
   }
 }
 
@@ -16,16 +23,30 @@
     @apply bg-white rounded-2xl shadow-sm border border-gray-100/50;
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 0 3px rgba(0,0,0,0.02);
   }
-  
+
+  .dark .paper-panel {
+    @apply bg-gray-800 border-gray-700/60;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 0 3px rgba(0,0,0,0.3);
+  }
+
   .rounded-card {
     @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300;
     box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.02);
   }
-  
+
+  .dark .rounded-card {
+    @apply bg-gray-800 border-gray-700;
+  }
+
   .rounded-card:hover {
     @apply shadow-md border-gray-200/60;
     transform: translateY(-4px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  }
+
+  .dark .rounded-card:hover {
+    @apply border-gray-600;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -40,4 +61,76 @@
 
 ::-webkit-scrollbar-thumb {
   @apply bg-gray-300 rounded hover:bg-gray-400;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 hover:bg-gray-500;
+}
+
+/* 暗色模式下的 Markdown 正文（github-markdown-light 默认是浅色） */
+.dark .markdown-body {
+  color: theme('colors.gray.200') !important;
+}
+
+.dark .markdown-body h1,
+.dark .markdown-body h2,
+.dark .markdown-body h3,
+.dark .markdown-body h4,
+.dark .markdown-body strong {
+  color: theme('colors.gray.100') !important;
+}
+
+.dark .markdown-body code,
+.dark .markdown-body pre {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark .markdown-body blockquote {
+  color: theme('colors.gray.400') !important;
+  border-left-color: theme('colors.gray.600') !important;
+}
+
+.dark .markdown-body table tr {
+  background-color: transparent !important;
+  border-top-color: theme('colors.gray.700') !important;
+}
+
+.dark .markdown-body table td,
+.dark .markdown-body table th {
+  border-color: theme('colors.gray.700') !important;
+}
+
+/* 统一的键盘焦点环（仅键盘聚焦时出现，不影响鼠标点击） */
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid theme('colors.pku-red');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* 主内容容器在 skip-link 跳转后以编程方式聚焦时不显示焦点环 */
+  #main-content:focus {
+    outline: none;
+  }
+}
+
+/* 尊重「减弱动态效果」：关闭非必要的过渡与动画 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

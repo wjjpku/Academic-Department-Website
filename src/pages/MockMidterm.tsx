@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Download, ExternalLink, Calendar, BookOpen } from 'lucide-react';
 import { mockMidtermConfig } from '../config';
 import MarkdownRenderer from '../components/MarkdownRenderer';
+import Seo from '../components/Seo';
 
 const MockMidterm = () => {
   // Group exams by year from config if available, otherwise use default structure or empty
@@ -51,6 +52,8 @@ const MockMidterm = () => {
         setSelectedExamId(examsByYear[selectedYearKey][0].id);
       }
     }
+    // examsByYear/selectedExamId 每次渲染重算，仅在年份切换时执行即可
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYearKey]);
 
   const currentExam = mockMidtermConfig.exams?.find(e => e.id === selectedExamId);
@@ -71,7 +74,7 @@ const MockMidterm = () => {
         } else {
           setMarkdownContent('# 内容加载失败\n\n可能是文件不存在，请点击上方按钮下载 PDF 查看。');
         }
-      } catch (error) {
+      } catch {
         setMarkdownContent('# 加载出错了\n\n网络请求失败，请稍后重试或下载 PDF。');
       } finally {
         setLoading(false);
@@ -82,16 +85,17 @@ const MockMidterm = () => {
   }, [currentExam]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9F9F7]">
+    <div className="min-h-screen flex flex-col bg-[#F9F9F7] dark:bg-transparent">
+      <Seo title={mockMidtermConfig.title} description={mockMidtermConfig.subtitle} path="/mock-midterm" />
       <Navbar />
-      
-      <PageHero 
-        title={mockMidtermConfig.title} 
+
+      <PageHero
+        title={mockMidtermConfig.title}
         subtitle={mockMidtermConfig.subtitle}
         theme="blue"
       />
 
-      <main className="flex-grow container mx-auto px-4 py-12 max-w-7xl">
+      <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-12 max-w-7xl">
         {/* Intro Section - Now more compact at top */}
         <motion.section 
           initial={{ opacity: 0, y: 20 }}
@@ -100,11 +104,11 @@ const MockMidterm = () => {
         >
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
                 <div className="w-1.5 h-5 bg-pku-red mr-3 rounded-full"></div>
                 {mockMidtermConfig.intro.title}
               </h2>
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">
                 {mockMidtermConfig.intro.content.join(' ')}
               </p>
             </div>
@@ -126,7 +130,7 @@ const MockMidterm = () => {
           {/* Left Sidebar: Year Navigation */}
           <div className="lg:w-1/4 flex flex-col gap-4">
             <div className="paper-panel p-5 sticky top-24">
-              <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center border-b border-gray-100 pb-3">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center border-b border-gray-100 dark:border-gray-700 pb-3">
                 <Calendar size={18} className="mr-2 text-pku-blue" />
                 往年试卷集
               </h3>
@@ -138,8 +142,8 @@ const MockMidterm = () => {
                     onClick={() => setSelectedYearKey(yearKey)}
                     className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center justify-between ${
                       selectedYearKey === yearKey 
-                        ? 'bg-pku-blue text-white shadow-md transform scale-[1.02]' 
-                        : 'hover:bg-blue-50 text-gray-600 hover:text-pku-blue'
+                        ? 'bg-pku-blue text-white shadow-md transform scale-[1.02]'
+                        : 'hover:bg-blue-50 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-pku-blue dark:hover:text-blue-300'
                     }`}
                   >
                     <span className="font-medium">
@@ -204,7 +208,7 @@ const MockMidterm = () => {
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                       selectedExamId === exam.id
                         ? 'bg-pku-red text-white shadow-md'
-                        : 'bg-gray-50 text-gray-600 hover:bg-red-50 hover:text-pku-red border border-gray-200'
+                        : 'bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-600 hover:text-pku-red border border-gray-200 dark:border-gray-600'
                     }`}
                   >
                     {exam.title.replace(`${selectedYearKey}年 `, '')}
@@ -221,8 +225,8 @@ const MockMidterm = () => {
               transition={{ duration: 0.4 }}
               className="paper-panel p-8 min-h-[600px] flex flex-col"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-gray-100 gap-4">
-                <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-gray-100 dark:border-gray-700 gap-4">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
                   <BookOpen className="mr-3 text-pku-red" />
                   {currentExam?.title || '试题详情'}
                 </h2>
@@ -245,7 +249,7 @@ const MockMidterm = () => {
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pku-red"></div>
                 </div>
               ) : (
-                <div className="flex-grow bg-white/50 rounded-xl">
+                <div className="flex-grow bg-white/50 dark:bg-transparent rounded-xl">
                   <MarkdownRenderer
                     content={markdownContent}
                     className="markdown-body !bg-transparent !text-gray-800 prose prose-slate max-w-none prose-headings:text-pku-blue prose-a:text-pku-red"

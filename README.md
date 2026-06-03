@@ -1,6 +1,8 @@
 # 北京大学数学科学学院学生会学术组官网
 (Academic Department, SMS Student Union, PKU)
 
+[![CI](https://github.com/wjjpku/Academic-Department-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/wjjpku/Academic-Department-Website/actions/workflows/ci.yml)
+
 欢迎访问北京大学数学科学学院学生会学术组官方网站仓库。本网站旨在搭建师生桥梁，引领学术风尚，服务同学成长，提供学术资源共享、活动发布与回顾、九章征解互动等功能。
 
 ## 🌟 功能特色

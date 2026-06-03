@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
 import SectionHeader from '../components/SectionHeader';
+import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
 import { resourcesConfig } from '../config';
 import { FileText, Link as LinkIcon, Download, ExternalLink, Tag, Send } from 'lucide-react';
@@ -9,6 +10,7 @@ import { FileText, Link as LinkIcon, Download, ExternalLink, Tag, Send } from 'l
 const Resources = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo title={resourcesConfig.title} description={resourcesConfig.subtitle} path="/resources" />
       <Navbar />
       
       {/* Header */}
@@ -36,7 +38,7 @@ const Resources = () => {
       </PageHero>
 
       {/* Resources Content */}
-      <main className="flex-grow container mx-auto px-4 py-12 max-w-6xl">
+      <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-12 max-w-6xl">
         <div className="space-y-16">
           {resourcesConfig.categories.map((category, index) => (
             <motion.section
@@ -75,24 +77,24 @@ const Resources = () => {
                           {item.pdfPath ? <FileText size={16} /> : <LinkIcon size={16} />}
                         </div>
                         {item.date && (
-                          <span className="text-[10px] text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] text-gray-400 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 px-1.5 py-0.5 rounded">
                             {item.date}
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-base font-bold text-gray-900 mb-1 line-clamp-1" title={item.title}>
+                      <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-1 line-clamp-1" title={item.title}>
                         {item.title}
                       </h3>
-                      
-                      <p className="text-gray-600 text-xs mb-3 flex-grow line-clamp-2" title={item.description}>
+
+                      <p className="text-gray-600 dark:text-gray-400 text-xs mb-3 flex-grow line-clamp-2" title={item.description}>
                         {item.description}
                       </p>
 
                       {item.tags && item.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mb-3">
                           {item.tags.map(tag => (
-                            <span key={tag} className="inline-flex items-center text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
+                            <span key={tag} className="inline-flex items-center text-[10px] text-gray-500 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded">
                               <Tag size={10} className="mr-1" />
                               {tag}
                             </span>
@@ -100,7 +102,7 @@ const Resources = () => {
                         </div>
                       )}
 
-                      <div className="mt-auto pt-3 border-t border-gray-50">
+                      <div className="mt-auto pt-3 border-t border-gray-50 dark:border-gray-700">
                         {item.link && (
                           <a 
                             href={item.link}

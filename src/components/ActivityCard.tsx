@@ -13,7 +13,7 @@ const ActivityCard = ({ activity, index }: ActivityCardProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.1 }}
-    className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col"
   >
     <div className="relative h-48 overflow-hidden shrink-0">
       <img 
@@ -27,14 +27,14 @@ const ActivityCard = ({ activity, index }: ActivityCardProps) => (
       </div>
     </div>
     <div className="p-6 flex flex-col flex-grow">
-      <div className="flex items-center text-gray-500 text-sm mb-3">
+      <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3">
         <Calendar size={14} className="mr-2" />
         {activity.date}
       </div>
-      <h3 className="text-xl font-bold mb-3 text-gray-800 group-hover:text-pku-red transition-colors">
+      <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-pku-red transition-colors">
         {activity.title}
       </h3>
-      <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
+      <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4 flex-grow">
         {activity.description}
       </p>
       {activity.link && (
