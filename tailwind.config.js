@@ -11,13 +11,26 @@ export default {
         'pku-red': '#8B0012',
         'pku-red-light': '#A80016',
         'pku-red-dark': '#6B000E',
+        'pku-red-tint': '#FBF3F3', // 极浅红，用作浅色底纹
         'pku-gray': '#F2F2F2',
         'pku-text': '#333333',
         'pku-blue': '#002C5F', // 辅助色，用于平衡红色
+        'pku-blue-light': '#3B6CA8', // 提亮蓝，用于暗色链接/强调
+        'pku-blue-tint': '#F1F5FA', // 极浅蓝，用作浅色底纹
+        'ink': '#1C1F23', // 主文字色，比纯黑更耐看
       },
       fontFamily: {
         sans: ['Noto Sans SC', 'Roboto', 'system-ui', 'sans-serif'],
         serif: ['Noto Serif SC', 'Georgia', 'serif'],
+      },
+      letterSpacing: {
+        'tightish': '-0.012em',
+      },
+      boxShadow: {
+        // 柔和的多层「纸感」投影，比单层阴影更精致
+        'panel': '0 1px 2px rgba(16,24,40,0.04), 0 10px 30px -12px rgba(16,24,40,0.10)',
+        'panel-hover': '0 4px 10px rgba(16,24,40,0.06), 0 20px 44px -16px rgba(16,24,40,0.16)',
+        'soft': '0 1px 2px rgba(16,24,40,0.04), 0 6px 18px -10px rgba(16,24,40,0.10)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

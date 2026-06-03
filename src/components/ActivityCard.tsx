@@ -13,7 +13,7 @@ const ActivityCard = ({ activity, index }: ActivityCardProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.1 }}
-    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+    className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200/70 dark:border-gray-700 overflow-hidden shadow-soft hover:shadow-panel-hover hover:-translate-y-1 transition-all duration-300 h-full flex flex-col"
   >
     <div className="relative h-48 overflow-hidden shrink-0">
       <img 

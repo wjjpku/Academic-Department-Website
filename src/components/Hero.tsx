@@ -42,7 +42,10 @@ const Hero = () => {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${images[current]})` }}
         >
-          <div className="absolute inset-0 bg-black/40" />
+          {/* 层叠渐变遮罩：底部更深以衬托文字，整体更有层次 */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-black/70" />
+          {/* 柔和暗角，聚焦中央 */}
+          <div className="absolute inset-0 [background:radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.35)_100%)]" />
         </motion.div>
       </AnimatePresence>
 
@@ -57,17 +60,24 @@ const Hero = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-4xl md:text-6xl font-bold font-serif mb-6 tracking-wide drop-shadow-lg"
+            className="text-4xl md:text-6xl font-bold font-serif mb-5 tracking-tightish drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]"
           >
             {homeConfig.hero.title}
             <br />
             <span className="text-3xl md:text-5xl mt-4 block">{homeConfig.hero.subtitle}</span>
           </motion.h1>
+          {/* 标题与标语之间的点缀分隔 */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="mx-auto mb-6 h-px w-24 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+          />
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="text-lg md:text-xl font-light tracking-widest drop-shadow-md"
+            transition={{ delay: 0.85 }}
+            className="text-base md:text-xl font-light tracking-[0.25em] text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]"
           >
             {homeConfig.hero.slogan}
           </motion.p>
