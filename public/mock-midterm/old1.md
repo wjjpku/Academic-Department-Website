@@ -76,7 +76,7 @@ $$
 
 ## 6. (15分)
 
-矩阵 $A = (a_{ij}) \in \mathbb{Q}^{n \times n}$ 是斜对称矩阵，也即 $A = -A^T$。已知 $ 2 \nmid n$（即 $n$ 为奇数），且 $a_{ij} \in \mathbb{Z}$（$i, j = 1, 2, \ldots, n$），证明：$\det(A)$ 是完全平方数。
+矩阵 $A = (a_{ij}) \in \mathbb{Q}^{n \times n}$ 是斜对称矩阵，也即 $A = -A^T$。已知 $2\mid n$（即 $n$ 为偶数），且 $a_{ij} \in \mathbb{Z}$（$i, j = 1, 2, \ldots, n$），证明：$\det(A)$ 是完全平方数。
 
 ---
 

@@ -1,0 +1,8 @@
+chapters.tex
+*.aux
+*.log
+*.out
+*.synctex.gz
+main.pdf
+*.fls
+*.fdb_latexmk
