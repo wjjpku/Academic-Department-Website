@@ -31,6 +31,27 @@ export const mockMidtermConfig = {
   ],
   exams: [
     {
+      id: 12,
+      title: '2026年 数学组',
+      pdfPath: '/pdfs/2026math.pdf',
+      solutionPath: '/pdfs/2026math-solutions.pdf',
+      contentPath: '/mock-midterm/2026math.md'
+    },
+    {
+      id: 11,
+      title: '2026年 高等数学',
+      pdfPath: '/pdfs/2026gs.pdf',
+      solutionPath: '/pdfs/2026gs-solutions.pdf',
+      contentPath: '/mock-midterm/2026gs.md'
+    },
+    {
+      id: 10,
+      title: '2026年 线性代数',
+      pdfPath: '/pdfs/2026xd.pdf',
+      solutionPath: '/pdfs/2026xd-solutions.pdf',
+      contentPath: '/mock-midterm/2026xd.md'
+    },
+    {
       id: 9,
       title: '2025年 数学组',
       pdfPath: '/pdfs/2025math.pdf',

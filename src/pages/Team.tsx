@@ -20,41 +20,49 @@ const Team = () => {
       />
 
       <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {(teamConfig.members || []).map((member, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.05 }}
-              className="rounded-card group"
-            >
-              <div className="relative pt-[100%] overflow-hidden bg-gray-100">
-                {member.image ? (
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-300">
-                    <User size={64} />
+        {[
+          { title: '本届负责人及骨干', members: teamConfig.members },
+          { title: '往届成员', members: teamConfig.formerMembers },
+        ].map((group) => (
+          <section key={group.title} className="mb-16">
+            <SectionHeader title={group.title} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {group.members.map((member, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="rounded-card group"
+                >
+                  <div className="relative pt-[100%] overflow-hidden bg-gray-100">
+                    {member.image ? (
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-gray-300">
+                        <User size={64} />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <p className="text-white text-sm font-light">
+                        {member.description || teamConfig.defaultRoleDescription}
+                      </p>
+                    </div>
                   </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <p className="text-white text-sm font-light">
-                    {member.description || teamConfig.defaultRoleDescription}
-                  </p>
-                </div>
-              </div>
-              <div className="p-4 text-center bg-white dark:bg-gray-800">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">{member.name}</h3>
-                <p className="text-sm text-pku-red dark:text-pku-red-light font-medium">{member.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  <div className="p-4 text-center bg-white dark:bg-gray-800">
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">{member.name}</h3>
+                    <p className="text-sm text-pku-red dark:text-pku-red-light font-medium">{member.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        ))}
 
         {teamConfig.memberLists && (
           <div className="mt-24 mb-12">

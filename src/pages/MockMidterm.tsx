@@ -132,7 +132,7 @@ const MockMidterm = () => {
             <div className="paper-panel p-5 sticky top-24">
               <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center border-b border-gray-100 dark:border-gray-700 pb-3">
                 <Calendar size={18} className="mr-2 text-pku-blue" />
-                往年试卷集
+                历年试卷集
               </h3>
               
               <div className="space-y-2">
@@ -164,7 +164,7 @@ const MockMidterm = () => {
                   className="mt-6 space-y-3"
                 >
                   {selectedYearKey !== '早期档案' && mockMidtermConfig.reports?.find(r => r.year.toString() === selectedYearKey) && (
-                    <a 
+                    <a
                       href={mockMidtermConfig.reports.find(r => r.year.toString() === selectedYearKey)?.link}
                       target="_blank"
                       rel="noreferrer"
@@ -191,7 +191,7 @@ const MockMidterm = () => {
           </div>
 
           {/* Right Area: Exam Selection & Markdown Viewer */}
-          <div className="lg:w-3/4 flex flex-col gap-6">
+          <div className="lg:w-3/4 min-w-0 flex flex-col gap-6">
             
             {/* Exam Pills */}
             <motion.div 
@@ -223,25 +223,38 @@ const MockMidterm = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="paper-panel p-8 min-h-[600px] flex flex-col"
+              className="paper-panel p-5 sm:p-8 min-w-0 min-h-[600px] flex flex-col"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-gray-100 dark:border-gray-700 gap-4">
+              <div className="flex flex-wrap items-center justify-between mb-8 pb-6 border-b border-gray-100 dark:border-gray-700 gap-4">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
                   <BookOpen className="mr-3 text-pku-red" />
                   {currentExam?.title || '试题详情'}
                 </h2>
                 
-                {currentExam?.pdfPath && (
-                  <a 
-                    href={currentExam.pdfPath}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center px-5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
-                  >
-                    <Download size={16} className="mr-2" />
-                    下载 PDF 原件
-                  </a>
-                )}
+                <div className="flex flex-wrap gap-3">
+                  {currentExam?.pdfPath && (
+                    <a
+                      href={currentExam.pdfPath}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center px-5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                    >
+                      <Download size={16} className="mr-2" />
+                      {currentExam.solutionPath ? '下载试题 PDF' : '下载 PDF 原件'}
+                    </a>
+                  )}
+                  {currentExam?.solutionPath && (
+                    <a
+                      href={currentExam.solutionPath}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center px-5 py-2.5 bg-pku-red hover:bg-red-900 text-white rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                    >
+                      <Download size={16} className="mr-2" />
+                      下载参考解答 PDF
+                    </a>
+                  )}
+                </div>
               </div>
 
               {loading ? (
@@ -252,7 +265,7 @@ const MockMidterm = () => {
                 <div className="flex-grow bg-white/50 dark:bg-transparent rounded-xl">
                   <MarkdownRenderer
                     content={markdownContent}
-                    className="markdown-body !bg-transparent !text-gray-800 prose prose-slate max-w-none prose-headings:text-pku-blue prose-a:text-pku-red"
+                    className="markdown-body !bg-transparent !text-gray-800 prose prose-slate max-w-none prose-headings:text-pku-blue prose-a:text-pku-red [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden"
                   />
                 </div>
               )}

@@ -5,6 +5,7 @@ export const teamConfig: {
   subtitle: string;
   defaultRoleDescription: string;
   members: TeamMember[];
+  formerMembers: TeamMember[];
   memberLists: {
     title: string;
     groups: { year: string; names: string[] }[];
@@ -19,6 +20,28 @@ export const teamConfig: {
   subtitle: '一群热爱数学、乐于奉献的伙伴，共同打造温暖的学术家园',
   defaultRoleDescription: '北京大学数学科学学院学生会学术组',
   members: [
+    {
+      name: '徐楚洋',
+      role: '负责人',
+      image: '/images/xu-chuyang.webp',
+    },
+    {
+      name: '张源',
+      role: '骨干',
+      image: '/images/zhang-yuan.webp',
+    },
+    {
+      name: '闫轶',
+      role: '骨干',
+      image: '/images/yan-yi.webp',
+    },
+    {
+      name: '张清州',
+      role: '骨干',
+      image: '/images/zhang-qingzhou.webp',
+    },
+  ],
+  formerMembers: [
     {
       name: '吴家驹',
       role: '负责人',
@@ -41,12 +64,6 @@ export const teamConfig: {
       name: '黄乐天',
       role: '核心成员',
       image: '/images/member4.webp',
-      link: '#'
-    },
-    {
-      name: '张清州',
-      role: '核心成员',
-      image: '/images/member5.webp',
       link: '#'
     },
     {

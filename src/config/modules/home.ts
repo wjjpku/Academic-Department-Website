@@ -4,7 +4,7 @@ export const homeConfig = {
     subtitle: '学生会学术组',
     slogan: '搭建师生桥梁 · 引领学术风尚 · 服务同学成长',
     images: [
-      '/images/homepage.webp',
+      '/images/team-2026.webp',
       '/images/activity1-1.webp',
       '/images/activity3-1.webp',
       '/images/all.webp',

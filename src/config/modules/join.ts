@@ -4,7 +4,7 @@ export const joinConfig = {
   hero: {
     title: '加入我们，点亮你的大学生活！',
     subtitle: '这里有最有趣的活动、最温暖的伙伴、最广阔的舞台',
-    bgImage: '/images/homepage.webp',
+    bgImage: '/images/team-2026.webp',
   },
   benefitsTitle: '在我们这里，你可以获得',
   benefits: [
