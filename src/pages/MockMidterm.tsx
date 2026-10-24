@@ -240,7 +240,7 @@ const MockMidterm = () => {
                       className="inline-flex items-center px-5 py-2.5 bg-gray-900 hover:bg-black text-white rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
                     >
                       <Download size={16} className="mr-2" />
-                      {currentExam.solutionPath ? '下载试题 PDF' : '下载 PDF 原件'}
+                      下载试题 PDF 原件
                     </a>
                   )}
                   {currentExam?.solutionPath && (
@@ -256,6 +256,12 @@ const MockMidterm = () => {
                   )}
                 </div>
               </div>
+
+              {currentExam?.solutionNote && (
+                <p className="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                  {currentExam.solutionNote}
+                </p>
+              )}
 
               {loading ? (
                 <div className="flex-grow flex justify-center items-center">
