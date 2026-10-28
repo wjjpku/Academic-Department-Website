@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import ExamArchive from './ExamArchive';
+import { lazy, Suspense, useState } from 'react';
+const ExamArchive = lazy(() => import('./ExamArchive'));
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
@@ -7,7 +7,7 @@ import SectionHeader from '../components/SectionHeader';
 import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
 import { resourcesConfig } from '../config';
-import { FileText, Link as LinkIcon, Download, ExternalLink, Tag, Send } from 'lucide-react';
+import { FileText, Link as LinkIcon, Download, ExternalLink, Tag } from 'lucide-react';
 
 const Resources = () => {
   const [tab, setTab] = useState<'exams' | 'resources'>('exams');
@@ -17,28 +17,11 @@ const Resources = () => {
       <Navbar />
       
       {/* Header */}
-      <PageHero 
-        title={resourcesConfig.title} 
+      <PageHero
+        title={resourcesConfig.title}
         subtitle={resourcesConfig.subtitle}
         theme="blue"
-      >
-        {resourcesConfig.submitUrl && (
-          <div className="mt-6">
-            <a
-              href={resourcesConfig.submitUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-2.5 bg-pku-red hover:bg-red-700 text-white text-sm font-medium rounded-full transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
-            >
-              <Send size={16} className="mr-2" />
-              提交资源
-            </a>
-            <p className="text-white/60 text-xs mt-3">
-              欢迎分享优质学术资源，共建学术社区
-            </p>
-          </div>
-        )}
-      </PageHero>
+      />
 
       {/* Resources Content */}
       <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-12 max-w-6xl">
@@ -46,7 +29,7 @@ const Resources = () => {
           <button type="button" aria-pressed={tab === 'exams'} onClick={() => setTab('exams')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'exams' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>数院往年题</button>
           <button type="button" aria-pressed={tab === 'resources'} onClick={() => setTab('resources')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'resources' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>学习资料</button>
         </div>
-        {tab === 'exams' ? <ExamArchive /> : <div className="space-y-16">
+        {tab === 'exams' ? <Suspense fallback={<div className="paper-panel p-8" role="status">正在加载题目页面…</div>}><ExamArchive /></Suspense> : <div className="space-y-16">
           {resourcesConfig.categories.map((category, index) => (
             <motion.section
               key={category.id}
