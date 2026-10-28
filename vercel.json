@@ -1,6 +1,6 @@
 {
   "headers": [
-    { "source": "/past-exams", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
+    { "source": "/wangnianti", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
   ],
   "rewrites": [
     {

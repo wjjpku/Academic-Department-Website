@@ -47,7 +47,7 @@ function App() {
               <Route path="/resources" element={<Resources />} />
               <Route path="/challenges" element={<Challenges />} />
               <Route path="/mock-midterm" element={<MockMidterm />} />
-              <Route path="/past-exams" element={<ExamArchive />} />
+              <Route path="/wangnianti" element={<ExamArchive />} />
               <Route path="/team" element={<Team />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
