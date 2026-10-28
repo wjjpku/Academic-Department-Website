@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import ExamArchive from './ExamArchive';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PageHero from '../components/PageHero';
@@ -8,6 +10,7 @@ import { resourcesConfig } from '../config';
 import { FileText, Link as LinkIcon, Download, ExternalLink, Tag, Send } from 'lucide-react';
 
 const Resources = () => {
+  const [tab, setTab] = useState<'exams' | 'resources'>('exams');
   return (
     <div className="min-h-screen flex flex-col">
       <Seo title={resourcesConfig.title} description={resourcesConfig.subtitle} path="/resources" />
@@ -39,7 +42,11 @@ const Resources = () => {
 
       {/* Resources Content */}
       <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-12 max-w-6xl">
-        <div className="space-y-16">
+        <div className="mb-8 flex flex-wrap gap-2" aria-label="资源分类">
+          <button type="button" aria-pressed={tab === 'exams'} onClick={() => setTab('exams')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'exams' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>数院往年题</button>
+          <button type="button" aria-pressed={tab === 'resources'} onClick={() => setTab('resources')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'resources' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>学习资料</button>
+        </div>
+        {tab === 'exams' ? <ExamArchive /> : <div className="space-y-16">
           {resourcesConfig.categories.map((category, index) => (
             <motion.section
               key={category.id}
@@ -132,7 +139,7 @@ const Resources = () => {
               </div>
             </motion.section>
           ))}
-        </div>
+        </div>}
       </main>
 
       <Footer />

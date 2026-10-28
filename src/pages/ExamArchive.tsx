@@ -1,7 +1,4 @@
 import { useMemo, useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import PageHero from '../components/PageHero';
 import { Search, BookOpen, FileText, Download, ExternalLink, ChevronRight } from 'lucide-react';
 import archive from '../config/examArchive.json';
 
@@ -44,11 +41,7 @@ export default function ExamArchive() {
       setError('下载失败，请使用该文件旁的“打开”链接，或稍后重试。');
     }
   }
-  return <div className="min-h-screen flex flex-col bg-[#F9F9F7] dark:bg-gray-900">
-    <title>数院往年题 · 学术组</title><meta name="robots" content="noindex, nofollow" />
-    <Navbar />
-    <PageHero title="数院往年题" subtitle="按科目浏览历年试题，支持搜索年份、教师和考试类型。" theme="blue" />
-    <main id="main-content" tabIndex={-1} className="container mx-auto max-w-6xl px-4 py-10 md:py-14 flex-grow">
+  return <section aria-label="数院往年题">
       <div className="flex flex-col lg:flex-row items-start gap-7">
         <aside className="paper-panel p-5 w-full lg:w-64 shrink-0 lg:sticky lg:top-24" aria-label="学期筛选">
           <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-gray-100"><BookOpen size={19} className="text-pku-red" />学期</h2>
@@ -79,6 +72,5 @@ export default function ExamArchive() {
           </section>
         </div>
       </div>
-    </main><Footer />
-  </div>;
+    </section>;
 }
