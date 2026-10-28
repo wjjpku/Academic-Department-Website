@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import ScrollToTop from './components/ScrollToTop';
 import BackToTopButton from './components/BackToTopButton';
@@ -46,6 +46,7 @@ function App() {
               <Route path="/resources" element={<Resources />} />
               <Route path="/challenges" element={<Challenges />} />
               <Route path="/mock-midterm" element={<MockMidterm />} />
+              <Route path="/wangnianti" element={<Navigate to="/resources" replace />} />
               <Route path="/team" element={<Team />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
