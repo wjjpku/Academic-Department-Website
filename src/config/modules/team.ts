@@ -44,25 +44,25 @@ export const teamConfig: {
   formerMembers: [
     {
       name: '吴家驹',
-      role: '负责人',
+      role: '30届负责人',
       image: '/images/member1.webp',
       link: 'https://wjjpku.github.io'
     },
     {
       name: '陈诺',
-      role: '骨干',
+      role: '30届骨干',
       image: '/images/member2.webp',
       link: '#'
     },
     {
       name: '朱既同',
-      role: '核心成员',
+      role: '30届核心成员',
       image: '/images/member3.webp',
       link: '#'
     },
     {
       name: '黄乐天',
-      role: '核心成员',
+      role: '30届核心成员',
       image: '/images/member4.webp',
       link: '#'
     },

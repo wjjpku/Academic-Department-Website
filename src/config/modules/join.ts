@@ -35,14 +35,7 @@ export const joinConfig = {
   ],
   contact: {
     title: '如何加入我们？',
-    qrImage: '/images/QR.webp',
-    qrTip: '扫码加入招新群，期待你的到来！',
     methods: [
-      {
-        type: 'wechat',
-        label: '微信联系',
-        value: 'wjj05170032',
-      },
       {
         type: 'email',
         label: '邮箱联系',
