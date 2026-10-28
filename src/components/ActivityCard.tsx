@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { Activity } from '../types';
 
 interface ActivityCardProps {
@@ -27,10 +27,6 @@ const ActivityCard = ({ activity, index }: ActivityCardProps) => (
       </div>
     </div>
     <div className="p-6 flex flex-col flex-grow">
-      <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3">
-        <Calendar size={14} className="mr-2" />
-        {activity.date}
-      </div>
       <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-pku-red transition-colors">
         {activity.title}
       </h3>
