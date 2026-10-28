@@ -64,6 +64,9 @@ export default function ExamArchive() {
           </div>
         </aside>
         <div className="w-full min-w-0 flex-1 space-y-6">
+          <div className="paper-panel px-5 py-4 sm:px-7 text-sm leading-7 text-gray-600 dark:text-gray-300">
+            本页试题整理自 <a href="https://github.com/wjjpku/PKUsmsExam" target="_blank" rel="noopener noreferrer" className="font-medium text-pku-blue dark:text-blue-300 underline underline-offset-4">PKUsmsExam 题库</a>。更多科目的学习资料可在 <a href="https://e.pkuhub.cn/" target="_blank" rel="noopener noreferrer" className="font-medium text-pku-blue dark:text-blue-300 underline underline-offset-4">PKUHub 资料库</a> 查找。
+          </div>
           <section className="paper-panel p-5 sm:p-7" aria-label="搜索试题">
             <label htmlFor="exam-search" className="block text-lg font-bold text-gray-900 dark:text-gray-100">搜索试题</label>
             <p className="mt-1 mb-4 text-sm text-gray-500 dark:text-gray-400">输入科目、年份、教师或考试类型，多个关键词用空格分开。</p>
