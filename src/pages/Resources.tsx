@@ -27,7 +27,7 @@ const Resources = () => {
       <main id="main-content" tabIndex={-1} className="flex-grow container mx-auto px-4 py-12 max-w-6xl">
         <div className="mb-8 flex flex-wrap gap-2" aria-label="资源分类">
           <button type="button" aria-pressed={tab === 'exams'} onClick={() => setTab('exams')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'exams' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>数院往年题</button>
-          <button type="button" aria-pressed={tab === 'resources'} onClick={() => setTab('resources')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'resources' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>学习资料</button>
+          <button type="button" aria-pressed={tab === 'resources'} onClick={() => setTab('resources')} className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${tab === 'resources' ? 'bg-pku-red text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border border-gray-200 dark:border-gray-700'}`}>更多资料</button>
         </div>
         {tab === 'exams' ? <Suspense fallback={<div className="paper-panel p-8" role="status">正在加载题目页面…</div>}><ExamArchive /></Suspense> : <div className="space-y-16">
           {resourcesConfig.categories.map((category, index) => (
