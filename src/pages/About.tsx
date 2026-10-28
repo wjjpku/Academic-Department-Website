@@ -4,12 +4,12 @@ import PageHero from '../components/PageHero';
 import SectionHeader from '../components/SectionHeader';
 import Seo from '../components/Seo';
 import { motion } from 'framer-motion';
-import { Github, Globe, GitPullRequest, GitBranch, ArrowRight, Mail, MessageSquare } from 'lucide-react';
+import { Github, Globe, GitPullRequest, GitBranch, ArrowRight, Mail } from 'lucide-react';
 import { aboutConfig, joinConfig } from '../config';
 
 const About = () => {
   const { intro, author, features, techStack, contact: aboutContact, openSource } = aboutConfig;
-  const { hero: joinHero, benefits, contact: joinContact } = joinConfig;
+  const { benefits, contact: joinContact } = joinConfig;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -86,37 +86,15 @@ const About = () => {
             viewport={{ once: true }}
             className="paper-panel overflow-hidden max-w-5xl mx-auto border-none shadow-xl"
           >
-            <div className="md:flex">
-              <div className="md:w-5/12 bg-pku-blue flex flex-col items-center justify-center p-12 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center" style={{ backgroundImage: `url('${joinHero.bgImage}')` }}></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-pku-blue/80 to-pku-blue/95 pointer-events-none"></div>
-                <div className="relative z-10 bg-white/10 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-white/20">
-                  <img src={joinContact.qrImage} alt="招新群二维码" className="w-48 h-48 object-contain rounded-xl bg-white" />
-                </div>
-                <p className="mt-6 text-sm font-medium text-white/90 text-center relative z-10">{joinContact.qrTip}</p>
-              </div>
-              <div className="md:w-7/12 p-10 md:p-12 flex flex-col justify-center bg-white dark:bg-gray-800">
-                <SectionHeader title={joinContact.title} />
-                <div className="space-y-8 mt-4">
-                  {joinContact.methods.map((method, idx) => (
-                    <div key={idx} className="flex items-start group">
-                      <div className={`p-3.5 rounded-2xl mr-5 shadow-sm transition-transform group-hover:-translate-y-1 ${method.type === 'wechat' ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-blue-600'}`}>
-                        {method.type === 'wechat' ? <MessageSquare size={22} /> : <Mail size={22} />}
-                      </div>
-                      <div className="flex-1 pt-1">
-                        <h4 className="font-bold text-gray-900 dark:text-gray-100 text-lg">{method.label}</h4>
-                        {method.isLink ? (
-                          <a href={`mailto:${method.value}`} className="text-pku-red dark:text-pku-red-light hover:text-red-700 font-medium transition-colors mt-1 block">
-                            {method.value}
-                          </a>
-                        ) : (
-                          <p className="text-gray-600 dark:text-gray-300 mt-1 leading-relaxed">{method.value}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="p-8 md:p-12 bg-white dark:bg-gray-800">
+              <SectionHeader title={joinContact.title} />
+              <p className="mt-2 text-gray-600 dark:text-gray-300">有意加入学术组的同学，欢迎通过邮箱联系我们。</p>
+              {joinContact.methods.map(method => (
+                <a key={method.value} href={`mailto:${method.value}`} className="inline-flex items-center gap-3 mt-6 rounded-xl bg-blue-50 dark:bg-gray-700 px-5 py-4 text-pku-blue dark:text-blue-200 hover:text-pku-red transition-colors break-all">
+                  <Mail size={21} className="shrink-0" />
+                  <span>{method.value}</span>
+                </a>
+              ))}
             </div>
           </motion.section>
 
