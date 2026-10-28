@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
+import { Search, BookOpen, FileText, Download, ExternalLink, ChevronRight } from 'lucide-react';
 import archive from '../config/examArchive.json';
 
 const rawUrl = (path: string) => `https://raw.githubusercontent.com/wjjpku/PKUsmsExam/${archive.revision}/${path.split('/').map(encodeURIComponent).join('/')}`;
@@ -45,36 +47,38 @@ export default function ExamArchive() {
   return <div className="min-h-screen flex flex-col bg-[#F9F9F7] dark:bg-gray-900">
     <title>数院往年题 · 学术组</title><meta name="robots" content="noindex, nofollow" />
     <Navbar />
-    <main id="main-content" className="container mx-auto max-w-6xl px-4 py-12 flex-grow">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">数院往年题</h1>
-      <p className="mt-3 mb-8 text-gray-600 dark:text-gray-300">按学期、课程筛选，或搜索教师、年份、期中和期末。共 {archive.files.length} 份文件。</p>
-      <section className="paper-panel p-5 mb-6 grid gap-4 md:grid-cols-2" aria-label="筛选试题">
-        <label className="text-sm font-medium">搜索<input className="mt-2 w-full rounded-lg border px-3 py-2 text-gray-900" placeholder="例如：几何 2022 期中" value={query} onChange={e => {setQuery(e.target.value);setLimit(50);}} /></label>
-        <label className="text-sm font-medium">学期<select className="mt-2 w-full rounded-lg border px-3 py-2 text-gray-900" value={semester} onChange={e => {setSemester(e.target.value);setCourse('全部');setLimit(50);}}><option>全部</option>{semesters.map(s => <option key={s}>{s}</option>)}</select></label>
-      </section>
-      <section className="paper-panel p-5 sm:p-6 mb-8" aria-label="科目分类">
-        <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
-          <div><h2 className="text-xl font-bold text-gray-900 dark:text-white">按科目浏览</h2><p className="mt-1 text-sm text-gray-500 dark:text-gray-400">选择科目后，可继续搜索年份、教师或考试类型。</p></div>
-          <button type="button" aria-pressed={course === '全部'} onClick={() => {setCourse('全部');setLimit(50);}} className={`text-sm px-4 py-2 rounded-full border ${course === '全部' ? 'bg-pku-red text-white border-pku-red' : 'text-gray-700 dark:text-gray-200 border-gray-300'}`}>全部科目</button>
+    <PageHero title="数院往年题" subtitle="按科目浏览历年试题，支持搜索年份、教师和考试类型。" theme="blue" />
+    <main id="main-content" tabIndex={-1} className="container mx-auto max-w-6xl px-4 py-10 md:py-14 flex-grow">
+      <div className="flex flex-col lg:flex-row items-start gap-7">
+        <aside className="paper-panel p-5 w-full lg:w-64 shrink-0 lg:sticky lg:top-24" aria-label="学期筛选">
+          <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-gray-100"><BookOpen size={19} className="text-pku-red" />学期</h2>
+          <p className="mt-1 mb-4 text-xs text-gray-500 dark:text-gray-400">选择学期，查看对应科目</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
+            {['全部', ...semesters].map(s => <button key={s} type="button" aria-pressed={semester === s} onClick={() => {setSemester(s);setCourse('全部');setLimit(50);}} className={`flex items-center justify-between rounded-xl px-4 py-3 text-left text-sm transition-colors ${semester === s ? 'bg-pku-blue text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700/50'}`}><span>{s === '全部' ? '全部学期' : s}</span><ChevronRight size={15} className={semester === s ? 'text-white' : 'text-gray-400'} /></button>)}
+          </div>
+        </aside>
+        <div className="w-full min-w-0 flex-1 space-y-6">
+          <section className="paper-panel p-5 sm:p-7" aria-label="搜索试题">
+            <label htmlFor="exam-search" className="block text-lg font-bold text-gray-900 dark:text-gray-100">搜索试题</label>
+            <p className="mt-1 mb-4 text-sm text-gray-500 dark:text-gray-400">输入科目、年份、教师或考试类型，多个关键词用空格分开。</p>
+            <div className="relative"><Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" /><input id="exam-search" className="w-full rounded-xl border border-gray-200 bg-gray-50/80 py-3 pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:border-pku-blue focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" placeholder="例如：几何 2022 期中" value={query} onChange={e => {setQuery(e.target.value);setLimit(50);}} /></div>
+          </section>
+          <section className="paper-panel p-5 sm:p-7" aria-label="科目分类">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-5"><div><h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">按科目浏览</h2><p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{semester === '全部' ? '全部学期' : semester} · 选择科目查看相关文件</p></div><button type="button" aria-pressed={course === '全部'} onClick={() => {setCourse('全部');setLimit(50);}} className={`text-sm px-4 py-2 rounded-full border transition-colors ${course === '全部' ? 'bg-pku-red text-white border-pku-red' : 'text-gray-600 dark:text-gray-200 border-gray-200 dark:border-gray-600 hover:border-pku-red'}`}>全部科目</button></div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">{courses.map(([name, count]) => <button key={name} type="button" aria-pressed={course === name} onClick={() => {setCourse(name);setLimit(50);}} className={`group text-left rounded-xl border px-4 py-4 transition-all ${course === name ? 'border-pku-red bg-pku-red-tint dark:bg-red-950/40 shadow-sm' : 'border-gray-100 dark:border-gray-700 bg-white/60 dark:bg-gray-800/40 hover:border-red-200 hover:shadow-sm'}`}><span className="block font-semibold text-gray-800 dark:text-gray-100 break-words group-hover:text-pku-red dark:group-hover:text-red-300">{name}</span><span className="block mt-2 text-xs text-gray-500 dark:text-gray-400">{count} 份文件</span></button>)}</div>
+          </section>
+          <section className="paper-panel overflow-hidden" aria-label="试题列表">
+            <div className="px-5 sm:px-7 py-5 flex flex-wrap items-end justify-between gap-3 border-b border-gray-100 dark:border-gray-700"><div><h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{course === '全部' ? '全部文件' : course}</h2><p className="mt-1 text-sm text-gray-500 dark:text-gray-400" aria-live="polite">找到 {results.length} 份文件</p></div><span className="text-xs text-gray-400">共 {archive.files.length} 份资料</span></div>
+            {error && <p role="alert" className="mx-5 mt-4 text-red-700">{error}</p>}
+            <ul className="divide-y divide-gray-100 dark:divide-gray-700">{results.slice(0, limit).map(file => {
+              const parts = file.path.split('/'); const name = parts.pop() || file.path;
+              return <li key={file.path} className="px-5 sm:px-7 py-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between min-w-0 hover:bg-gray-50/60 dark:hover:bg-gray-800/30 transition-colors"><div className="flex gap-3 min-w-0"><span className="mt-0.5 shrink-0 rounded-lg bg-blue-50 dark:bg-blue-900/30 p-2 text-pku-blue dark:text-blue-300"><FileText size={17} /></span><div className="min-w-0"><div className="font-medium text-gray-900 dark:text-gray-100 break-words">{name}</div><div className="text-xs text-gray-500 dark:text-gray-400 break-words mt-1.5">{parts.join(' / ')} · {(file.size / 1048576).toFixed(1)} MB</div></div></div><div className="flex gap-2 shrink-0 pl-11 sm:pl-0"><a className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-pku-blue dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700" href={rawUrl(file.path)} target="_blank" rel="noreferrer"><ExternalLink size={15} />打开</a><button className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-pku-red dark:text-red-300 hover:bg-red-50 dark:hover:bg-gray-700" onClick={() => download(file.path)}><Download size={15} />下载</button></div></li>;
+            })}</ul>
+            {results.length === 0 && <p className="px-7 py-10 text-sm text-gray-500">没有找到符合条件的文件，请尝试其他关键词。</p>}
+            {limit < results.length && <div className="p-5 text-center border-t border-gray-100 dark:border-gray-700"><button className="rounded-full border border-gray-200 dark:border-gray-600 px-6 py-2 text-sm text-gray-600 dark:text-gray-200 hover:border-pku-blue hover:text-pku-blue" onClick={() => setLimit(n => n + 50)}>加载更多</button></div>}
+          </section>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {courses.map(([name, count]) => <button key={name} type="button" aria-pressed={course === name} onClick={() => {setCourse(name);setLimit(50);}} className={`text-left rounded-xl border px-4 py-3 transition-colors ${course === name ? 'border-pku-red bg-red-50 dark:bg-red-950/40' : 'border-gray-200 dark:border-gray-700 hover:border-pku-red hover:bg-red-50 dark:hover:bg-gray-800'}`}>
-            <span className="block font-medium text-gray-900 dark:text-gray-100 break-words">{name}</span><span className="block mt-1 text-xs text-gray-500 dark:text-gray-400">{count} 份文件</span>
-          </button>)}
-        </div>
-      </section>
-      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{course === '全部' ? '全部文件' : course}</h2>
-      <p className="mb-4 text-sm text-gray-600 dark:text-gray-300" aria-live="polite">找到 {results.length} 份文件</p>
-      {error && <p role="alert" className="mb-4 text-red-700">{error}</p>}
-      <ul className="space-y-3">{results.slice(0, limit).map(file => {
-        const parts = file.path.split('/'); const name = parts.pop() || file.path;
-        return <li key={file.path} className="paper-panel p-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between min-w-0">
-          <div className="min-w-0"><div className="font-medium text-gray-900 dark:text-white break-words">{name}</div><div className="text-sm text-gray-500 dark:text-gray-400 break-words mt-1">{parts.join(' / ')} · {(file.size / 1048576).toFixed(1)} MB</div></div>
-          <div className="flex gap-3 shrink-0"><a className="text-pku-blue underline" href={rawUrl(file.path)} target="_blank" rel="noreferrer">打开</a><button className="text-pku-red underline" onClick={() => download(file.path)}>下载</button></div>
-        </li>;
-      })}</ul>
-      {results.length === 0 && <p className="py-8 text-gray-500">没有找到符合条件的文件，请尝试其他关键词。</p>}
-      {limit < results.length && <button className="mt-6 rounded-lg border border-gray-300 px-5 py-2 dark:text-white" onClick={() => setLimit(n => n + 50)}>加载更多</button>}
+      </div>
     </main><Footer />
   </div>;
 }
