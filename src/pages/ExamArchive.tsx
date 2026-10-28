@@ -12,7 +12,15 @@ export default function ExamArchive() {
   const [course, setCourse] = useState('全部');
   const [limit, setLimit] = useState(50);
   const [error, setError] = useState('');
-  const courses = useMemo(() => [...new Set(archive.files.filter(f => semester === '全部' || f.path.startsWith(`${semester}/`)).map(f => f.path.split('/')[1]).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'zh')), [semester]);
+  const courses = useMemo(() => {
+    const counts = new Map<string, number>();
+    archive.files.forEach(f => {
+      const parts = f.path.split('/');
+      if (parts.length < 3 || (semester !== '全部' && parts[0] !== semester)) return;
+      counts.set(parts[1], (counts.get(parts[1]) || 0) + 1);
+    });
+    return [...counts].sort(([a], [b]) => a.localeCompare(b, 'zh'));
+  }, [semester]);
   const results = useMemo(() => {
     const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
     return archive.files.filter(f => {
@@ -40,11 +48,22 @@ export default function ExamArchive() {
     <main id="main-content" className="container mx-auto max-w-6xl px-4 py-12 flex-grow">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white">数院往年题</h1>
       <p className="mt-3 mb-8 text-gray-600 dark:text-gray-300">按学期、课程筛选，或搜索教师、年份、期中和期末。共 {archive.files.length} 份文件。</p>
-      <section className="paper-panel p-5 mb-6 grid gap-4 md:grid-cols-3" aria-label="筛选试题">
+      <section className="paper-panel p-5 mb-6 grid gap-4 md:grid-cols-2" aria-label="筛选试题">
         <label className="text-sm font-medium">搜索<input className="mt-2 w-full rounded-lg border px-3 py-2 text-gray-900" placeholder="例如：几何 2022 期中" value={query} onChange={e => {setQuery(e.target.value);setLimit(50);}} /></label>
         <label className="text-sm font-medium">学期<select className="mt-2 w-full rounded-lg border px-3 py-2 text-gray-900" value={semester} onChange={e => {setSemester(e.target.value);setCourse('全部');setLimit(50);}}><option>全部</option>{semesters.map(s => <option key={s}>{s}</option>)}</select></label>
-        <label className="text-sm font-medium">课程<select className="mt-2 w-full rounded-lg border px-3 py-2 text-gray-900" value={course} onChange={e => {setCourse(e.target.value);setLimit(50);}}><option>全部</option>{courses.map(c => <option key={c}>{c}</option>)}</select></label>
       </section>
+      <section className="paper-panel p-5 sm:p-6 mb-8" aria-label="科目分类">
+        <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
+          <div><h2 className="text-xl font-bold text-gray-900 dark:text-white">按科目浏览</h2><p className="mt-1 text-sm text-gray-500 dark:text-gray-400">选择科目后，可继续搜索年份、教师或考试类型。</p></div>
+          <button type="button" aria-pressed={course === '全部'} onClick={() => {setCourse('全部');setLimit(50);}} className={`text-sm px-4 py-2 rounded-full border ${course === '全部' ? 'bg-pku-red text-white border-pku-red' : 'text-gray-700 dark:text-gray-200 border-gray-300'}`}>全部科目</button>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {courses.map(([name, count]) => <button key={name} type="button" aria-pressed={course === name} onClick={() => {setCourse(name);setLimit(50);}} className={`text-left rounded-xl border px-4 py-3 transition-colors ${course === name ? 'border-pku-red bg-red-50 dark:bg-red-950/40' : 'border-gray-200 dark:border-gray-700 hover:border-pku-red hover:bg-red-50 dark:hover:bg-gray-800'}`}>
+            <span className="block font-medium text-gray-900 dark:text-gray-100 break-words">{name}</span><span className="block mt-1 text-xs text-gray-500 dark:text-gray-400">{count} 份文件</span>
+          </button>)}
+        </div>
+      </section>
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{course === '全部' ? '全部文件' : course}</h2>
       <p className="mb-4 text-sm text-gray-600 dark:text-gray-300" aria-live="polite">找到 {results.length} 份文件</p>
       {error && <p role="alert" className="mb-4 text-red-700">{error}</p>}
       <ul className="space-y-3">{results.slice(0, limit).map(file => {
