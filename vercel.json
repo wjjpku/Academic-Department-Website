@@ -1,4 +1,7 @@
 {
+  "headers": [
+    { "source": "/past-exams", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
